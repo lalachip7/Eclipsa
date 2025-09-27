@@ -7,7 +7,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 | Marianna Jiménez    | m.jimenez1.2022@alumnos.urjc.es    | mariannajimenezv   |
 | Laura de la Cruz Cañadas    | l.delacruz.2022@alumnos.urjc.es    | ladeynn   |
 | Gabriel Ernesto Mujica Proulx    | ge.mujica2025@alumnos.urjc.es    |    |
-| Samuel Retamero Salado    | s.retamero.2022@alumnos.urjc.es    |    |
+| Samuel Retamero Salado    | s.retamero.2022@alumnos.urjc.es    | Samuelovich   |
 | Laura Blázquez Pelaz    | l.blazquez.2022@alumnos.urjc.es    | lalachip7   |
 
 

@@ -15,7 +15,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 [1. Introducción](#introduccion-definicion-del-juego)   
 [2. Monetización](#monetizacion)     
 [3. Mecánicas del juego](#mecanicas-del-juego)     
-[4. Trasfondo](#trasfondo)    
+[4. Trasfondo](#historia-y-narrativa)    
 [5. Arte](#arte)    
 [6. Interfaz](#interfaz)    
 [7. Referencias](#referencias)    
@@ -27,7 +27,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 *Descripción breve de la historia y los personajes*
 ## 1.3. Género
 ## 1.4. Propósito y público objetivo
-## 1.5. Plataforma
+## 1.5. Plataforma y motor de juego
 ## 1.6. Licencia
 
 # 2. Monetización
@@ -48,7 +48,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 ## 3.6. Objetos, armas y power ups
 
 
-# 4. Trasfondo
+# 4. Historia y narrativa
 ## 4.1. Historia y trama del videojuego
 *Descripción de la historia y la trama*
 ## 4.2. Personajes

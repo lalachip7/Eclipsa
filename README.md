@@ -1,4 +1,4 @@
-# Watergirl-Lavaboy
+# Eclipsa
 Videojuego para la asignatura de Juegos en red del grupo 08
 
 ## Equipo de desarrollo

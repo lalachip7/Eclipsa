@@ -53,6 +53,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 *Descripción de la historia y la trama*
 ## 4.2. Personajes
 *Descripción de los personajes y su historia*
+nombres Nivia y Solenne.
 ## 4.3. Entornos
 
 

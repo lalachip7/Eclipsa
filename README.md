@@ -6,7 +6,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 |-----------|-----------|-----------|
 | Marianna Jiménez    | m.jimenez1.2022@alumnos.urjc.es    | mariannajimenezv   |
 | Laura de la Cruz Cañadas    | l.delacruz.2022@alumnos.urjc.es    | ladeynn   |
-| Gabriel Ernesto Mujica Proulx    | ge.mujica2025@alumnos.urjc.es    |    |
+| Gabriel Ernesto Mujica Proulx    | ge.mujica2025@alumnos.urjc.es    | gmujicap   |
 | Samuel Retamero Salado    | s.retamero.2022@alumnos.urjc.es    | Samuelovich   |
 | Laura Blázquez Pelaz    | l.blazquez.2022@alumnos.urjc.es    | lalachip7   |
 
@@ -15,7 +15,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 [1. Introducción](#introduccion-definicion-del-juego)   
 [2. Monetización](#monetizacion)     
 [3. Mecánicas del juego](#mecanicas-del-juego)     
-[4. Trasfondo](#historia-y-narrativa)    
+[4. Hisotoria y narrativa](#historia-y-narrativa)    
 [5. Arte](#arte)    
 [6. Interfaz](#interfaz)    
 [7. Referencias](#referencias)    

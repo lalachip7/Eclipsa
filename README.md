@@ -81,8 +81,8 @@ Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estil
 
 ### Sol
 Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
-![Sol_Luna_bocetos](https://github.com/user-attachments/assets/d16d7bf1-342f-46a9-a281-f672dfafccec)
 
+![Sol_Luna_bocetos](https://github.com/user-attachments/assets/d16d7bf1-342f-46a9-a281-f672dfafccec)
 
 ## 5.3. Música 
 ## 5.3.1. Banda sonora

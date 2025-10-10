@@ -79,11 +79,11 @@ El juego presenta dos ítems principales que representan los aspectos de luz y o
 ### Luna
 Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estilo visual del juego. Su paleta de colores refuerza la conexión de Nivia con la oscuridad, centrandonos en tonos fríos y oscuros.
 
-![Sol_luna](https://github.com/user-attachments/assets/929f4752-a942-4bcd-b0ce-ee26bd6c916c)
-
-
 ### Sol
 Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
+![Sol_Luna_bocetos](https://github.com/user-attachments/assets/d16d7bf1-342f-46a9-a281-f672dfafccec)
+
+
 ## 5.3. Música 
 ## 5.3.1. Banda sonora
 ## 5.3.2. Efectos de audio

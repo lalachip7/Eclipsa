@@ -15,7 +15,7 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 [1. Introducción](#introduccion-definicion-del-juego)   
 [2. Monetización](#monetizacion)     
 [3. Mecánicas del juego](#mecanicas-del-juego)     
-[4. Hisotoria y narrativa](#historia-y-narrativa)    
+[4. Historia y narrativa](#historia-y-narrativa)    
 [5. Arte](#arte)    
 [6. Interfaz](#interfaz)    
 [7. Referencias](#referencias)    

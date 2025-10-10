@@ -59,12 +59,28 @@ nombres Nivia y Solenne.
 
 # 5. Arte
 ## 5.1. Estética general
-*Especificar el estilo visual (pixel art, cartoon, etc.)*
+El juego utiliza un estilo vidual de color sólido sin lineart, donde las formas se definen por bloques de color y contraste, sin contornos dibujados. Este enfoque da una apariencia limpia, moderna y expresiva, enfocando la atención del jugador en el color y la composición más que en el detalle.
 ## 5.2. Apartado visual
 *Explicar el uso de colores*
 ## 5.2.1. Personajes
+Nivia y Solenne son opuestos complementarios. A nivel visual, su contraste genera equilibrio en la escena.
+### Nivia
+Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores...
+
+### Solenne
+Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmiten calidez y apertura, perfecto para el concepto de luz. Su paleta de colores ...
+
+![Nivia_Solenne](https://github.com/user-attachments/assets/e264fb23-ae41-4e66-971b-d3e076ee8ccc)
+
 ## 5.2.2. Entornos
 ## 5.2.3. Ítems
+El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para avanzar de nivel, los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
+
+### Luna
+Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estilo visual del juego. Su paleta de colores refuerza la conexión de Nivia con la oscuridad, centrandonos en tonos fríos y oscuros.
+
+### Sol
+Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
 ## 5.3. Música 
 ## 5.3.1. Banda sonora
 ## 5.3.2. Efectos de audio

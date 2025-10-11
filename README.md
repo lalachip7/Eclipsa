@@ -22,13 +22,26 @@ Videojuego para la asignatura de Juegos en red del grupo 08
 
 # 1. Introducción: Definición del juego
 ## 1.1. Concepto del juego
-*Descripción breve del concepto del juego*
+Eclipsa es un juego de puzzles cooperativo de plataformas 2D para dos jugadores, inspirado en la mecánica clásica de _Fireboy and Watergirl_, pero renovado con la dicotomía de la luz y la oscuridad. Los jugadores deben controlar simultáneamente a dos personajes, Nivia (la noche/oscuridad) y Solemne (el día/luz), para navegar por niveles llenos de trampas ambientales y puzzles. El objetivo de cada nivel es recolectar los artefactos del sol y la luna para provocar el eclipse, restaurando el equilibrio cósmico. 
+
 ## 1.2. Historia y personajes
 *Descripción breve de la historia y los personajes*
+
 ## 1.3. Género
+El **género** del videojuego es de puzzles cooperativos de plataformnas 2D. El foco principal está en la resolución de puzzles mediante la coordinación y el uso de las habilidades complementarias de los personajes. 
+
 ## 1.4. Propósito y público objetivo
+El **propósito principal** es ofrecer una experiencia cooperativa desafiante y gratificante, fomentando la comunicación y el trabajo en equipo. Se busca revitalizar la fórmula de puzzles de dos jugadores con un twist visual y temático fresco. 
+
+El **público objetivo** serían jugadores casuales y mid-core, amantes de los juegos de puzzles y plataformas 2D. Un público que disfruta de las experiencias de juego cooperativo local o en línea con amigos, parejas y familiares. 
+Además atraería también a fanáticos de juegos como _Fireboy and Watergirl_, _It Takes Two_ o _Portal 2_ (en su modo cooperativo).
+El rango de edad contemplaría de 8 años en adelante, es decir, PEGI 3 o clasificación E, debido a la naturaleza no violenta y centrada en la lógica del juego. 
+
 ## 1.5. Plataforma y motor de juego
+El videojuego está pensado para ser jugado en navegadores web de ordenadores, utilizando el **framework Phaser**, un motor de desarrollo de videojuegos 2D basado en JavaScript y HTML5.
+
 ## 1.6. Licencia
+La **licencia** del videojuego es Apache 2.0, una licencia de código abierto que implica que los usuarios tienen libertad de usar, copiar y modificar el código del videojuego; redistribuir el software y su uso con fines comerciales, siempre y cuando den crédito a los autores.
 
 # 2. Monetización
 ## 2.1. Modelo de negocio
@@ -60,10 +73,13 @@ nombres Nivia y Solenne.
 # 5. Arte
 ## 5.1. Estética general
 El juego utiliza un estilo vidual de color sólido sin lineart, donde las formas se definen por bloques de color y contraste, sin contornos dibujados. Este enfoque da una apariencia limpia, moderna y expresiva, enfocando la atención del jugador en el color y la composición más que en el detalle.
+
 ## 5.2. Apartado visual
 *Explicar el uso de colores*
+
 ## 5.2.1. Personajes
 Nivia y Solenne son opuestos complementarios. A nivel visual, su contraste genera equilibrio en la escena.
+
 ### Nivia
 Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores...
 
@@ -73,6 +89,7 @@ Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contra
 ![Nivia_Solenne](https://github.com/user-attachments/assets/e264fb23-ae41-4e66-971b-d3e076ee8ccc)
 
 ## 5.2.2. Entornos
+
 ## 5.2.3. Ítems
 El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para avanzar de nivel, los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
 
@@ -89,9 +106,52 @@ Un círculo radiante rodeado de otro círculo difuminado para dar la sensación 
 ## 5.3.2. Efectos de audio
 
 # 6. Interfaz
+La UI y el HUD de Eclipsa se diseñarán para ser mínimos, funcionales y altamente inmersivos. Se evitarán barras de salud o contadores innecesarios, ya que el juego se crenta en el puzzle y la muerte es instantánea por contacto con el elemento opuesto. 
+La estética general integrará el diseño con el entorno: los elenmentos de la interfaz utilizarán tipografía rúnica y se presentarán con un estilo visual que emula hologramas etéreos o luz concentrada, reflejando la magia del bosque oscuro. Los colores dominantes serán los del espectro nocturno y crepuscular de Nivia (azul profundo, morado, negro) acentuados con el blanco de Solemne.
+
 ## 6.1. Menús
-*Diseños básicos de los menús*
+### 6.1.1. Pantalla de incio
+El fondo es una instantánea del bosque oscuro, donde se muestra a los dos protagonistas corriendo y la luna y el sol en un estado de eclipse parcial.
+En cuando a la tipografía, el título utiliza una fuente minimalista y desordenada, con un efecto de brillo, y las opciones del menú principal, usan una fuente rúnica clara, dispuesta como si fueran runas flotando sobre una placa de piedra ocura. 
+Además, al pasar el ratón o el cursos, la opción seleccionada se iluminará con un halo de luciérnagas.
+
+### 6.1.2. Pantalla de selección de nivel
+Se muestra un diagrama de constelaciones donde cada nivel es un punto brillante en el maapa, conectada por líneas de luz. Los niveles completados se muestranb con un símbolo de sol y luna unidos (el Eclipse).
+Al pasar el cursor sobre un nivel, se iluminará con el mismo halo de luciérnagas.
+
+### 6.1.3. Pantalla del tutorial
+El tutorial se muestra como un guía rápida y visual de las reglas fundamentales del juego y está accesible desde el menú principal y el menú de pausa.
+Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
+
+### 6.1.4. Pantalla de créditos
+Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.
+
+### 6.1.5. Pantalla del juego
+El HUD se mantendrá lo más despejado posible para no interferir con la resolución de puzzles. 
+En la parte superior derecha de la pantalla se mostrará un temporizador que indicará el tiempo restante para completar el nivel. 
+En la parte superior central, aparecerán dos espacios vacíos flotantes sutilmente sobre el área de juego. Un espacio tendrá el icono estilizado de la luna menguante y el otro el del sol naciente. Cuando el personaje recoja su artefacto correspondiente, el icono se iluminará con una animación de brillo rúnico, confirmando la recolección. 
+En la parte inferior derecha, aparecerá un indicador para abrir la ventana emergente del chat.
+
+En el modo online, se mostrará en la esquina inferior izquierda un pequeño icono con el personaje que está controlando cada jugador. 
+
+Cuando un personaje active un interruptor que cambie la iluminación del nivel, la pantalla tendrá un filtro:
+* Oscuridad: la pantalla se satura más en tonos azules/negros, y los objetos visibles solo en la oscuridad se vuelven ligeramente traslúcidos y con contornos rúnicos.
+* Luz: la pantalla se vuelve más brillante y cálida, y los objetos visibles solo en la luz se destacan con un halo suave y blanco.
+
+### 6.1.6. Pantalla de game over
+* Si se ha completado el nivel: Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aprecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.
+* Si uno de los personajes muere: La pantalla se desvanece hacia un blanco cegador (si Nivia muere) o una oscuridad profunda y penetrante (si Solemne muere). Este efecto visual y de sonido enfatiza la ruptura del equilibrio. Aparece un texto flotante que dice "El equilibrio se ha roto" y las opciones para reiniciar el nivel o volver a la selección de nivel.
+* Si se acaba el tiempo: Se muestra una imagen estática del bosque en desequilibrio, un texto flotante que dice "Se os ha acabado el tiempo" y las opciones para reiniciar el nivel o volver a la selección de nivel. 
+
+### 6.1.7. Pantalla de pausa y opciones
+El menú aparece como una superposición semitransparente sobre el juego. 
+Aparecen los botones para: reanudar, reinciar el nivel, acceder a las opciones y volver al menú principal. 
+El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentrada para los botones y deslizadores. 
+
 ## 6.2. Diagrama de flujo
+El diagrama de flujo que se muestra a continuación, ilustra la secuencia lógica de pantallas y la navegación del jugador desde el incio del juego hasta la finalización de un nivel.
+
+![Diagrama de flujo](./Recursos/Diagrama_de_flujo.png)
 
 # 7. Referencias
 *Inspiración artística/cultural y vinculación con otros trabajos*

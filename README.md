@@ -116,13 +116,13 @@ El fondo es una instantánea del bosque oscuro, donde se muestra a los dos prota
 En cuando a la tipografía, el título utiliza una fuente minimalista y desordenada, con un efecto de brillo, y las opciones del menú principal, usan una fuente rúnica clara, dispuesta como si fueran runas flotando sobre una placa de piedra oscura. 
 Además, al pasar el ratón o el cursor, la opción seleccionada se iluminará con un halo de luciérnagas.
 
-![Pantalla de incio](./Recursos/Pantalla_de_inicio.png)
+![Pantalla de incio](./Recursos/Pantalla_de_inicio.PNG)
 
 ### 6.1.2. Pantalla de selección de nivel 
 Se muestra un diagrama de constelaciones donde cada nivel es un punto brillante en el mapa, conectada por líneas de luz. Los niveles completados se muestran con un símbolo de sol y luna unidos (el Eclipse).
 Al pasar el cursor sobre un nivel, se iluminará con el mismo halo de luciérnagas.
 
-![Pantalla de selección de nivel](./Recursos/Pantalla_seleccion_nivel.png)
+![Pantalla de selección de nivel](./Recursos/Pantalla_seleccion_nivel.PNG)
 
 ### 6.1.3. Pantalla del tutorial 
 El tutorial se muestra como un guía rápida y visual de las reglas fundamentales del juego y está accesible desde el menú principal y el menú de pausa.
@@ -131,7 +131,7 @@ Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliz
 ### 6.1.4. Pantalla de créditos 
 Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.
 
-![Pantalla de créditos](./Recursos/Pantalla_de_creditos.png)
+![Pantalla de créditos](./Recursos/Pantalla_de_creditos.PNG)
 
 ### 6.1.5. Pantalla del juego 
 El HUD se mantendrá lo más despejado posible para no interferir con la resolución de puzles. 
@@ -145,7 +145,7 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 * **Oscuridad:** la pantalla se satura más en tonos azules/negros, y los objetos visibles solo en la oscuridad se vuelven ligeramente traslúcidos y con contornos rúnicos.
 * **Luz:** la pantalla se vuelve más brillante y cálida, y los objetos visibles solo en la luz se destacan con un halo suave y blanco.
 
-![Pantalla del juego](./Recursos/Pantalla_juego.png)
+![Pantalla del juego](./Recursos/Pantalla_juego.PNG)
 
 ### 6.1.6. Pantalla de game over 
 * **Si se ha completado el nivel:** Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aparecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.
@@ -157,7 +157,7 @@ El menú aparece como una superposición semitransparente sobre el juego.
 Aparecen los botones para: reanudar, reiniciar el nivel, acceder a las opciones y volver al menú principal. 
 El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentrada para los botones y deslizadores. 
 
-![Pantalla de opciones](./Recursos/Pantalla_ajustes.png)
+![Pantalla de opciones](./Recursos/Pantalla_ajustes.PNG)
 
 ## 6.2. Diagrama de flujo 
 El diagrama de flujo que se muestra a continuación, ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.

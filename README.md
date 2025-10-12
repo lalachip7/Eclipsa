@@ -86,7 +86,8 @@ Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y p
 ### Solenne
 Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmiten calidez y apertura, perfecto para el concepto de luz. Su paleta de colores ...
 
-![Nivia_Solenne](https://github.com/user-attachments/assets/e264fb23-ae41-4e66-971b-d3e076ee8ccc)
+![Nivia_Solenne](./Recursos/Nivia_Solenne.jpg)
+![Nivia_Solenne_Color](./Recursos/Nivia_Solenne_Color.png)
 
 ## 5.2.2. Entornos
 
@@ -99,7 +100,7 @@ Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estil
 ### Sol
 Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
 
-![Sol_Luna_bocetos](https://github.com/user-attachments/assets/d16d7bf1-342f-46a9-a281-f672dfafccec)
+![Sol_Luna_bocetos](./Recursos/Sol_Luna_bocetos.jpg)
 
 ## 5.3. Música 
 ## 5.3.1. Banda sonora

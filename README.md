@@ -108,13 +108,15 @@ Un círculo radiante rodeado de otro círculo difuminado para dar la sensación 
 
 # 6. Interfaz
 La UI y el HUD de Eclipsa se diseñarán para ser mínimos, funcionales y altamente inmersivos. Se evitarán barras de salud o contadores innecesarios, ya que el juego se centra en el puzle y la muerte es instantánea por contacto con el elemento opuesto. 
-La estética general integrará el diseño con el entorno: los elementos de la interfaz utilizarán tipografía rúnica y se presentarán con un estilo visual que emula hologramas etéreos o luz concentrada, reflejando la magia del bosque oscuro. Los colores dominantes serán los del espectro nocturno y crepuscular de Nivia (azul profundo, morado, negro) acentuados con el blanco de Solemne.
+La estética general integrará el diseño con el entorno: los elementos de la interfaz utilizarán tipografía rúnica y se presentarán con un estilo visual que emula hologramas etéreos o luz concentrada, reflejando la magia del bosque oscuro. Los colores dominantes serán los del espectro nocturno y crepuscular de Nivia (azul profundo, morado, negro) acentuados con el blanco de Solenne.
 
 ## 6.1. Menús 
 ### 6.1.1. Pantalla de inicio 
 El fondo es una instantánea del bosque oscuro, donde se muestra a los dos protagonistas corriendo y la luna y el sol en un estado de eclipse parcial.
 En cuando a la tipografía, el título utiliza una fuente minimalista y desordenada, con un efecto de brillo, y las opciones del menú principal, usan una fuente rúnica clara, dispuesta como si fueran runas flotando sobre una placa de piedra oscura. 
 Además, al pasar el ratón o el cursor, la opción seleccionada se iluminará con un halo de luciérnagas.
+
+![Pantalla de incio](./Recursos/Pantalla_de_inicio.png)
 
 ### 6.1.2. Pantalla de selección de nivel 
 Se muestra un diagrama de constelaciones donde cada nivel es un punto brillante en el mapa, conectada por líneas de luz. Los niveles completados se muestran con un símbolo de sol y luna unidos (el Eclipse).
@@ -141,7 +143,7 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 
 ### 6.1.6. Pantalla de game over 
 * **Si se ha completado el nivel:** Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aparecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.
-* **Si uno de los personajes muere:** La pantalla se desvanece hacia un blanco cegador (si Nivia muere) o una oscuridad profunda y penetrante (si Solemne muere). Este efecto visual y de sonido enfatiza la ruptura del equilibrio. Aparece un texto flotante que dice "El equilibrio se ha roto" y las opciones para reiniciar el nivel o volver a la selección de nivel.
+* **Si uno de los personajes muere:** La pantalla se desvanece hacia un blanco cegador (si Nivia muere) o una oscuridad profunda y penetrante (si Solenne muere). Este efecto visual y de sonido enfatiza la ruptura del equilibrio. Aparece un texto flotante que dice "El equilibrio se ha roto" y las opciones para reiniciar el nivel o volver a la selección de nivel.
 * **Si se acaba el tiempo:** Se muestra una imagen estática del bosque en desequilibrio, un texto flotante que dice "Se os ha acabado el tiempo" y las opciones para reiniciar el nivel o volver a la selección de nivel. 
 
 ### 6.1.7. Pantalla de pausa y opciones 

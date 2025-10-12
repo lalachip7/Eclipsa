@@ -91,7 +91,9 @@ Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contra
 
 ## 5.2.2. Entornos
 El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refleja el contraste entre la luz y la oscuridad. Es un entorno lleno de vida, niebla y misterio, donde los rayos del sol solo atraviesan ciertas áreas, creando zonas de luz y oscuridad. Aquí, Solenne y Nivia comienzan a comprender que solo trabajando juntas pueden avanzar: la luz revela caminos ocultos, mientras que la sombra permite cruzar lugares donde la energía solar resulta peligrosa.
+
 En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los arboles producen. También tiene ciertos acentos de colores rojos y anaranjados de flores que aportan contraste visual y guían la atención del jugador.
+
 En el escenario se puede encontrar encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
 
 ## 5.2.3. Ítems

@@ -122,12 +122,16 @@ Además, al pasar el ratón o el cursor, la opción seleccionada se iluminará c
 Se muestra un diagrama de constelaciones donde cada nivel es un punto brillante en el mapa, conectada por líneas de luz. Los niveles completados se muestran con un símbolo de sol y luna unidos (el Eclipse).
 Al pasar el cursor sobre un nivel, se iluminará con el mismo halo de luciérnagas.
 
+![Pantalla de selección de nivel](./Recursos/Pantalla_seleccion_nivel.png)
+
 ### 6.1.3. Pantalla del tutorial 
 El tutorial se muestra como un guía rápida y visual de las reglas fundamentales del juego y está accesible desde el menú principal y el menú de pausa.
 Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
 
 ### 6.1.4. Pantalla de créditos 
 Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.
+
+![Pantalla de créditos](./Recursos/Pantalla_de_creditos.png)
 
 ### 6.1.5. Pantalla del juego 
 El HUD se mantendrá lo más despejado posible para no interferir con la resolución de puzles. 
@@ -141,6 +145,8 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 * **Oscuridad:** la pantalla se satura más en tonos azules/negros, y los objetos visibles solo en la oscuridad se vuelven ligeramente traslúcidos y con contornos rúnicos.
 * **Luz:** la pantalla se vuelve más brillante y cálida, y los objetos visibles solo en la luz se destacan con un halo suave y blanco.
 
+![Pantalla del juego](./Recursos/Pantalla_juego.png)
+
 ### 6.1.6. Pantalla de game over 
 * **Si se ha completado el nivel:** Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aparecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.
 * **Si uno de los personajes muere:** La pantalla se desvanece hacia un blanco cegador (si Nivia muere) o una oscuridad profunda y penetrante (si Solenne muere). Este efecto visual y de sonido enfatiza la ruptura del equilibrio. Aparece un texto flotante que dice "El equilibrio se ha roto" y las opciones para reiniciar el nivel o volver a la selección de nivel.
@@ -150,6 +156,8 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 El menú aparece como una superposición semitransparente sobre el juego. 
 Aparecen los botones para: reanudar, reiniciar el nivel, acceder a las opciones y volver al menú principal. 
 El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentrada para los botones y deslizadores. 
+
+![Pantalla de opciones](./Recursos/Pantalla_ajustes.png)
 
 ## 6.2. Diagrama de flujo 
 El diagrama de flujo que se muestra a continuación, ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.

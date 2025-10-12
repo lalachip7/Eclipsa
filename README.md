@@ -90,6 +90,9 @@ Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contra
 ![Nivia_Solenne_Color](./Recursos/Nivia_Solenne_Color.png)
 
 ## 5.2.2. Entornos
+El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refleja el contraste entre la luz y la oscuridad. Es un entorno lleno de vida, niebla y misterio, donde los rayos del sol solo atraviesan ciertas áreas, creando zonas de luz y oscuridad. Aquí, Solenne y Nivia comienzan a comprender que solo trabajando juntas pueden avanzar: la luz revela caminos ocultos, mientras que la sombra permite cruzar lugares donde la energía solar resulta peligrosa.
+En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los arboles producen. También tiene ciertos acentos de colores rojos y anaranjados de flores que aportan contraste visual y guían la atención del jugador.
+En el escenario se puede encontrar encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
 
 ## 5.2.3. Ítems
 El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para avanzar de nivel, los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
@@ -104,7 +107,22 @@ Un círculo radiante rodeado de otro círculo difuminado para dar la sensación 
 
 ## 5.3. Música 
 ## 5.3.1. Banda sonora
+La banda sonora del videojuego busca reflejar la conexión entre la naturaleza, la luz y la oscuridad. Se componen de piezas que crean un ambiente melódico que acompaña el ritmo del jugador, creando una experiencia envolvente. El objetivo es que la música que esté en armonía con el entorno y los personajes. 
+Los instrumentos que se usarán serán cuerdas suaves, percusión ligera y flautas mezclados con sintetizadores para representar la unión de la naturaleza con lo etéreo.
+
 ## 5.3.2. Efectos de audio
+Los efectos de sonido ayudarán a reforzar la inmersión del jugador y comunicar lo que esta pasando en pantalla de manera sonora. Todo diseño sonoro busca mantener la sensación de naturaleza y orgánica, mezclando los sonidos más sintéticos de cuando coges los ítems o avanzas con los puzles.
+
+Algunos de estos efectos ambientales son:
+* Sonido del viento en las hojas.
+* El crujido de las hojas y el césped al andar o caer.
+* Crujido suave de ramas.
+
+Los efectos al interactuar con el ambiente son:
+* Desactivación puerta de luz mediante tonos ascendentes.
+* Desactivación puerta de luz mediante ecos profundos.
+* Efecto sonoro al recolectar ítems.
+* Sutil armonía al colaborar y avanzar con los puzles.
 
 # 6. Interfaz
 La UI y el HUD de Eclipsa se diseñarán para ser mínimos, funcionales y altamente inmersivos. Se evitarán barras de salud o contadores innecesarios, ya que el juego se centra en el puzle y la muerte es instantánea por contacto con el elemento opuesto. 

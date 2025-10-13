@@ -45,7 +45,7 @@ La **licencia** del videojuego es Apache 2.0, una licencia de código abierto qu
 
 # 2. Monetización
 ## 2.1. Modelo de negocio
-El equipo pinsa lanzar una versión del juego en la plataforma itch.io de manera gratuita para atraer a un mayor público. También se tendrá la posibilidad de apoyar a los desarrolladores con donaciones opcionales, con el precio recomendado siendo 2.00€. Se tendrá en cuenta la posibilidad de extender el juego a otras plataformas, si este logra ser exitoso y se le añade suficiente contenido.
+El equipo piensa lanzar una versión del juego en la plataforma itch.io de manera gratuita para atraer a un mayor público. También se tendrá la posibilidad de apoyar a los desarrolladores con donaciones opcionales, con el precio recomendado siendo 2.00€. Se tendrá en cuenta la posibilidad de extender el juego a otras plataformas, si este logra ser exitoso y se le añade suficiente contenido.
 
 ## 2.2. Estrategia de marketing y comunicación
 El marketing del juego estará enlazado directamente al exito que logre Eclipsa, si consigue un gran seguimiento, se crearan cuentas en redes sociales como TikTok o Instagram para promocionar y compartir el desarrollo del juego, y de esa misma manera recibir feedback de lo que le interese a los jugadores.

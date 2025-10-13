@@ -107,7 +107,9 @@ Tanto Nivia como Solenne son habitantes de un bosque encantado, y pese a ser de 
 El juego utiliza un estilo vidual de color sólido sin lineart, donde las formas se definen por bloques de color y contraste, sin contornos dibujados. Este enfoque da una apariencia limpia, moderna y expresiva, enfocando la atención del jugador en el color y la composición más que en el detalle.
 
 ## 5.2. Apartado visual
-*Explicar el uso de colores*
+El fondo tiene un predominio del verde, ya que el juego se desarrolla principalmente en un bosque.
+Se usan tonos naturales como verdes, marrones y algunos azules para dar sensación de profundidad y tranquilidad.
+Los colores se mantienen constantes dentro de cada entorno, pero varían ligeramente según el bioma, para diferenciar zonas como claros, cuevas o áreas más secas.
 
 ## 5.2.1. Personajes
 Nivia y Solenne son opuestos complementarios. A nivel visual, su contraste genera equilibrio en la escena.

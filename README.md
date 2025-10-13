@@ -95,13 +95,10 @@ Como las habilidades de los personajes no cambian entre niveles y no existe prog
 ## 4.1. Historia y trama del videojuego
 Durante años los espíritus han sido la raíz de la magia, pero según pasaron los años y los humanos destruían la naturaleza y los hábitats de los espíritus, estos fueron disminuyendo en número. Su valor y la magia que otorgaban se convirtió en el objetivo de personas poderosas que querían robarles los poderes mágicos a los espíritus. 
 
-En el presente, atraparan a los espíritus del sol y la luna, Solenne y Nivia respectivamente, espíritus naturalmente opuestos, en una dimensión para que peleen y se debiliten mutuamente. Después de muchos combates se dan cuenta que la única manera de escapar es colaborando y encontrar la manera de desactivar el hechizo en el que están atrapados. 
+En el presente, atraparan a los espíritus de la luz y la oscuridad, Solenne y Nivia respectivamente, espíritus naturalmente opuestos, en una dimensión para que peleen y se debiliten mutuamente. Después de muchos combates se dan cuenta que la única manera de escapar es colaborando y encontrar la manera de desactivar el hechizo en el que están atrapados. 
 
 ## 4.2. Personajes
-*Descripción de los personajes y su historia*
-nombres Nivia y Solenne.
-## 4.3. Entornos
-
+Tanto Nivia como Solenne son habitantes de un bosque encantado, y pese a ser de elementos opuestos, no tuvieron muchos conflictos, eso fue hasta que un mago poderoso usó la magia del bosque como medio para atrapar a los espíritus y forzarlos a que se peleen al estar en un ambiente más secluido.
 
 # 5. Arte
 ## 5.1. Estética general

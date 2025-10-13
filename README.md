@@ -59,13 +59,13 @@ El juego se centra en la naturaleza complementaria de la Luz y Oscuridad, con í
 * Tras haber conseguido su cristal, cada personaje consigue la habilidad de interactuar con ciertos elementos (suelos, paredes, switches, plataformas, u otros ítems) para "ilumnarlos" y permitir la interacción. Mientras un personaje está iluminando, su movimiento es restringido. Existen a su vez plataformas que solo son activadas hasta que ambos personajes las iluminen.
 * Cada entorno también tendrá abismos o trampas, que reiniciarán el nivel si alguno de los personajes cae.
 
-Estas mecánicas sirven en conjunto para crear una experiencia multijugador compleja, que fomenta una comunicación y planificación entre los jugadores, y que también exige una habilidad de navegación y movimiento para alcanzar el objetivo. 
+Estas mecánicas sirven en conjunto para crear una experiencia multijugador compleja, que fomenta una comunicación y planificación entre los jugadores, y que también exige una destreza de navegación y movimiento para alcanzar el objetivo. 
 
 ## 3.3. Escenario
 Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara, a excepción de los niveles que contengan varios cuartos. En este caso, ambos jugadores deben salir del cuarto para avanzar al siguiente, pero permaneciendo con la cámara estática. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
 
 ## 3.4. Controles y físicas
-Las físicas del entorno son realistas; hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.
+Las físicas del entorno son realistas: hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.
 
 ## 3.4.1. Modo local
 Los jugadores controlan a sus personajes con el teclado, con un esquema diferente para cada uno:
@@ -78,12 +78,12 @@ Los jugadores controlan a sus personajes con el teclado, ambos con las mismas te
 
 
 ## 3.5. Niveles
-EL juego constará de aproximada 15 niveles, cada 5 represtando un bioma y un nivel de dificultad. Los primeros 5 serán para que los jugadores conozcas y se familiarizen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 5 complican las mecánicas e introduce nuevas, en un ambiente tenso en el bosque con elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
+EL juego constará de aproximadamente 15 niveles, cada 5 representando un bioma y un nivel de dificultad. Los primeros 5 serán para que los jugadores conozcan y se familiaricen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 5 complican las mecánicas e introducen nuevas, en un ambiente tenso en el bosque con elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
 
 Todos los niveles serán construidos bajo la estructura mencionada; ambos jugadores deben encontrar el cristal de su símbolo, y reencontrarse el uno con el otro para pasar el nivel. En algunos casos, los niveles serán conformados por varias pantallas para que sean más largos y complejos. 
 
 ## 3.6. Objetos, armas y power ups
-Aunque los personajes no tengan movimientos ni habildiades complejas, existen varios ítems entre los níveles que les permite interactuar con el mundo. 
+Aunque los personajes no tengan movimientos ni habilidades complejas, existen varios ítems entre los niveles que les permite interactuar con el mundo. 
 * Switches para abrir y cerrar puertas.
 * Los cristales simbólicos de cada personaje les permite "iluminar" algunos elementos.
 * Cajas empujables para permitir a los jugadores acceder a lugares más altos.

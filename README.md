@@ -115,10 +115,10 @@ Los colores se mantienen constantes dentro de cada entorno, pero varían ligeram
 Nivia y Solenne son opuestos complementarios. A nivel visual, su contraste genera equilibrio en la escena.
 
 ### Nivia
-Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores...
+Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores son de un rango frío, centrandonos en una paleta de color pequeña para complementar el estilo seleccionado.
 
 ### Solenne
-Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmiten calidez y apertura, perfecto para el concepto de luz. Su paleta de colores ...
+Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmiten calidez y apertura, perfecto para el concepto de luz. Su paleta de colores es de tonos cálidos, siendo un perfecto contraste de la paleta de Nivia. Nos centramos igualmente en una paleta más cerrada para complementar el estilo artístico seleccionado.
 
 ![Nivia_Solenne](./Recursos/Nivia_Solenne.jpg)
 ![Nivia_Solenne_Color](./Recursos/Nivia_Solenne_Color.png)

@@ -93,7 +93,10 @@ Como las habilidades de los personajes no cambian entre niveles y no existe prog
 
 # 4. Historia y narrativa
 ## 4.1. Historia y trama del videojuego
-*Descripción de la historia y la trama*
+Durante años los espíritus han sido la raíz de la magia, pero según pasaron los años y los humanos destruían la naturaleza y los hábitats de los espíritus, estos fueron disminuyendo en número. Su valor y la magia que otorgaban se convirtió en el objetivo de personas poderosas que querían robarles los poderes mágicos a los espíritus. 
+
+En el presente, atraparan a los espíritus del sol y la luna, Solenne y Nivia respectivamente, espíritus naturalmente opuestos, en una dimensión para que peleen y se debiliten mutuamente. Después de muchos combates se dan cuenta que la única manera de escapar es colaborando y encontrar la manera de desactivar el hechizo en el que están atrapados. 
+
 ## 4.2. Personajes
 *Descripción de los personajes y su historia*
 nombres Nivia y Solenne.

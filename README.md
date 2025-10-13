@@ -50,16 +50,46 @@ La **licencia** del videojuego es Apache 2.0, una licencia de código abierto qu
 
 # 3. Mecánicas del juego
 ## 3.1. Objetivo
-*Descripción del concepto del juego y el objetivo*
-## 3.2. Mecánicas
-## 3.3. Escenario
-*Indicar el uso de cámara y especificar si es 2D o 3D*
-## 3.4. Controles y físicas
-## 3.4.1. Modo local
-## 3.4.2. Modo en línea
-## 3.5. Niveles y misiones
-## 3.6. Objetos, armas y power ups
+El objetivo de ambos jugadores en cada nivel es conseguir un cristal que corresponde a su símbolo - la Luna y el Sol. Para completar un nivel, los jugadores deben hacer contacto después de haber conseguido cada uno su cristal. El juego consta de varios niveles, que son entornos 2D con plataformas, obstáculos, e ítems interactivos para completar el objetivo. Las mecánicas del juego tienen el propósito de fomentar la colaboración y la interacción entre ambos personajes, para que el objetivo solo se pueda conseguir si ambos jugadores trabajan en conjunto. 
 
+## 3.2. Mecánicas
+El juego se centra en la naturaleza complementaria de la Luz y Oscuridad, con ítems en el entorno que dependen de un personaje para ser activados o movidos. El movimiento de los personajes, sin embargo, es simple, pues solo involucra movimiento hacia los lados y un salto para navegar cada nivel. Con la intención de fungir como obstáculos para los jugadores, existen diferentes plataformas y barreras que hacen más complejo la resolución del juego: 
+* Paredes marcadas con el Sol, la Luna, o un Eclipse, demarcando el personaje que es capaz de atravesarlas. Para las paredes de eclipse, solo pueden ser pasadas en cuanto el jugador consiga su cristal correspondiente.
+* Switches que pueden ser activados por ambos o un personaje, para abrir alguna puerta que se encuentre en el nivel.
+* Tras haber conseguido su cristal, cada personaje consigue la habilidad de interactuar con ciertos elementos (suelos, paredes, switches, plataformas, u otros ítems) para "ilumnarlos" y permitir la interacción. Mientras un personaje está iluminando, su movimiento es restringido. Existen a su vez plataformas que solo son activadas hasta que ambos personajes las iluminen.
+* Cada entorno también tendrá abismos o trampas, que reiniciarán el nivel si alguno de los personajes cae.
+
+Estas mecánicas sirven en conjunto para crear una experiencia multijugador compleja, que fomenta una comunicación y planificación entre los jugadores, y que también exige una habilidad de navegación y movimiento para alcanzar el objetivo. 
+
+## 3.3. Escenario
+Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara, a excepción de los niveles que contengan varios cuartos. En este caso, ambos jugadores deben salir del cuarto para avanzar al siguiente, pero permaneciendo con la cámara estática. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
+
+## 3.4. Controles y físicas
+Las físicas del entorno son realistas; hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.
+
+## 3.4.1. Modo local
+Los jugadores controlan a sus personajes con el teclado, con un esquema diferente para cada uno:
+* Uno utiliza WASD para moverse y E para interactuar. El jugador salta con la tecla W.
+* Uno utiliza las flechas para moverse, y espacio para interactuar. El jugador salta con la tecla flecha arriba.
+
+## 3.4.2. Modo en línea
+Los jugadores controlan a sus personajes con el teclado, ambos con las mismas teclas en su dispositivo:
+* Se utiliza WASD para moverse y E para interactuar. El jugador salta con la tecla W.
+
+
+## 3.5. Niveles
+EL juego constará de aproximada 15 niveles, cada 5 represtando un bioma y un nivel de dificultad. Los primeros 5 serán para que los jugadores conozcas y se familiarizen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 5 complican las mecánicas e introduce nuevas, en un ambiente tenso en el bosque con elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
+
+Todos los niveles serán construidos bajo la estructura mencionada; ambos jugadores deben encontrar el cristal de su símbolo, y reencontrarse el uno con el otro para pasar el nivel. En algunos casos, los niveles serán conformados por varias pantallas para que sean más largos y complejos. 
+
+## 3.6. Objetos, armas y power ups
+Aunque los personajes no tengan movimientos ni habildiades complejas, existen varios ítems entre los níveles que les permite interactuar con el mundo. 
+* Switches para abrir y cerrar puertas.
+* Los cristales simbólicos de cada personaje les permite "iluminar" algunos elementos.
+* Cajas empujables para permitir a los jugadores acceder a lugares más altos.
+* Puertas de Luz y Oscuridad. 
+
+Como las habilidades de los personajes no cambian entre niveles y no existe progresión para los personajes fuera de estos, no existen power-ups que les brinden diferentes habilidades, con el propósito de mantener las mecánicas simples y fáciles de entender. 
 
 # 4. Historia y narrativa
 ## 4.1. Historia y trama del videojuego
@@ -94,7 +124,7 @@ El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refl
 
 En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los arboles producen. También tiene ciertos acentos de colores rojos y anaranjados de flores que aportan contraste visual y guían la atención del jugador.
 
-En el escenario se puede encontrar encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
+En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
 
 ## 5.2.3. Ítems
 El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para avanzar de nivel, los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 

@@ -31,7 +31,7 @@ El **género** del videojuego es de puzles cooperativos de plataformas 2D. El fo
 El **propósito principal** es ofrecer una experiencia cooperativa desafiante y gratificante, fomentando la comunicación y el trabajo en equipo. Se busca revitalizar la fórmula de puzles de dos jugadores con un twist visual y temático fresco. 
 
 El **público objetivo** serían jugadores casuales y mid-core, amantes de los juegos de puzles y plataformas 2D. Un público que disfruta de las experiencias de juego cooperativo local o en línea con amigos, parejas y familiares. 
-Además atraería también a fanáticos de juegos como _Fireboy and Watergirl_, _It Takes Two_ o _Portal 2_ (en su modo cooperativo).
+Además, atraería también a fanáticos de juegos como _Fireboy and Watergirl_, _It Takes Two_ o _Portal 2_ (en su modo cooperativo).
 El rango de edad contemplaría de 8 años en adelante, es decir, PEGI 3 o clasificación E, debido a la naturaleza no violenta y centrada en la lógica del juego. 
 
 ## 1.4. Plataforma y motor de juego
@@ -45,7 +45,7 @@ La **licencia** del videojuego es Apache 2.0, una licencia de código abierto qu
 El equipo piensa lanzar una versión del juego en la plataforma itch.io de manera gratuita para atraer a un mayor público. También se tendrá la posibilidad de apoyar a los desarrolladores con donaciones opcionales, con el precio recomendado siendo 2.00€. Se tendrá en cuenta la posibilidad de extender el juego a otras plataformas, si este logra ser exitoso y se le añade suficiente contenido.
 
 ## 2.2. Estrategia de marketing y comunicación
-El marketing del juego estará enlazado directamente al exito que logre Eclipsa, si consigue un gran seguimiento, se crearan cuentas en redes sociales como TikTok o Instagram para promocionar y compartir el desarrollo del juego, y de esa misma manera recibir feedback de lo que le interese a los jugadores.
+El marketing del juego estará enlazado directamente al éxito que logre Eclipsa, si consigue un gran seguimiento, se crearan cuentas en redes sociales como TikTok o Instagram para promocionar y compartir el desarrollo del juego, y de esa misma manera recibir _feedback_ de lo que les interese a los jugadores.
 
 # 3. Mecánicas del juego
 ## 3.1. Objetivo
@@ -115,10 +115,10 @@ Los colores se mantienen constantes dentro de cada entorno, pero varían ligeram
 Nivia y Solenne son opuestos complementarios. A nivel visual, su contraste genera equilibrio en la escena.
 
 ### Nivia
-Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores son de un rango frío, centrandonos en una paleta de color pequeña para complementar el estilo seleccionado.
+Nivia personifica la oscuridad. Su diseño tiene proporcionas más alargadas y puntiagudas, lo que nos da una sensación de misterio e intriga, lo que es ideal en la representación de la oscuridad. Sus colores son de un rango frío, centrándonos en una paleta de color pequeña para complementar el estilo seleccionado.
 
 ### Solenne
-Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmiten calidez y apertura, perfecto para el concepto de luz. Su paleta de colores es de tonos cálidos, siendo un perfecto contraste de la paleta de Nivia. Nos centramos igualmente en una paleta más cerrada para complementar el estilo artístico seleccionado.
+Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contrastan con la silueta de Nivia, este diseño transmite calidez y apertura, perfecto para el concepto de luz. Su paleta de colores es de tonos cálidos, siendo un perfecto contraste de la paleta de Nivia. Nos centramos igualmente en una paleta más cerrada para complementar el estilo artístico seleccionado.
 
 ![Nivia_Solenne](./Recursos/Nivia_Solenne.jpg)
 ![Nivia_Solenne_Color](./Recursos/Nivia_Solenne_Color.png)
@@ -126,15 +126,15 @@ Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contra
 ## 5.2.2. Entornos
 El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refleja el contraste entre la luz y la oscuridad. Es un entorno lleno de vida, niebla y misterio, donde los rayos del sol solo atraviesan ciertas áreas, creando zonas de luz y oscuridad. Aquí, Solenne y Nivia comienzan a comprender que solo trabajando juntas pueden avanzar: la luz revela caminos ocultos, mientras que la sombra permite cruzar lugares donde la energía solar resulta peligrosa.
 
-En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los arboles producen. También tiene ciertos acentos de colores rojos y anaranjados de flores que aportan contraste visual y guían la atención del jugador.
+En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los árboles producen. También tiene ciertos acentos de colores rojos y anaranjados de flores que aportan contraste visual y guían la atención del jugador.
 
 En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
 
 ## 5.2.3. Ítems
-El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para progresar en el nivel se tendrá que recuperar pequeños cristales que habilitarán nuevas secciones en el mapa. Por otro lado, para avanzar de nivel los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
+El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los personajes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para progresar en el nivel se tendrá que recuperar pequeños cristales que habilitarán nuevas secciones en el mapa. Por otro lado, para avanzar de nivel los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
 
 ### Luna
-Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estilo visual del juego. Su paleta de colores refuerza la conexión de Nivia con la oscuridad, centrandonos en tonos fríos y oscuros.
+Una media luna con un diseño simple y limpio, sin contornos, siguiendo el estilo visual del juego. Su paleta de colores refuerza la conexión de Nivia con la oscuridad, centrándonos en tonos fríos y oscuros.
 
 ### Sol
 Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
@@ -149,7 +149,7 @@ La banda sonora del videojuego busca reflejar la conexión entre la naturaleza, 
 Los instrumentos que se usarán serán cuerdas suaves, percusión ligera y flautas mezclados con sintetizadores para representar la unión de la naturaleza con lo etéreo.
 
 ## 5.3.2. Efectos de audio
-Los efectos de sonido ayudarán a reforzar la inmersión del jugador y comunicar lo que esta pasando en pantalla de manera sonora. Todo diseño sonoro busca mantener la sensación de naturaleza y orgánica, mezclando los sonidos más sintéticos de cuando coges los ítems o avanzas con los puzles.
+Los efectos de sonido ayudarán a reforzar la inmersión del jugador y comunicar lo que está pasando en pantalla de manera sonora. Todo diseño sonoro busca mantener la sensación de naturaleza y orgánica, mezclando los sonidos más sintéticos de cuando coges los ítems o avanzas con los puzles.
 
 Algunos de estos efectos ambientales son:
 * Sonido del viento en las hojas.
@@ -216,7 +216,7 @@ El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentr
 ![Pantalla de opciones](./Recursos/Pantalla_ajustes.PNG)
 
 ## 6.2. Diagrama de flujo 
-El diagrama de flujo que se muestra a continuación, ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.
+El diagrama de flujo que se muestra a continuación ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.
 
 ![Diagrama de flujo](./Recursos/Diagrama_de_flujo.png)
 

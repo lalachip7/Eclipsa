@@ -219,4 +219,11 @@ El diagrama de flujo que se muestra a continuación, ilustra la secuencia lógic
 ![Diagrama de flujo](./Recursos/Diagrama_de_flujo.png)
 
 # 7. Referencias
-*Inspiración artística/cultural y vinculación con otros trabajos*
+Eclipsa referencia videojuegos como _Fireboy and Watergirl_, _Portal 2_ y _Ori and the Blind Forest_ en cuanto a su jugabilidad y a otros juegos como _Hollow Knight_ o los juegos de _Trine_, visualmente.
+
+Estas son algunas de las imágenes que tomamos como referencia:
+![Referencia de escenario 1](./Recursos/Referencia_1.jpg)
+![Referencia de escenario 2](./Recursos/Referencia_2.jpg)
+![Referencia de personaje 1](./Recursos/Referencia_3.jpg)
+![Referencia de personaje 2](./Recursos/Referencia_4.jpg)
+![Referencia de interfaz](./Recursos/Referencia_5.jpg)

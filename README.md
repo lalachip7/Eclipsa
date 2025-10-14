@@ -13,13 +13,13 @@ Eclipsa es un videojuego que está siendo desarrollado para la asignatura de Jue
 
 
 # Índice
-[1. Introducción](#introduccion-definicion-del-juego)   
-[2. Monetización](#monetizacion)     
-[3. Mecánicas del juego](#mecanicas-del-juego)     
-[4. Historia y narrativa](#historia-y-narrativa)    
+[1. Introducción](#1-introduccion-definicion-del-juego)   
+[2. Monetización](#2-monetizacion)     
+[3. Mecánicas del juego](#3-mecanicas-del-juego)     
+[4. Historia y narrativa](#4-historia-y-narrativa)    
 [5. Arte](#5-arte)    
-[6. Interfaz](#interfaz)    
-[7. Referencias](#referencias)    
+[6. Interfaz](#6-interfaz)    
+[7. Referencias](#7-referencias)    
 
 # 1. Introducción: Definición del juego
 ## 1.1. Concepto del juego

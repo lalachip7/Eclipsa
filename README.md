@@ -2,6 +2,7 @@
 Eclipsa es un videojuego que está siendo desarrollado para la asignatura de Juegos en red por el grupo 08. A continuación se presenta el GDD del juego, el equipo de desarrollo y todos los aspectos interesantes. 
 
 ## Equipo de desarrollo
+![Logo](./Recursos/Logo.png)
 | Miembro del equipo | Correo oficial | Cuenta GitHub |
 |-----------|-----------|-----------|
 | Marianna Jiménez    | m.jimenez1.2022@alumnos.urjc.es    | mariannajimenezv   |

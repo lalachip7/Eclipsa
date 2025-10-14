@@ -24,8 +24,8 @@ Eclipsa es un videojuego que está siendo desarrollado para la asignatura de Jue
 ## 1.1. Concepto del juego
 Eclipsa es un juego de puzles cooperativo de plataformas 2D para dos jugadores, inspirado en la mecánica clásica de _Fireboy and Watergirl_, pero renovado con la dicotomía de la luz y la oscuridad. Los jugadores deben controlar simultáneamente a dos personajes, Nivia (la noche/oscuridad) y Solenne (el día/luz), para navegar por niveles llenos de trampas ambientales y puzles. El objetivo de cada nivel es recolectar los artefactos del sol y la luna para provocar el eclipse, restaurando el equilibrio cósmico. 
 
-## 1.2. Historia y personajes
-*Descripción breve de la historia y los personajes*
+## 1.2. Género
+El **género** del videojuego es de puzles cooperativos de plataformas 2D. El foco principal está en la resolución de puzles mediante la coordinación y el uso de las habilidades complementarias de los personajes. 
 
 ## 1.3. Propósito y público objetivo
 El **propósito principal** es ofrecer una experiencia cooperativa desafiante y gratificante, fomentando la comunicación y el trabajo en equipo. Se busca revitalizar la fórmula de puzles de dos jugadores con un twist visual y temático fresco. 

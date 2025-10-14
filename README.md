@@ -64,7 +64,7 @@ Estas mecánicas sirven en conjunto para crear una experiencia multijugador comp
 Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara, a excepción de los niveles que contengan varios cuartos. En este caso, ambos jugadores deben salir del cuarto para avanzar al siguiente, pero permaneciendo con la cámara estática. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
 
 ![diseño_de_niveles](./Recursos/diseño_de_niveles.jpeg)
-![nivel_1.1](./Recursos/nivel_1.1.jpg)
+![nivel_11](./Recursos/nivel_11.jpeg)
 
 ## 3.4. Controles y físicas
 Las físicas del entorno son realistas: hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.
@@ -131,7 +131,7 @@ En la paleta de colores dominan los verdes profundos, representando la vegetaci�
 En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
 
 ## 5.2.3. Ítems
-El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para avanzar de nivel, los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
+El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los persoanjes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para progresar en el nivel se tendrá que recuperar pequeños cristales que habilitarán nuevas secciones en el mapa. Por otro lado, para avanzar de nivel los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
 
 ### Luna
 Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estilo visual del juego. Su paleta de colores refuerza la conexión de Nivia con la oscuridad, centrandonos en tonos fríos y oscuros.
@@ -140,6 +140,8 @@ Una media luna con un diseño simple y limpio, sin contronos, siguiendo el estil
 Un círculo radiante rodeado de otro círculo difuminado para dar la sensación de rayos de luz, manteniendo la simplicidad y ausencia de lineart. Conectando el objeto a Solenne, este contará con colores cálidos y brillantes, representando la luz y la claridad del personaje.
 
 ![Sol_Luna_bocetos](./Recursos/Sol_Luna_bocetos.jpg)
+![Moondrop_Sundrop](./Recursos/Moondrop_Sundrop.png)
+
 
 ## 5.3. Música 
 ## 5.3.1. Banda sonora

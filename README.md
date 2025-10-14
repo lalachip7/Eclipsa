@@ -27,20 +27,17 @@ Eclipsa es un juego de puzles cooperativo de plataformas 2D para dos jugadores, 
 ## 1.2. Historia y personajes
 *Descripción breve de la historia y los personajes*
 
-## 1.3. Género
-El **género** del videojuego es de puzles cooperativos de plataformas 2D. El foco principal está en la resolución de puzles mediante la coordinación y el uso de las habilidades complementarias de los personajes. 
-
-## 1.4. Propósito y público objetivo
+## 1.3. Propósito y público objetivo
 El **propósito principal** es ofrecer una experiencia cooperativa desafiante y gratificante, fomentando la comunicación y el trabajo en equipo. Se busca revitalizar la fórmula de puzles de dos jugadores con un twist visual y temático fresco. 
 
 El **público objetivo** serían jugadores casuales y mid-core, amantes de los juegos de puzles y plataformas 2D. Un público que disfruta de las experiencias de juego cooperativo local o en línea con amigos, parejas y familiares. 
 Además atraería también a fanáticos de juegos como _Fireboy and Watergirl_, _It Takes Two_ o _Portal 2_ (en su modo cooperativo).
 El rango de edad contemplaría de 8 años en adelante, es decir, PEGI 3 o clasificación E, debido a la naturaleza no violenta y centrada en la lógica del juego. 
 
-## 1.5. Plataforma y motor de juego
+## 1.4. Plataforma y motor de juego
 El videojuego está pensado para ser jugado en navegadores web de ordenadores, utilizando el **framework Phaser**, un motor de desarrollo de videojuegos 2D basado en JavaScript y HTML5.
 
-## 1.6. Licencia
+## 1.5. Licencia
 La **licencia** del videojuego es Apache 2.0, una licencia de código abierto que implica que los usuarios tienen libertad de usar, copiar y modificar el código del videojuego; redistribuir el software y su uso con fines comerciales, siempre y cuando den crédito a los autores.
 
 # 2. Monetización
@@ -65,6 +62,9 @@ Estas mecánicas sirven en conjunto para crear una experiencia multijugador comp
 
 ## 3.3. Escenario
 Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara, a excepción de los niveles que contengan varios cuartos. En este caso, ambos jugadores deben salir del cuarto para avanzar al siguiente, pero permaneciendo con la cámara estática. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
+
+![diseño_de_niveles](./Recursos/diseño_de_niveles.jpeg)
+![nivel_1.1](./Recursos/nivel_1.1.jpg)
 
 ## 3.4. Controles y físicas
 Las físicas del entorno son realistas: hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.

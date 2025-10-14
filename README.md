@@ -52,7 +52,7 @@ El marketing del juego estará enlazado directamente al exito que logre Eclipsa,
 
 # 3. Mecánicas del juego
 ## 3.1. Objetivo
-El objetivo de ambos jugadores en cada nivel es conseguir un cristal que corresponde a su símbolo - la Luna y el Sol. Para completar un nivel, los jugadores deben hacer contacto después de haber conseguido cada uno su cristal. El juego consta de varios niveles, que son entornos 2D con plataformas, obstáculos, e ítems interactivos para completar el objetivo. Las mecánicas del juego tienen el propósito de fomentar la colaboración y la interacción entre ambos personajes, para que el objetivo solo se pueda conseguir si ambos jugadores trabajan en conjunto. 
+El objetivo de ambos jugadores en cada nivel es conseguir un cristal que corresponde a su símbolo - la Luna y el Sol. Para completar un nivel, los jugadores deben hacer contacto con el portal meta al final del nivel después de haber conseguido sus cristales. El juego consta de varios niveles, que son entornos 2D con plataformas, obstáculos, e ítems interactivos para completar el objetivo. Las mecánicas del juego tienen el propósito de fomentar la colaboración y la interacción entre ambos personajes, para que el objetivo solo se pueda conseguir si ambos jugadores trabajan en conjunto. 
 
 ## 3.2. Mecánicas
 El juego se centra en la naturaleza complementaria de la Luz y Oscuridad, con ítems en el entorno que dependen de un personaje para ser activados o movidos. El movimiento de los personajes, sin embargo, es simple, pues solo involucra movimiento hacia los lados y un salto para navegar cada nivel. Con la intención de fungir como obstáculos para los jugadores, existen diferentes plataformas y barreras que hacen más complejo la resolución del juego: 
@@ -80,9 +80,9 @@ Los jugadores controlan a sus personajes con el teclado, ambos con las mismas te
 
 
 ## 3.5. Niveles
-EL juego constará de aproximadamente 15 niveles, cada 5 representando un bioma y un nivel de dificultad. Los primeros 5 serán para que los jugadores conozcan y se familiaricen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 5 complican las mecánicas e introducen nuevas, en un ambiente tenso en el bosque con elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
+EL juego constará de aproximadamente 6 niveles, que escalan en dificultad. Los primeros 2 serán para que los jugadores conozcan y se familiaricen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 2 complican las mecánicas e introducen el resto, en un ambiente tenso en el bosque con más elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
 
-Todos los niveles serán construidos bajo la estructura mencionada; ambos jugadores deben encontrar el cristal de su símbolo, y reencontrarse el uno con el otro para pasar el nivel. En algunos casos, los niveles serán conformados por varias pantallas para que sean más largos y complejos. 
+Todos los niveles serán construidos bajo la estructura mencionada; ambos jugadores deben encontrar el cristal de su símbolo, y reencontrarse el uno con el otro en el portal meta para pasar el nivel. En algunos casos, los niveles serán conformados por varias pantallas para que sean más largos y complejos. 
 
 ## 3.6. Objetos, armas y power ups
 Aunque los personajes no tengan movimientos ni habilidades complejas, existen varios ítems entre los niveles que les permite interactuar con el mundo. 

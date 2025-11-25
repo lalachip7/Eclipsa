@@ -2,48 +2,29 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  // **entry**: Punto de entrada de la aplicación
-  entry: './src/index.js',
-
-  // **output**: Dónde se guarda el bundle generado
+  entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    clean: true // Limpia la carpeta 'dist' antes de cada build
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
   },
-
-  // **plugins**: Añade funcionalidades extra (como generar el HTML automáticamente)
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+    hot: true,
+    port: 8080
+  },
+  externals: {
+    phaser: 'Phaser'
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html', // Usa esta plantilla HTML
-      filename: 'index.html' // Nombre del archivo generado
+      template: './public/index.html',
+      inject: false
     })
   ],
-
-  // **devServer**: Configuración del servidor de desarrollo con recarga automática
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist')
-    },
-    compress: true,
-    port: 3000,
-    open: true, // Abre el navegador automáticamente
-    hot: true // Habilita hot-reload
-  },
-
-  // Configuración para trabajar con archivos JS modernos
-  module: {
-    rules: [
-      {
-        test: /\.js$/, // Aplica a archivos .js
-        exclude: /node_modules/, // Ignora node_modules
-        use: {
-          loader: 'babel-loader' // Transpila JS moderno a compatible
-        }
-      }
-    ]
-  },
-
-  // Modo por defecto si no se especifica en el script
-  mode: 'development'
+  resolve: {
+    extensions: ['.js']
+  }
 };

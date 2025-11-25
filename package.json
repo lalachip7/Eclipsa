@@ -1,8 +1,9 @@
 {
   "name": "eclipsa",
-  "version": "1.0.0",
+  "version": "1.0.0", 
   "description": "Eclipsa es un videojuego que está siendo desarrollado para la asignatura de Juegos en red por el grupo 08. A continuación se presenta el GDD del juego, el equipo de desarrollo y todos los aspectos interesantes.",
   "main": "index.js",
+  "type": "module",  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",

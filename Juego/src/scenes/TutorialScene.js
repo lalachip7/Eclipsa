@@ -9,6 +9,13 @@ export class TutorialScene extends Phaser.Scene {
         // Caja de fondo
         this.load.image('tutorialBox', 'assets/caja.png');
 
+        // Imagenes de teclas
+        this.load.image('keys', 'assets/teclas3.png');
+
+        // Personajes
+        this.load.image('solenneIcon', 'assets/personajeSolenne.png');
+        this.load.image('niviaIcon', 'assets/personajeNivia.png');
+
         // Botón de salir (x)
 
     }
@@ -26,6 +33,19 @@ export class TutorialScene extends Phaser.Scene {
         this.add.image(700, 400, 'tutorialBox')
             .setOrigin(0.5)
             .setScale(1);
+
+        
+        this.add.image(700, 380, 'keys')
+            .setOrigin(0.5)
+            .setScale(1);
+
+        this.add.image(515, 580, 'niviaIcon')
+            .setOrigin(0.5)
+            .setScale(0.75);
+
+        this.add.image(885, 580, 'solenneIcon')
+            .setOrigin(0.5)
+            .setScale(0.75);
 
         // Botón de salir (x)
         const settingsBtn = this.add.image(1069, 170, 'SettingsButton')
@@ -55,7 +75,7 @@ export class TutorialScene extends Phaser.Scene {
             this.scene.resume(this.scene.settings.data.originalScene);
         });
         
-        this.add.text(700, 250, 'Tutorial',{ 
+        this.add.text(700, 200, 'Tutorial',{ 
             fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
 
         

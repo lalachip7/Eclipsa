@@ -1,5 +1,5 @@
 {
-  "name": "clasespracticas",
+  "name": "eclipsa",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,11 @@
   },
   "keywords": [
     "games",
-    "cards"
+    "eclipse", 
+    "phaser",
+    "platformer"
   ],
-  "author": "Marianna Jimenez",
+  "author": "Marianna Jimenez, Laura de la Cruz, Laura Blazquez, Samuel Retamero, Gabriel Mujica",
   "license": "Apache-2.0",
   "description": "",
   "dependencies": {

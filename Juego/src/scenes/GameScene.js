@@ -14,136 +14,88 @@ export class GameScene extends Phaser.Scene {
         this.escWasDown = false;
     }
 
-    create() {
-
-        for (let i = 0; i < 17; i++) {
-            this.add.rectangle(400, i * 50 + 25, 10, 30, 0xffffff);
-        }
-
-        // score texts
-        this.leftScore = this.add.text(120, 50, '0', {
-            fontSize: '32px', fill: '#b9f5daff'
-        });
+    preload() {
+        // Cargar el JSON del nivel (Tilemap)
+        this.load.tilemapTiledJSON('level1', 'assets/levels/level1.json');
         
-        this.rightScore = this.add.text(680, 50, '0', {
-            fontSize: '32px', fill: '#b9f5daff'
-        });
+        // Cargar la imagen del Tileset
+        this.load.image('nombreDeLaImagenDelTileset', 'assets/tilesets/mi_tileset.png'); 
 
-        this.createBounds();
-        this.createBall();
-        this.launchBall();
+        // Cargar sprites de personajes y objetos
+        this.load.image('nivia', 'assets/sprites/nivia_sprite.png'); 
+        this.load.image('solenne', 'assets/sprites/solenne_sprite.png'); 
+        this.load.image('moonCrystal', 'assets/items/moon_crystal.png');
+        this.load.image('sunCrystal', 'assets/items/sun_crystal.png');
+        this.load.image('metaPortal', 'assets/items/portal.png');
+    }
+
+    create() {
+        // Configuración del tilemap
+        const map = this.make.tilemap({ key: 'level1' });
+        const tileset = map.addTilesetImage('myTileset', 'nombreDeLaImagenDelTileset');
+
+        // Capas del nivel
+        const geometryLayer = map.createLayer('Geometry', tileset);
+        geometryLayer.setCollisionByProperty({ collides: true });
+
+        // Configuración de la física del mundo
+        this.physics.world.gravity.y = 1000;
+
+        // Creación de los personajes
         this.setUpPlayers();
 
-        this.players.forEach(player => {
-            this.physics.add.collider(this.ball, player.sprite);
-        });
+        // Creación de los objetos
+        this.crystals = this.physics.add.group();
+        this.moonCrystal = this.crystals.create(200, 300, 'moonCrystal'),
+        this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal')
 
-        this.physics.add.overlap(this.ball, this.leftGoal, this.scoreRightGoal, null, this);
-        this.physics.add.overlap(this.ball, this.rightGoal, this.scoreLeftGoal, null, this);
+        this.metaPortal = this.physics.add.sprite(map.widthInPixels - 100, map.heightInPixels - 150, 'metaPortal');
+
+        // Lógica de la recolección de cristales
+        this.physics.add.overlap(this.nivia, this.moonCrystal, this.collectMoonCrystal, null, this);
+        this.physics.add.overlap(this.solenne, this.sunCrystal, this.collectSunCrystal, null, this);
+
+        // Lógica de fin de nivel (Overlap del portal)
+        this.physics.add.overlap(this.nivia, this.metaPortal, this.checkLevelComplete, null, this);
+        this.physics.add.overlap(this.solenne, this.metaPortal, this.checkLevelComplete, null, this);
+
+        // Variables para rastrear el estado de recolección de cristales
+        this.niviaHasMoonCrystal = false;
+        this.solenneHasSunCrystal = false;
+
+        // Colisiones entre personajes y el nivel
+        this.physics.add.collider(this.nivia, geometryLayer);
+        this.physics.add.collider(this.solenne, geometryLayer);
+
+        // Configuración de la cámara
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);    
+
+        // Control de pausa
         this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     setUpPlayers() {
-        const leftPaddle = new Paddle(this, 'player1', 50, 300);
-        const rightPaddle = new Paddle(this, 'player2', 750, 300);
+         // Creación personajes
+        this.nivia = this.physics.add.sprite(100, 450, 'nivia').setBounce(0.2).setCollideWorldBounds(true);
+        this.solenne = this.physics.add.sprite(100, 450, 'solenne').setBounce(0.2).setCollideWorldBounds(true);
 
-        this.players.set('player1', leftPaddle);
-        this.players.set('player2', rightPaddle);
+        // Controles de Nivia (Teclas WASD)
+        this.niviaControls = this.input.keyboard.addKeys({
+            left: 'A',
+            right: 'D',
+            up: 'W',    // salto
+            interact: 'E'
+        });
 
-        const InputConfig = [
-            {
-                playerId: 'player1',
-                upKey: 'W',
-                downKey: 'S',
-            },
-            {
-                playerId: 'player2',
-                upKey: 'UP',
-                downKey: 'DOWN', 
-            }
-        ];
-        this.inputsMapping = InputConfig;
-        this.inputsMapping = this.inputsMapping.map(config => {
-            return ({
-                playerId: config.playerId,
-                upKeyObj: this.input.keyboard.addKey(config.upKey),
-                downKeyObj: this.input.keyboard.addKey(config.downKey),
-            });
+        // Controles de Solenne (Flechas)
+        this.solenneControls = this.input.keyboard.addKeys({
+            left: 'LEFT',
+            right: 'RIGHT',
+            up: 'UP',   // salto
+            interact: 'SPACE'
         });
     }
-
-    scoreRightGoal() {
-        const player2 = this.players.get('player2');
-        player2.score += 1;
-        this.rightScore.setText(player2.score.toString());
-
-        if (player2.score >= 2) {
-            this.endgame('player2');
-        }
-        else{
-            this.resetBall();
-        }
-        
-    }
-
-    scoreLeftGoal() {
-        const player1 = this.players.get('player1');
-        player1.score += 1;
-        this.leftScore.setText(player1.score.toString());
-
-        if (player1.score >= 2) {
-            this.endgame('player1');
-        }
-        else{
-            this.resetBall();
-        }
-    }
-
-    resetBall() {
-        this.ball.setPosition(400, 300);
-        this.ball.setVelocity(0, 0);
-        this.time.delayedCall(1000, () => {
-            this.launchBall();
-        });
-    }
-
-    createBounds() {
-        this.leftGoal = this.physics.add.sprite(0, 300, null);
-        this.leftGoal.setDisplaySize(10, 600);
-        this.leftGoal.setSize(10, 600);
-        this.leftGoal.setImmovable(false);
-        this.leftGoal.setVisible(false);
-
-        this.rightGoal = this.physics.add.sprite(800, 300, null);
-        this.rightGoal.setDisplaySize(10, 600);
-        this.rightGoal.setSize(10, 600);
-        this.rightGoal.setImmovable(false);
-        this.rightGoal.setVisible(false);
-    }
-
-    createBall() {
-        const graphics = this.add.graphics();
-        graphics.fillStyle(0xffffff);
-        graphics.fillCircle(8, 8, 8);
-        graphics.generateTexture('ball', 16, 16);
-        graphics.destroy();
-
-        this.ball = this.physics.add.image(400, 300, 'ball');
-        this.ball.setCollideWorldBounds(true);
-        this.ball.setBounce(1);
-    }
-
-    launchBall() {
-        const angle = Phaser.Math.Between(-30, 30);
-        const speed = 500;
-        const direction = Math.random() < 0.5 ? 1 : -1;
-        
-        this.ball.setVelocity(
-            Math.cos(Phaser.Math.DegToRad(angle)) * speed * direction,
-            Math.sin(Phaser.Math.DegToRad(angle)) * speed
-        )
-    }
-        
+    
     setPausedState(isPaused) {
         this.isPaused = isPaused;
         if (this.isPaused) {
@@ -162,23 +114,73 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(){
-
+        // Lógica de pausa con tecla ESC
         if(this.escKey.isDown){
             this.togglePause();
         }
 
-        this.inputsMapping.forEach(mapping => {
-        const paddle = this.players.get(mapping.playerId);
+        // Movimiento de Nivia
+        this.handlePlayerMovement(this.nivia, this.niviaControls);
 
-            if (mapping.upKeyObj.isDown) {
-               paddle.sprite.setVelocityY(-paddle.baseSpeed);
-            } else if (mapping.downKeyObj.isDown) {
-               paddle.sprite.setVelocityY(+paddle.baseSpeed);
-            } else {
-               paddle.sprite.setVelocityY(0);
-            }
+        // Movimiento de Solenne
+        this.handlePlayerMovement(this.solenne, this.solenneControls);
+    }
 
-        });   
+    handlePlayerMovement(playerSprite, controls) {
+        // Velocidad del movimiento
+        const speed = 400;
+        const jumpVelocity = 600;
+
+        // Movimiento horizontal
+        if (controls.left.isDown) {
+            playerSprite.setVelocityX(-speed);
+            playerSprite.setFlipX(true); // Mirar a la izquierda
+        } else if (controls.right.isDown) {
+            playerSprite.setVelocityX(speed);
+            playerSprite.setFlipX(false); // Mirar a la derecha
+        } else {
+            playerSprite.setVelocityX(0);
+        }
+
+        // Salto (solo si está tocando el suelo)
+        if (controls.up.isDown && playerSprite.body.blocked.down) {
+            playerSprite.setVelocityY(-jumpVelocity);
+        }
+
+        // Lógica de interacción
+        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
+            // Aquí va la lógica de interacción (por ejemplo, abrir puertas, recoger objetos, etc.)
+            console.log('Interacción realizada');
+        }
+
+        // Lógica para cambiar de animación
+    }
+
+    collectMoonCrystal(player, crystal) {
+        crystal.disableBody(true, true);
+        this.niviaHasMoonCrystal = true;
+        console.log('Nivia ha recogido el Cristal de la Luna');
+    }
+
+    collectSunCrystal(player, crystal) {
+        crystal.disableBody(true, true);
+        this.solenneHasSunCrystal = true;
+        console.log('Solenne ha recogido el Cristal del Sol');
+    }
+
+    checkLevelComplete(player, portal) {
+        // Los dos deben tocar el portal y tener sus respectivos cristales
+        const niviaInPortal = Phaser.Geom.Intersects.RectangleToRectangle(
+            this.nivia.getBounds(), portal.getBounds()
+        );
+        const solenneInPortal = Phaser.Geom.Intersects.RectangleToRectangle(
+            this.solenne.getBounds(), portal.getBounds()
+        );
+        
+        if (niviaInPortal && solenneInPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+            console.log('Nivel completado!');
+            // Aquí puedes agregar la lógica para avanzar al siguiente nivel o mostrar una pantalla de victoria
+        }
     }
 
     endgame(winnerId) {

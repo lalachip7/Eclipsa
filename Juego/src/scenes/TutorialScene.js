@@ -23,7 +23,8 @@ export class TutorialScene extends Phaser.Scene {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
-
+        // asegurar que esta escena se muestre por encima al crearla
+        this.scene.bringToTop();
         let hoverImg = null;    //refrencia para la imagen hover
 
         // Rectángulo que cubre toda la pantalla
@@ -71,8 +72,11 @@ export class TutorialScene extends Phaser.Scene {
 
         // Regresar a la escena original
         settingsBtn.on('pointerdown', () => {
-            this.scene.stop();
-            this.scene.resume(this.scene.settings.data.originalScene);
+            const original = this.scene.settings.data.originalScene;
+            if (original) {
+                this.scene.resume(original); // reanuda PauseScene si fue la original
+            }
+            this.scene.stop(); // cierra TutorialScene
         });
         
         this.add.text(700, 200, 'Tutorial',{ 

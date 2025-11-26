@@ -5,22 +5,54 @@ export class PauseScene extends Phaser.Scene {
         super('PauseScene');
     }
 
-    create(){
-        this.background = this.add.rectangle(400, 300, 800, 600, 0x000000, 0.5);
-        this.add.text(400, 250, 'Game Paused',{ 
-            fontSize: '48px', fill: '#25ff12ff'}).setOrigin(0.5);
+    preload() {
+        // Caja de fondo
+        this.load.image('CreditsBox', 'assets/caja.png');
 
-        const resumeBtn = this.add.text(400, 350, 'Resume Game', {
-            color: '#25ff12ff',
-        })
-        .setOrigin(0.5)
-        .setInteractive({useHandCursor: true})
-        .on('pointerover', () => resumeBtn.setColor('#ffffff'))
-        .on('pointerout', () => resumeBtn.setColor('#25ff12ff'))
-        .on('pointerdown', () => {
-            this.scene.stop();
-            this.scene.resume(this.scene.settings.data.originalScnene);
+        // Botón de salir (x)
+
+    }
+    create(){
+        // dimensiones de la pantalla
+        const w = this.scale.width;
+        const h = this.scale.height;
+
+        let hoverImg = null;    //refrencia para la imagen hover
+
+        // Rectángulo que cubre toda la pantalla
+        this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
+
+        // Caja de fondo
+        this.add.image(700, 400, 'CreditsBox')
+            .setOrigin(0.5)
+            .setScale(1);
+
+        // Botón de salir (x)
+        const settingsBtn = this.add.image(1069, 170, 'SettingsButton')
+            .setOrigin(0.5)
+            .setScale(0.7)
+            .setInteractive({ useHandCursor: true });
+
+        settingsBtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.75)
+                    .setDepth(settingsBtn.depth + 1);
+            }
         });
-        
+
+        settingsBtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
+        // Regresar a la escena original
+        settingsBtn.on('pointerdown', () => {
+            this.scene.stop();
+            this.scene.resume(this.scene.settings.data.originalScene);
+        });
     }
 }

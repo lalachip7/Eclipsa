@@ -23,7 +23,7 @@ export class CreditsScene extends Phaser.Scene {
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
 
         // Caja de fondo
-        const CreditsBox = this.add.image(700, 400, 'CreditsBox')
+        this.add.image(700, 400, 'CreditsBox')
             .setOrigin(0.5)
             .setScale(1);
 
@@ -73,7 +73,5 @@ export class CreditsScene extends Phaser.Scene {
         this.add.text(700, 500, 'Gabriel Mujica',{ 
             fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
 
-
-        
     }
 }

@@ -167,6 +167,5 @@ export class MenuScene extends Phaser.Scene {
         settingsBtn.on('pointerdown', () => {
             this.scene.launch('SettingsScene');
         });
-
     }
 }

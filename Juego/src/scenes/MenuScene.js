@@ -86,7 +86,7 @@ export class MenuScene extends Phaser.Scene {
         });
 
         tutorialBtn.on('pointerdown', () => {
-            this.scene.start('TutorialScene');
+            this.scene.launch('TutorialScene');
         });
 
         // Botón de créditos
@@ -112,7 +112,7 @@ export class MenuScene extends Phaser.Scene {
         });
 
         creditosBtn.on('pointerdown', () => {
-            this.scene.start('TutorialScene');
+            this.scene.start('CreditsScene');
         });
 
         // Botón de salir de juego

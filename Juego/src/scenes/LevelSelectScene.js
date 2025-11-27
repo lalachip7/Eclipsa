@@ -14,6 +14,8 @@ export class LevelSelectScene extends Phaser.Scene {
         this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
 
         // Botón de salir (x)
+        this.load.image('ExitMinButton', 'assets/cerrar.png');
+        this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
     }
     create(){
@@ -87,30 +89,34 @@ export class LevelSelectScene extends Phaser.Scene {
         });
 
         // Botón de salir (x)
-        const returnBtn = this.add.image(1069, 170, 'SettingsButton')
+        const ExitBtn = this.add.image(1069, 170, 'ExitMinButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
-        returnBtn.on('pointerover', () => {
+        ExitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                hoverImg = this.add.image(1068, 170, 'ExitMinButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
-                    .setDepth(returnBtn.depth + 1);
+                    .setScale(0.7)
+                    .setDepth(ExitBtn.depth + 1);
             }
         });
 
-        returnBtn.on('pointerout', () => {
+        ExitBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
             }
         });
 
-        // Regresar a la menu principal
-        returnBtn.on('pointerdown', () => {
-            this.scene.start('MenuScene');
+        // Regresar a la escena original
+        ExitBtn.on('pointerdown', () => {
+            const original = this.scene.settings.data.originalScene;
+            if (original) {
+                this.scene.resume(original); // reanuda PauseScene si fue la original
+            }
+            this.scene.stop(); // cierra TutorialScene
         });
         
         this.add.text(700, 180, 'Selecciona un Nivel',{ 

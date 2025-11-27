@@ -10,9 +10,9 @@ export class PlaceHolderScene extends Phaser.Scene {
         this.load.image('tutorialBox', 'assets/caja.png');
         
         // Botón de salir (x)
-        this.load.image('SettingsButton', 'assets/ajustes.png');
-        this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
-        
+        this.load.image('ExitButton', 'assets/salir.png');
+        this.load.image('ExitButtonHover', 'assets/salirHover.png');
+  
     }
     create(){
         // dimensiones de la pantalla
@@ -30,29 +30,29 @@ export class PlaceHolderScene extends Phaser.Scene {
             .setScale(1.4);
 
         // Botón de salir (x)
-        const returnBtn = this.add.image(1069, 170, 'SettingsButton')
+        const exitBtn = this.add.image(700, 670, 'ExitButton')
             .setOrigin(0.5)
-            .setScale(0.7)
+            .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
-        returnBtn.on('pointerover', () => {
+        exitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                hoverImg = this.add.image(700, 670, 'ExitButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
-                    .setDepth(returnBtn.depth + 1);
+                    .setDepth(exitBtn.depth + 1);
             }
         });
 
-        returnBtn.on('pointerout', () => {
+        exitBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
             }
         });
 
-        // Regresar a la escena original
-        returnBtn.on('pointerdown', () => {
+        exitBtn.on('pointerdown', () => {
+            // Cierra la ventana del navegador o pestaña
             this.scene.start('MenuScene');
         });
         

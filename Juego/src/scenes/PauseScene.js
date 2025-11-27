@@ -9,11 +9,24 @@ export class PauseScene extends Phaser.Scene {
         // Caja de fondo
         this.load.image('CreditsBox', 'assets/caja.png');
 
+        // Texto Pausa
+        this.load.image('PauseText', 'assets/texto_pausa.PNG');
+
         // Botón de salir (x)
+        this.load.image('ExitMinButton', 'assets/cerrar.png');
+        this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
         // Botón de tutorial
         this.load.image('TutorialButton', 'assets/tutorial.png');
         this.load.image('TutorialButtonHover', 'assets/tutorialHover.png');
+
+        // Botón de reiniciar nivel
+        this.load.image('RestartButton', 'assets/reiniciar.PNG');
+        this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
+        
+        // Botón de volver al menú principal
+        this.load.image('RetMenuButton', 'assets/menu.PNG');
+        this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
 
     }
     create(){
@@ -31,22 +44,27 @@ export class PauseScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(1);
 
+        // Texto Pausa
+        this.add.image(700, 210, 'PauseText')
+            .setOrigin(0.5)
+            .setScale(1);
+
         // Botón de salir (x)
-        const settingsBtn = this.add.image(1069, 170, 'SettingsButton')
+        const ExitBtn = this.add.image(1069, 170, 'ExitMinButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
-        settingsBtn.on('pointerover', () => {
+        ExitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                hoverImg = this.add.image(1068, 170, 'ExitMinButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
-                    .setDepth(settingsBtn.depth + 1);
+                    .setScale(0.7)
+                    .setDepth(ExitBtn.depth + 1);
             }
         });
 
-        settingsBtn.on('pointerout', () => {
+        ExitBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
@@ -54,7 +72,7 @@ export class PauseScene extends Phaser.Scene {
         });
 
         // Regresar a la escena original
-        settingsBtn.on('pointerdown', () => {
+        ExitBtn.on('pointerdown', () => {
             const original = this.scene.settings.data.originalScene;
             if (original) this.scene.resume(original); // reanuda primero la escena original
             this.scene.stop(); // luego detiene PauseScene
@@ -62,16 +80,16 @@ export class PauseScene extends Phaser.Scene {
 
 
         // Tutorial 
-        const tutorialbtn = this.add.image(700, 250, 'TutorialButton')
+        const tutorialbtn = this.add.image(700, 320, 'TutorialButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
         tutorialbtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(700, 250, 'TutorialButtonHover')
+                hoverImg = this.add.image(700, 320, 'TutorialButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
+                    .setScale(0.7)
                     .setDepth(tutorialbtn.depth + 1);
             }
         });
@@ -90,27 +108,61 @@ export class PauseScene extends Phaser.Scene {
             this.scene.pause();
         });
 
+        // Reiniciar nivel
+        const restartbtn = this.add.image(705, 415, 'RestartButton')
+            .setOrigin(0.5)
+            .setScale(0.7)
+            .setInteractive({ useHandCursor: true });
 
-        this.add.text(700, 350, 'Reiniciar nivel', { //cambiar por botón
-            fontSize: '32px', fill: '#ffffff'
-        }).setOrigin(0.5)
-        .setInteractive({useHandCursor: true})
-        .on('pointerdown', () => {
+        restartbtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(693, 425, 'RestartButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.7)
+                    .setDepth(restartbtn.depth + 1);
+            }
+        });
+
+        restartbtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
+        restartbtn.on('pointerdown', () => {
             const originalSceneKey = this.scene.settings.data.originalScene;
             this.scene.stop(originalSceneKey);
             this.scene.start('GameScene');
         });
 
-        this.add.text(700, 450, 'Volver al menú principal', {
-            fontSize: '32px', fill: '#ffffff'
-        }).setOrigin(0.5)
-        .setInteractive({useHandCursor: true})
-        .on('pointerdown', () => {
+        // Volver al menú principal
+        const menubtn = this.add.image(700, 520, 'RetMenuButton')
+            .setOrigin(0.5)
+            .setScale(0.7)
+            .setInteractive({ useHandCursor: true });
+
+        menubtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(698, 520, 'RetMenuButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.7)
+                    .setDepth(menubtn.depth + 1);
+            }
+        });
+
+        menubtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+        
+        menubtn.on('pointerdown', () => {
             const originalSceneKey = this.scene.settings.data.originalScene;
             this.scene.stop(originalSceneKey);
             this.scene.start('MenuScene');
             this.scene.stop();
         });
-
     }
 }

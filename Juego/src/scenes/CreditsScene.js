@@ -10,6 +10,14 @@ export class CreditsScene extends Phaser.Scene {
         this.load.image('CreditsBox', 'assets/caja.png');
 
         // Botón de salir (x)
+        this.load.image('ExitMinButton', 'assets/cerrar.png');
+        this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
+
+        // Texto de créditos
+        this.load.image('CreditsText', 'assets/texto_creditos.PNG');
+
+        // Texto de miembros
+        this.load.image('MembersText', 'assets/nombres.PNG');
 
     }
     create(){
@@ -28,21 +36,21 @@ export class CreditsScene extends Phaser.Scene {
             .setScale(1);
 
         // Botón de salir (x)
-        const settingsBtn = this.add.image(1069, 170, 'SettingsButton')
+        const ExitBtn = this.add.image(1069, 170, 'ExitMinButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
-        settingsBtn.on('pointerover', () => {
+        ExitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                hoverImg = this.add.image(1068, 170, 'ExitMinButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
-                    .setDepth(settingsBtn.depth + 1);
+                    .setScale(0.7)
+                    .setDepth(ExitBtn.depth + 1);
             }
         });
 
-        settingsBtn.on('pointerout', () => {
+        ExitBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
@@ -50,28 +58,18 @@ export class CreditsScene extends Phaser.Scene {
         });
 
         // Regresar a la escena original
-        settingsBtn.on('pointerdown', () => {
+        ExitBtn.on('pointerdown', () => {
             this.scene.stop();
             this.scene.resume(this.scene.settings.data.originalScene);
         });
         
-        this.add.text(700, 200, 'Créditos',{ 
-            fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
+        this.add.image(700, 210, 'CreditsText')
+        .setOrigin(0.5).
+        setScale(1);
         
-        this.add.text(700, 300, 'Mariana Jiménez',{ 
-            fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
-        
-        this.add.text(700, 350, 'Laura de la Cruz',{ 
-            fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
-        
-        this.add.text(700, 400, 'Laura Blázquez',{ 
-            fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
-        
-        this.add.text(700, 450, 'Samuel Retamero',{ 
-            fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
-
-        this.add.text(700, 500, 'Gabriel Mujica',{ 
-            fontSize: '32px', fill: '#d4eaf1ff'}).setOrigin(0.5);
+        this.add.image(710, 460, 'MembersText')
+        .setOrigin(0.5)
+        .setScale(0.65);
 
     }
 }

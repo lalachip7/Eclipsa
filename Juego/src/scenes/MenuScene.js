@@ -60,7 +60,8 @@ export class MenuScene extends Phaser.Scene {
         });
 
         localBtn.on('pointerdown', () => {
-            this.scene.start('GameScene');
+            this.scene.launch('LevelSelectScene');
+            //this.scene.start('GameScene');
         });
 
         // Botón de tutorial

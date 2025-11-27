@@ -1,22 +1,18 @@
 import Phaser from "phaser";
 
-export class SettingsScene extends Phaser.Scene {
+export class PlaceHolderScene extends Phaser.Scene {
     constructor() {
-        super('SettingsScene');
+        super('PlaceHolderScene');
     }
 
     preload() {
         // Caja de fondo
-        this.load.image('settingsBox', 'assets/caja.png');
-
-        // Boton Volumen (+/-)
+        this.load.image('tutorialBox', 'assets/caja.png');
+        
+        // Botón de salir (x)
         this.load.image('SettingsButton', 'assets/ajustes.png');
         this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
-
-        // Barras Volumen (rectangulos uno oscuro/apagados y otro claro/encendidos)
-
-        // Botón de salir (x)
-
+        
     }
     create(){
         // dimensiones de la pantalla
@@ -29,29 +25,9 @@ export class SettingsScene extends Phaser.Scene {
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
 
         // Caja de fondo
-        this.add.image(700, 400, 'settingsBox')
+        this.add.image(700, 400, 'tutorialBox')
             .setOrigin(0.5)
-            .setScale(1);
-
-        // Volumen aumentado
-        const plusVolumeBtn = this.add.image(400, 500, 'SettingsButton')
-            .setOrigin(0.5)
-            .setScale(0.7)
-            .setInteractive({ useHandCursor: true });
-        
-        plusVolumeBtn.on('pointerdown', () => {
-            //if volume < 1, volume +=0.2
-        });
-
-        // Volumen disminuido
-        const minusVolumeBtn = this.add.image(1000, 500, 'SettingsButton')
-            .setOrigin(0.5)
-            .setScale(0.7)
-            .setInteractive({ useHandCursor: true });
-
-        minusVolumeBtn.on('pointerdown', () => {
-            //if volume > 0, volume -=0.2
-        });
+            .setScale(1.4);
 
         // Botón de salir (x)
         const returnBtn = this.add.image(1069, 170, 'SettingsButton')
@@ -77,11 +53,10 @@ export class SettingsScene extends Phaser.Scene {
 
         // Regresar a la escena original
         returnBtn.on('pointerdown', () => {
-            this.scene.stop();
-            this.scene.resume(this.scene.settings.data.originalScene);
+            this.scene.start('MenuScene');
         });
         
-        this.add.text(700, 200, 'Ajustes',{ 
+        this.add.text(700, 180, 'Nada que ver aqui',{ 
             fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
 
         

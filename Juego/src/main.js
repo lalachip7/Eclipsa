@@ -5,6 +5,11 @@ import { GameScene } from "./scenes/GameScene.js";
 import { PauseScene } from "./scenes/PauseScene.js";
 import { TutorialScene } from "./scenes/TutorialScene.js";
 import { CreditsScene } from "./scenes/CreditsScene.js";
+import { SettingsScene } from "./scenes/SettingsScene.js";
+import { LevelSelectScene } from "./scenes/LevelSelectScene.js";
+import { PlaceHolderScene } from "./scenes/PlaceHolderScene.js";
+
+
 
 const config = {
     type: Phaser.AUTO,
@@ -19,7 +24,7 @@ const config = {
         }
     },
 
-    scene: [MenuScene, TutorialScene, CreditsScene, GameScene, PauseScene],
+    scene: [MenuScene, TutorialScene, CreditsScene, GameScene, PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene],
     backgroundColor: '#021410ff',
 
 }    

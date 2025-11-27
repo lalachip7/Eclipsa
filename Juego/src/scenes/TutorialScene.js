@@ -10,14 +10,18 @@ export class TutorialScene extends Phaser.Scene {
         this.load.image('tutorialBox', 'assets/caja.png');
 
         // Imagenes de teclas
-        this.load.image('keys', 'assets/teclas3.png');
+        this.load.image('keys', 'assets/teclas.png');
 
         // Personajes
         this.load.image('solenneIcon', 'assets/personajeSolenne.png');
         this.load.image('niviaIcon', 'assets/personajeNivia.png');
 
         // Botón de salir (x)
+        this.load.image('ExitMinButton', 'assets/cerrar.png');
+        this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
+        // Texto del tutorial
+        this.load.image('TutorialText', 'assets/texto_tutorial.PNG');
     }
     create(){
         // dimensiones de la pantalla
@@ -49,21 +53,21 @@ export class TutorialScene extends Phaser.Scene {
             .setScale(0.75);
 
         // Botón de salir (x)
-        const settingsBtn = this.add.image(1069, 170, 'SettingsButton')
+        const ExitBtn = this.add.image(1069, 170, 'ExitMinButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
-        settingsBtn.on('pointerover', () => {
+        ExitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1075, 175, 'SettingsButtonHover')
+                hoverImg = this.add.image(1068, 170, 'ExitMinButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
-                    .setDepth(settingsBtn.depth + 1);
+                    .setScale(0.7)
+                    .setDepth(ExitBtn.depth + 1);
             }
         });
 
-        settingsBtn.on('pointerout', () => {
+        ExitBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
@@ -71,7 +75,7 @@ export class TutorialScene extends Phaser.Scene {
         });
 
         // Regresar a la escena original
-        settingsBtn.on('pointerdown', () => {
+        ExitBtn.on('pointerdown', () => {
             const original = this.scene.settings.data.originalScene;
             if (original) {
                 this.scene.resume(original); // reanuda PauseScene si fue la original
@@ -79,8 +83,7 @@ export class TutorialScene extends Phaser.Scene {
             this.scene.stop(); // cierra TutorialScene
         });
         
-        this.add.text(700, 200, 'Tutorial',{ 
-            fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
+        this.add.image(700, 210, 'TutorialText').setOrigin(0.5).setScale(1);
 
         
     }

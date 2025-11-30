@@ -14,25 +14,40 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        // Cargar el JSON del nivel (Tilemap)
-        //this.load.tilemapTiledJSON('level1', 'assets/levels/level1.json');
-        
-        // Cargar la imagen del Tileset
-        //this.load.image('level1', 'assets/Tilesets/level1.png'); 
-
-        // Cargar sprites de personajes y objetos
-        //this.load.image('nivia', 'assets/NiviaCaminar/Nivia_Caminar-1.png'); 
-        //this.load.image('solenne', 'assets/SolenneCaminar/Solenne_Caminar-1.png'); 
-        //this.load.image('moonCrystal', 'assets/Moondrop/Elements-1.png');
-        //this.load.image('sunCrystal', 'assets/Sundrop/Elements-1.png');
-        //this.load.image('metaPortal', 'assets/Moondrop/Elements-1.png');
-
+        // Carga de los personajes
         this.load.atlas('nivia', 'assets/nivia/nivia_sheet.png', 'assets/nivia/nivia_sheet.json');
         this.load.atlas('solenne', 'assets/solenne/solenne_sheet.png', 'assets/solenne/solenne_sheet.json');
        
+        // Carfga de los cristales
         this.load.spritesheet('sundrop_sheet', 'assets/items/sundrop.png', { frameWidth: 214, frameHeight: 206 });
         this.load.spritesheet('moondrop_sheet', 'assets/items/moondrop.png', { frameWidth: 214, frameHeight: 206 });
-        //this.load.image('metaPortal', 'assets/items/portal.png'); 
+
+        // Carga del fondo
+        this.load.image('fondo', 'assets/Escenario/Nivel1/fondo_abajo.png');
+        this.load.image('fondo', 'assets/Escenario/Nivel2/fondo_arriba.png');
+
+        // Carga de los elementos del escenario
+        this.load.image('plataformasNivel1', 'assets/Escenario/Nivel1/plataformas_abajo.png');
+        this.load.image('plataformasNivel2', 'assets/Escenario/Nivel2/plataformas_arriba.png');
+
+        this.load.image('puertaClaraNivel1', 'assets/Escenario/Nivel1/puerta_clara.png');
+        this.load.image('puertaOscuraNivel1', 'assets/Escenario/Nivel1/puerta_oscura.png');
+
+        this.load.image('puertaClara1Nivel2', 'assets/Escenario/Nivel2/puerta_clara1.png');
+        this.load.image('puertaClara2Nivel2', 'assets/Escenario/Nivel2/puerta_clara2.png');
+        this.load.image('puertaClara3Nivel2', 'assets/Escenario/Nivel2/puerta_clara3.png');
+        this.load.image('puertaOscura1Nivel2', 'assets/Escenario/Nivel2/puerta_oscura1.png');
+        this.load.image('puertaOscura2Nivel2', 'assets/Escenario/Nivel2/puerta_oscura2.png');
+
+        this.load.image('botonClaroNivel1', 'assets/Escenario/Nivel1/boton_claro.png');
+        this.load.image('botonOscuro1Nivel1', 'assets/Escenario/Nivel1/boton_oscuro.png');
+
+        this.load.image('botonNivel2', 'assets/Escenario/Nivel2/boton.png');
+        this.load.image('botonClaroNivel2', 'assets/Escenario/Nivel2/boton_claro.png');
+        this.load.image('botonOscuro1Nivel2', 'assets/Escenario/Nivel2/boton_oscuro1.png');
+        this.load.image('botonOscuro2Nivel2', 'assets/Escenario/Nivel2/boton_oscuro2.png');
+
+        this.load.image('portal', 'assets/Escenario/Nivel2/portal.png');
     }
 
     create() {
@@ -43,6 +58,9 @@ export class GameScene extends Phaser.Scene {
         const mapWidthInPixels = 1420;
         const mapHeightInPixels = 1600;
 
+        // Agregar fondo
+        this.add.image(mapWidthInPixels, mapHeightInPixels, 'fondo');
+        
         // Capas del nivel
         //const geometryLayer = map.createLayer('Geometry', tileset);
         //geometryLayer.setCollisionByProperty({ collides: true });

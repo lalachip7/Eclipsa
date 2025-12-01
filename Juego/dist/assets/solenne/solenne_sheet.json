@@ -34,7 +34,7 @@
         },
         {
             "filename": "jump_1",
-            "frame": { "x": 0, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 0, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -42,7 +42,7 @@
         },
         {
             "filename": "jump_2",
-            "frame": { "x": 347, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 347, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -50,7 +50,7 @@
         },
         {
             "filename": "jump_3",
-            "frame": { "x": 694, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 694, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -58,7 +58,7 @@
         },
         {
             "filename": "jump_4",
-            "frame": { "x": 1041, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 1041, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -66,7 +66,7 @@
         },
         {
             "filename": "jump_5",
-            "frame": { "x": 1388, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 1388, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -74,7 +74,7 @@
         },
         {
             "filename": "jump_6",
-            "frame": { "x": 1735, "y": 329, "w": 347, "h": 329 },
+            "frame": { "x": 1735, "y": 330, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -82,7 +82,7 @@
         },
         {
             "filename": "idle_1",
-            "frame": { "x": 0, "y": 658, "w": 347, "h": 329 },
+            "frame": { "x": 0, "y": 660, "w": 347, "h": 329 },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": { "x": 0, "y": 0, "w": 347, "h": 329 },
@@ -94,7 +94,7 @@
         "version": "1.0",
         "image": "nivia_sheet.png",
         "format": "RGBA8888",
-        "size": { "w": 2082, "h": 987 },
+        "size": { "w": 2082, "h": 1027 },
         "scale": "1"
     }
 }

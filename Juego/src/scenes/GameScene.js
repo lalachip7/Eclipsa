@@ -98,8 +98,8 @@ export class GameScene extends Phaser.Scene {
 
         // Creación de los objetos
         this.crystals = this.physics.add.group({allowGravity: false, immovable: true});
-        this.moonCrystal = this.crystals.create(200, 300, 'moondrop_sheet').setBodySize(32, 32);
-        this.sunCrystal = this.crystals.create(mapWidthInPixels - 200, 300, 'sundrop_sheet').setBodySize(32, 32);
+        this.moonCrystal = this.crystals.create(200, 300, 'moondrop_sheet').setBodySize(32, 32).setScale(0.5);
+        this.sunCrystal = this.crystals.create(mapWidthInPixels - 200, 300, 'sundrop_sheet').setBodySize(32, 32).setScale(0.5);
         //this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal').setBodySize(32, 32).setImmovable(true);
 
         //this.metaPortal = this.physics.add.sprite(mapWidthInPixels / 2, 50, 'metaPortal').setImmovable(true).setBodySize(64, 64);
@@ -147,6 +147,10 @@ export class GameScene extends Phaser.Scene {
          // Creación personajes
         this.nivia = this.physics.add.sprite(100, initialY, 'nivia').setBounce(0.2).setCollideWorldBounds(true);
         this.solenne = this.physics.add.sprite(100, initialY, 'solenne').setBounce(0.2).setCollideWorldBounds(true);
+
+        // Escalado de los personajes
+        this.nivia.setScale(0.5); 
+        this.solenne.setScale(0.5);
 
         // Controles de Nivia (Teclas WASD)
         this.niviaControls = this.input.keyboard.addKeys({

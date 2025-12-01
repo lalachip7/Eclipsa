@@ -58,6 +58,7 @@ export class LevelSelectScene extends Phaser.Scene {
 
         // Inicio Nivel 1
         LvlUnoBtn.on('pointerdown', () => {
+            this.scene.stop('MenuScene');
             this.scene.start('GameScene');
         });
 

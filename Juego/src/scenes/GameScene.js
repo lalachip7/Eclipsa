@@ -17,14 +17,14 @@ export class GameScene extends Phaser.Scene {
         // Carga de los personajes
         this.load.atlas('nivia', 'assets/nivia/nivia_sheet.png', 'assets/nivia/nivia_sheet.json');
         this.load.atlas('solenne', 'assets/solenne/solenne_sheet.png', 'assets/solenne/solenne_sheet.json');
-       
-        // Carfga de los cristales
+
+        // Carga de los cristales
         this.load.spritesheet('sundrop_sheet', 'assets/items/sundrop.png', { frameWidth: 214, frameHeight: 206 });
         this.load.spritesheet('moondrop_sheet', 'assets/items/moondrop.png', { frameWidth: 214, frameHeight: 206 });
 
         // Carga del fondo
-        this.load.image('fondo', 'assets/Escenario/Nivel1/fondo_abajo.png');
-        this.load.image('fondo', 'assets/Escenario/Nivel2/fondo_arriba.png');
+        this.load.image('fondo1', 'assets/Escenario/Nivel 1/fondo_abajo (1).png');
+        this.load.image('plataformas', 'assets/Escenario/Nivel 1/plataformas_abajo.png');
 
         // Carga de los elementos del escenario
         this.load.image('plataformasNivel1', 'assets/Escenario/Nivel1/plataformas_abajo.png');
@@ -56,10 +56,18 @@ export class GameScene extends Phaser.Scene {
         //const tileset = map.addTilesetImage('myTileset', 'level1');
 
         const mapWidthInPixels = 1420;
-        const mapHeightInPixels = 1600;
+        const mapHeightInPixels = 800;
 
         // Agregar fondo
-        this.add.image(mapWidthInPixels, mapHeightInPixels, 'fondo');
+        //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
+        //bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
+
+        const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
+        bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
+
+        const plataforma = this.add.image(0, 0, 'plataformas').setOrigin(0, 0);
+        plataforma.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
+
         
         // Capas del nivel
         //const geometryLayer = map.createLayer('Geometry', tileset);
@@ -81,8 +89,6 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.nivia, this.ground);
         this.physics.add.collider(this.solenne, this.ground);
 
-
-
         this.createAnimations('nivia');
         this.createAnimations('solenne');
 
@@ -91,23 +97,30 @@ export class GameScene extends Phaser.Scene {
         this.solenne.play('solenne_idle');
 
         // Creación de los objetos
-        this.crystals = this.physics.add.group();
-        this.moonCrystal = this.crystals.create(200, 300, 'moondrop_sheet').setBodySize(32, 32).setImmovable(true);
-        this.sunCrystal = this.crystals.create(mapWidthInPixels - 200, 300, 'sundrop_sheet').setBodySize(32, 32).setImmovable(true);
+        this.crystals = this.physics.add.group({allowGravity: false, immovable: true});
+        this.moonCrystal = this.crystals.create(200, 300, 'moondrop_sheet').setBodySize(32, 32);
+        this.sunCrystal = this.crystals.create(mapWidthInPixels - 200, 300, 'sundrop_sheet').setBodySize(32, 32);
         //this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal').setBodySize(32, 32).setImmovable(true);
 
         //this.metaPortal = this.physics.add.sprite(mapWidthInPixels / 2, 50, 'metaPortal').setImmovable(true).setBodySize(64, 64);
 
         // Animaciones de los objetos
         this.anims.create({
-            key: 'crystal_idle',
+            key: 'sundrop_idle',
             frames: this.anims.generateFrameNumbers('sundrop_sheet', { start: 0, end: 7 }),
-            frameRate: 6,
+            frameRate: 10,
             repeat: -1
         });
 
-        this.moonCrystal.play('crystal_idle');
-        this.sunCrystal.play('crystal_idle');
+        this.anims.create({
+            key: 'moondrop_idle',
+            frames: this.anims.generateFrameNumbers('moondrop_sheet', { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.moonCrystal.play('moondrop_idle');
+        this.sunCrystal.play('sundrop_idle');
 
         // Lógica de la recolección de cristales
         this.physics.add.overlap(this.nivia, this.moonCrystal, this.collectMoonCrystal, null, this);
@@ -160,6 +173,7 @@ export class GameScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+
 
         // Animación de salto
         this.anims.create({

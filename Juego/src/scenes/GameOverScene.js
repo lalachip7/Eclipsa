@@ -4,86 +4,100 @@ export class GameOverScene extends Phaser.Scene {
     constructor() {
         super('GameOverScene');
     }
-preload() {
-        // No es obligatorio si los assets ya se cargaron en otra escena,
-        // pero puedes descomentar y ajustar rutas si necesitas recargar:
+
+    preload() {
+        // Caja de fondo
+        this.load.image('CreditsBox', 'assets/caja.png');
+
+        // Texto Game Over
+        this.load.image('GameOverText', 'assets/texto_derrota.png');
+
+
+        // Botón de reiniciar nivel
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
-        this.load.image('ExitButton', 'assets/salir.png');
-        this.load.image('ExitButtonHover', 'assets/salirHover.png');
+        
+        // Botón de volver al menú principal
+        this.load.image('RetMenuButton', 'assets/menu.PNG');
+        this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
+
     }
-
-    create(data) {
-        // asegurar que la escena quede encima de GameScene
-        this.scene.bringToTop('GameOverScene');
-
+    create(){
+        // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
-        let hoverImg = null;
 
-        // Fondo semi-transparente (depth alto para garantizar visibilidad)
-        this.add.rectangle(0, 0, w, h, 0x070722, 0.8).setOrigin(0).setDepth(1000);
+        let hoverImg = null;    //referencia para la imagen hover
 
-        // Texto de victoria encima del fondo
-        this.add.text(w/2, h/2 - 120, 'bitch!', { fontSize: '64px', fill: '#ffffff' }).setOrigin(0.5).setDepth(1001);
+        // Rectángulo que cubre toda la pantalla
+        this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
 
-        // Botón reiniciar nivel
-        const restartBtn = this.add.image(w/2, h/2, 'RestartButton')
+        // Caja de fondo
+        this.add.image(700, 400, 'CreditsBox')
             .setOrigin(0.5)
-            .setScale(0.8)
-            .setInteractive({ useHandCursor: true });
+            .setScale(1);
 
-        restartBtn.on('pointerover', () => {
-            if (!hoverImg) {
-                hoverImg = this.add.image(w/2 - 12, h/2 + 10, 'RestartButtonHover')
-                    .setOrigin(0.5)
-                    .setScale(0.8)
-                    .setDepth(restartBtn.depth + 1);
-            }
-        });
+        // Texto game over
+        this.add.image(700, 240, 'GameOverText')
+            .setOrigin(0.5)
+            .setScale(1);
 
-        restartBtn.on('pointerout', () => {
-            if (hoverImg) {
-                hoverImg.destroy();
-                hoverImg = null;
-            }
-        });
 
-        restartBtn.on('pointerdown', () => {
-            const original = data?.originalScene || 'GameScene';
-            // Detener escena original y reiniciarla
-            this.scene.stop(original);
-            this.scene.start('GameScene');
-        });
-
-        // Botón volver al menú (opcional, usa asset ExitButton si existe)
-        const exitBtn = this.add.image(w/2, h/2 + 120, 'ExitMinButton')
+        // Reiniciar nivel
+        const restartbtn = this.add.image(705, 415, 'RestartButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
-        exitBtn.on('pointerover', () => {
+        restartbtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(w/2, h/2 + 120, 'ExitMinButtonHover')
+                hoverImg = this.add.image(693, 425, 'RestartButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.7)
-                    .setDepth(exitBtn.depth + 1);
+                    .setDepth(restartbtn.depth + 1);
             }
         });
 
-        exitBtn.on('pointerout', () => {
+        restartbtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
             }
         });
 
-        exitBtn.on('pointerdown', () => {
-            // Cierra la escena de juego pausada y vuelve al menú
-            const original = data?.originalScene;
-            if (original) this.scene.stop(original);
-            this.scene.stop();
+        restartbtn.on('pointerdown', () => {
+            const originalSceneKey = this.scene.settings.data.originalScene;
+            this.scene.stop(originalSceneKey);
+            this.scene.start('GameScene');
+        });
+
+        // Volver al menú principal
+        const menubtn = this.add.image(700, 515, 'RetMenuButton')
+            .setOrigin(0.5)
+            .setScale(0.7)
+            .setInteractive({ useHandCursor: true });
+
+        menubtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(698, 515, 'RetMenuButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.7)
+                    .setDepth(menubtn.depth + 1);
+            }
+        });
+
+        menubtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+        
+        menubtn.on('pointerdown', () => {
+            const originalSceneKey = this.scene.settings.data.originalScene;
+            this.scene.stop(originalSceneKey);
             this.scene.start('MenuScene');
+            this.scene.stop();
         });
     }
 }

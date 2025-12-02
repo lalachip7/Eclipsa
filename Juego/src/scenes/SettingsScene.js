@@ -10,10 +10,10 @@ export class SettingsScene extends Phaser.Scene {
         this.load.image('settingsBox', 'assets/caja.png');
 
         // Boton Volumen (+/-)
-        this.load.image('PlusVolumeButton', 'assets/ajustes.png');
-        this.load.image('PlusVolumeButtonHover', 'assets/ajustesHover.png');
-        this.load.image('MinusVolumeButton', 'assets/ajustes.png');
-        this.load.image('MinusVolumeButtonHover', 'assets/ajustesHover.png');
+        this.load.image('PlusVolumeButton', 'assets/mas.png');
+        this.load.image('PlusVolumeButtonHover', 'assets/masHover.png');
+        this.load.image('MinusVolumeButton', 'assets/menos.png');
+        this.load.image('MinusVolumeButtonHover', 'assets/menosHover.png');
 
         // Barras Volumen (rectangulos uno oscuro/apagados y otro claro/encendidos)
         this.load.image('VolumeBarOff', 'assets/boton_oscuro.png');
@@ -23,7 +23,7 @@ export class SettingsScene extends Phaser.Scene {
         this.load.image('ExitMinButton', 'assets/cerrar.png');
         this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
-        // Texto Pausa
+        // Texto Ajustes
         this.load.image('SettingsText', 'assets/texto_ajustes.png');
     }
     create(){
@@ -241,7 +241,7 @@ export class SettingsScene extends Phaser.Scene {
         
         minusVolumeBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(330, 500, 'MinusVolumeButtonHover')
+                hoverImg = this.add.image(335, 500, 'MinusVolumeButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.4)
             }

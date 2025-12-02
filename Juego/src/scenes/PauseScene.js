@@ -137,14 +137,14 @@ export class PauseScene extends Phaser.Scene {
         });
 
         // Volver al menú principal
-        const menubtn = this.add.image(700, 520, 'RetMenuButton')
+        const menubtn = this.add.image(700, 515, 'RetMenuButton')
             .setOrigin(0.5)
             .setScale(0.7)
             .setInteractive({ useHandCursor: true });
 
         menubtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(698, 520, 'RetMenuButtonHover')
+                hoverImg = this.add.image(698, 515, 'RetMenuButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.7)
                     .setDepth(menubtn.depth + 1);

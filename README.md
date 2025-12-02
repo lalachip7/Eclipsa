@@ -131,7 +131,8 @@ El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refl
 En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los árboles producen. También tiene ciertos acentos de colores rojos  que aportan contraste visual para marcar al jugador el peligro.
 
 En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
-
+![abajo_final](./Recursos/abajo_final.jpg)
+![arriba_Final](./Recursos/arriba_Final.jpg)
 
 
 ## 5.2.3. Ítems

@@ -91,7 +91,7 @@ export class GameScene extends Phaser.Scene {
 
         // Reproducir la música del juego
         if (this.cache.audio.exists('GameMusic')) {
-            this.sound.play('GameMusic', { loop: true, volume: 0.2});
+            this.sound.play('GameMusic', { loop: true, volume: 0.1});
         }
 
         // Agregar fondo

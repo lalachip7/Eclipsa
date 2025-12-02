@@ -13,6 +13,9 @@ export class GameScene extends Phaser.Scene {
         this.solenneHasSunCrystal = false;
         this.niviaOnPortal = false;
         this.solenneOnPortal = false;
+
+        this.isNiviaWalking = null;
+        this.isSolenneWalking = null;
     }
 
     preload() {
@@ -23,6 +26,9 @@ export class GameScene extends Phaser.Scene {
         // Carga de los cristales
         this.load.spritesheet('sundrop_sheet', 'assets/items/sundrop.png', { frameWidth: 214, frameHeight: 206 });
         this.load.spritesheet('moondrop_sheet', 'assets/items/moondrop.png', { frameWidth: 214, frameHeight: 206 });
+
+        this.load.spritesheet('sun_sheet', 'assets/items/sun.png', { frameWidth: 347, frameHeight: 329 });
+        this.load.spritesheet('moon_sheet', 'assets/items/moon.png', { frameWidth: 347, frameHeight: 329 });
 
         // Carga del fondo
         this.load.image('fondo1', 'assets/Escenario/Nivel1/fondo_abajo.png');
@@ -49,7 +55,14 @@ export class GameScene extends Phaser.Scene {
         this.load.image('botonOscuro1Nivel2', 'assets/Escenario/Nivel2/boton_oscuro1.png');
         this.load.image('botonOscuro2Nivel2', 'assets/Escenario/Nivel2/boton_oscuro2.png');
 
-        this.load.image('portal', 'assets/Escenario/Nivel1/portal1.png');
+        this.load.image('portal', 'assets/trampas/puertaFinal.png');
+
+        // Carga de los botones
+        this.load.image('PauseButton', 'assets/pausa.png');
+        this.load.image('PauseButtonHover', 'assets/pausaHover.png');
+
+        this.load.image('SettingsButton', 'assets/ajustes.png');
+        this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
 
         // Botón de reiniciar nivel
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
@@ -57,11 +70,18 @@ export class GameScene extends Phaser.Scene {
 
         //Daño
         this.load.image('damage', 'assets/trampas/lianas_plataforma.png')
+
+        // Efectos de sonido y música de fondo
+        this.load.audio('walkSound', 'assets/sonido/caminar.mp3');
+        this.load.audio('collectSunCrystalSound', 'assets/sonido/cristalClaro.mp3');
+        this.load.audio('collectMoonCrystalSound', 'assets/sonido/cristalOscuro.mp3');
     }
 
     create() {
         const mapWidthInPixels = 1420;
         const mapHeightInPixels = 800;
+
+        let hoverImg = null;
 
         // Agregar fondo
         //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
@@ -107,7 +127,7 @@ export class GameScene extends Phaser.Scene {
         this.pared2 = this.add.rectangle(900, 700, 200, 300, 0x322b1d).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.pared2, true);
 
-        this.exitPortal = this.physics.add.staticSprite(1000, 10, 'portal').setScale(0.5);
+        this.exitPortal = this.physics.add.staticSprite(1000, 10, 'portal').setScale(1);
         this.exitPortal.setVisible(false);
         this.physics.add.existing(this.exitPortal, true);
         this.exitPortal.body.enable = false;
@@ -164,6 +184,8 @@ export class GameScene extends Phaser.Scene {
 
         //this.metaPortal = this.physics.add.sprite(mapWidthInPixels / 2, 50, 'metaPortal').setImmovable(true).setBodySize(64, 64);
 
+
+
         // Animaciones de los objetos
         this.anims.create({
             key: 'sundrop_idle',
@@ -181,6 +203,38 @@ export class GameScene extends Phaser.Scene {
 
         this.moonCrystal.play('moondrop_idle');
         this.sunCrystal.play('sundrop_idle');
+
+        // Animación del Icono del Sol (HUD)
+        this.anims.create({
+            key: 'sun_hud_anim',
+            frames: this.anims.generateFrameNumbers('sun_sheet', { start: 0, end: 10 }), 
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Animación del Icono de la Luna (HUD)
+        this.anims.create({
+            key: 'moon_hud_anim',
+            frames: this.anims.generateFrameNumbers('moon_sheet', { start: 0, end: 10 }), 
+            frameRate: 8,
+            repeat: -1
+        });
+
+        // Indicador de Luna (Nivia) - Izquierda
+        this.moonHUD = this.add.sprite(this.cameras.main.centerX - 20, 40, 'moon_sheet')
+            .setScrollFactor(0)
+            .setScale(0.15) // Escala MUY reducida, ya que los spritesheets son grandes (347x329)
+            .setVisible(false) 
+            .setDepth(100)
+            .play('moon_hud_anim'); // Inicia la animación
+
+        // Indicador de Sol (Solenne) - Derecha
+        this.sunHUD = this.add.sprite(this.cameras.main.centerX + 20, 40, 'sun_sheet')
+            .setScrollFactor(0)
+            .setScale(0.15) // Escala MUY reducida
+            .setVisible(false) 
+            .setDepth(100)
+            .play('sun_hud_anim'); // Inicia la animación
 
         // Lógica de la recolección de cristales
         this.physics.add.overlap(this.nivia, this.moonCrystal, this.collectMoonCrystal, null, this);
@@ -210,6 +264,59 @@ export class GameScene extends Phaser.Scene {
             this.checkLevelComplete();
         });
 
+        // Botón de pausa
+        this.pauseButton = this.add.image(this.cameras.main.width - 40, 40, 'PauseButton')
+            .setScrollFactor(0) 
+            .setInteractive({ useHandCursor: true })
+            .setScale(0.5) 
+            .setDepth(100); 
+
+        this.pauseButton.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(this.cameras.main.width - 40, 40, 'PauseButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.5)
+                    .setDepth(this.pauseButton.depth + 1);
+            }
+        });
+
+        this.pauseButton.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
+        this.pauseButton.on('pointerdown', () => {
+            this.togglePause(); 
+        });
+
+        // Botón de ajustes
+        this.settingsButton = this.add.image(this.cameras.main.width - 120, 40, 'SettingsButton')
+            .setScrollFactor(0) 
+            .setInteractive({ useHandCursor: true })
+            .setScale(0.5) 
+            .setDepth(100); 
+
+        this.settingsButton.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(this.cameras.main.width - 120, 40, 'SettingsButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.5)
+                    .setDepth(this.settingsButton.depth + 1);
+            }
+        });
+
+        this.settingsButton.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
+        this.settingsButton.on('pointerdown', () => {
+            this.toggleSettings(); 
+        });
 
 
         this.events.on('update', () => {
@@ -246,8 +353,8 @@ export class GameScene extends Phaser.Scene {
         this.solenne.setOffset(110, 50);
 
         // Escalado de los personajes
-        this.nivia.setScale(0.7); 
-        this.solenne.setScale(0.7);
+        this.nivia.setScale(0.5); 
+        this.solenne.setScale(0.5);
 
         // Controles de Nivia (Teclas WASD)
         this.niviaControls = this.input.keyboard.addKeys({
@@ -310,6 +417,12 @@ export class GameScene extends Phaser.Scene {
         this.setPausedState(newPausedState);
     }
 
+    toggleSettings() {
+        this.scene.launch('SettingsScene'); 
+        this.scene.pause();
+    }
+
+
     update(){
         // Lógica de pausa con tecla ESC
         if(this.escKey.isDown){
@@ -370,9 +483,31 @@ export class GameScene extends Phaser.Scene {
     handlePlayerMovement(playerSprite, controls) {
         // Velocidad del movimiento
         const speed = 400;
-        const jumpVelocity = 800;
+        const jumpVelocity = 900;
         const key = playerSprite.texture.key;
+        const isMoving = controls.left.isDown || controls.right.isDown;
+        const isGrounded = playerSprite.body.blocked.down;
         let animkey = '';
+
+        // Lógica para reproducir el sonido de caminar
+       if (isMoving && isGrounded) {
+            if (key === 'nivia' && this.isNiviaWalking === null) {
+                this.isNiviaWalking = this.sound.add('walkSound', { loop: true, volume: 1 });
+                this.isNiviaWalking.play();
+            } else if (key === 'solenne' && this.isSolenneWalking === null) {
+                this.isSolenneWalking = this.sound.add('walkSound', { loop: true, volume: 1 });
+                this.isSolenneWalking.play();
+            }
+        } else {
+            // Detener el sonido si no se está moviendo o está saltando
+            if (key === 'nivia' && this.isNiviaWalking) {
+                this.isNiviaWalking.stop();
+                this.isNiviaWalking = null;
+            } else if (key === 'solenne' && this.isSolenneWalking) {
+                this.isSolenneWalking.stop();
+                this.isSolenneWalking = null;
+            }
+        }
 
         // Movimiento horizontal
         if (controls.left.isDown) {
@@ -419,6 +554,8 @@ export class GameScene extends Phaser.Scene {
     collectMoonCrystal(player, crystal) {
         crystal.disableBody(true, true);
         this.niviaHasMoonCrystal = true;
+        this.moonHUD.setVisible(true);
+        this.sound.play('collectMoonCrystalSound', { volume: 0.5 });
         console.log('Nivia ha recogido el Cristal de la Luna');
         this.unlockDarkDoor();
     }
@@ -426,6 +563,8 @@ export class GameScene extends Phaser.Scene {
     collectSunCrystal(player, crystal) {
         crystal.disableBody(true, true);
         this.solenneHasSunCrystal = true;
+        this.sunHUD.setVisible(true);
+        this.sound.play('collectSunCrystalSound', { volume: 0.5 });
         console.log('Solenne ha recogido el Cristal del Sol');
         this.unlockLightDoor();
     }

@@ -75,6 +75,9 @@ export class GameScene extends Phaser.Scene {
         this.load.audio('walkSound', 'assets/sonido/caminar.mp3');
         this.load.audio('collectSunCrystalSound', 'assets/sonido/cristalClaro.mp3');
         this.load.audio('collectMoonCrystalSound', 'assets/sonido/cristalOscuro.mp3');
+
+        // MÚSICA ESPECÍFICA DEL JUEGO
+        this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); // ajusta ruta si hace falta
     }
 
     create() {
@@ -82,6 +85,14 @@ export class GameScene extends Phaser.Scene {
         const mapHeightInPixels = 800;
 
         let hoverImg = null;
+
+        // Detener solo la música del menú si está sonando
+        this.sound.stopByKey('MenuMusic');
+
+        // Reproducir la música del juego
+        if (this.cache.audio.exists('GameMusic')) {
+            this.sound.play('GameMusic', { loop: true, volume: 0.2});
+        }
 
         // Agregar fondo
         //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
@@ -315,7 +326,7 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.settingsButton.on('pointerdown', () => {
-            this.toggleSettings(); 
+           this.scene.launch('SettingsScene');
         });
 
 
@@ -328,14 +339,12 @@ export class GameScene extends Phaser.Scene {
             }
         });
         this.physics.add.overlap(this.nivia, this.damage, () => {
-            const originalSceneKey = this.scene.settings.data.originalScene;
-            this.scene.stop(originalSceneKey);
-            this.scene.start('GameScene');
+            this.scene.launch('GameOverScene', { originalScene: this.scene.key });
+            this.scene.pause();
         });
         this.physics.add.overlap(this.solenne, this.damage, () => {
-            const originalSceneKey = this.scene.settings.data.originalScene;
-            this.scene.stop(originalSceneKey);
-            this.scene.start('GameScene');
+            this.scene.launch('GameOverScene', { originalScene: this.scene.key });
+            this.scene.pause();
         });
     }
 
@@ -598,8 +607,9 @@ export class GameScene extends Phaser.Scene {
     checkLevelComplete(player, portal) {
         // Los dos deben tocar el portal y tener sus respectivos cristales
         if (this.niviaOnPortal && this.solenneOnPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
-            this.endgame("¡Nivel Completado!");
-            // Aquí puedes agregar la lógica para avanzar al siguiente nivel o mostrar una pantalla de victoria
+            // Lanzar escena de victoria y pausar esta escena
+            this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+            this.scene.pause();
         }
     }
 

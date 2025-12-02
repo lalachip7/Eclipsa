@@ -33,6 +33,8 @@ export class MenuScene extends Phaser.Scene {
         this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
     }
     create() {
+        // Detener la música del juego si está sonando
+        this.sound.stopByKey('GameMusic');
 
         // Reproducir música del menú
         this.sound.play('MenuMusic', { loop: true, volume: this.sound.volume });

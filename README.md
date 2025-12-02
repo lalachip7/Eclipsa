@@ -188,7 +188,7 @@ Al pasar el cursor sobre un nivel, se iluminará con el mismo halo de luciérnag
 El tutorial se muestra como un guía rápida y visual de las reglas fundamentales del juego y está accesible desde el menú principal y el menú de pausa.
 Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
 
-![Pantalla de tutorial](./Recursos/pantallTutorial.png)
+![Pantalla de tutorial](./Recursos/pantallaTutorial.png)
 
 ### 6.1.4. Pantalla de créditos 
 Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.

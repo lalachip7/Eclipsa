@@ -7,11 +7,19 @@ export class LevelSelectScene extends Phaser.Scene {
 
     preload() {
         // Caja de fondo
-        this.load.image('GeneralBox', 'assets/caja.png');
+        this.load.image('LevelBox', 'assets/caja.png');
+
+        // Texto Niveles
+        this.load.image('LevelsText', 'assets/texto_niveles.png');
 
         // Boton de niveles
-        this.load.image('SettingsButton', 'assets/ajustes.png');
-        this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
+        // nivel 1
+        this.load.image('Level1Button', 'assets/nivel1.png');
+        this.load.image('Level1ButtonHover', 'assets/nivel1Hover.png');
+
+        // nivel 2
+        this.load.image('Level2Button', 'assets/Nivel2.png');
+        this.load.image('Level2ButtonHover', 'assets/Nivel2Hover.png');
 
         // Botón de salir (x)
         this.load.image('ExitMinButton', 'assets/cerrar.png');
@@ -29,22 +37,27 @@ export class LevelSelectScene extends Phaser.Scene {
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
 
         // Caja de fondo
-        this.add.image(700, 400, 'GeneralBox')
+        this.add.image(700, 400, 'LevelBox')
             .setOrigin(0.5)
-            .setScale(1.1);
+            .setScale(1);
+
+        // Texto Niveles
+        this.add.image(700, 210, 'LevelsText')
+            .setOrigin(0.5)
+            .setScale(1);
 
         // Selección de Niveles
             //Nivel 1
-        const LvlUnoBtn = this.add.image(400, 500, 'SettingsButton')
+        const LvlUnoBtn = this.add.image(510, 500, 'Level1Button')
             .setOrigin(0.5)
-            .setScale(0.7)
+            .setScale(1)
             .setInteractive({ useHandCursor: true });
 
         LvlUnoBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(400, 500, 'SettingsButtonHover')
+                hoverImg = this.add.image(520, 505, 'Level1ButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
+                    .setScale(1)
                     .setDepth(LvlUnoBtn.depth + 1);
             }
         });
@@ -63,16 +76,16 @@ export class LevelSelectScene extends Phaser.Scene {
         });
 
         //Placeholder
-        const LvlDosBtn = this.add.image(800, 500, 'SettingsButton')
+        const LvlDosBtn = this.add.image(880, 500, 'Level2Button')
             .setOrigin(0.5)
-            .setScale(0.7)
+            .setScale(1)
             .setInteractive({ useHandCursor: true });
 
         LvlDosBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(800, 500, 'SettingsButtonHover')
+                hoverImg = this.add.image(880, 500, 'Level2ButtonHover')
                     .setOrigin(0.5)
-                    .setScale(0.75)
+                    .setScale(1.05)
                     .setDepth(LvlDosBtn.depth + 1);
             }
         });
@@ -115,14 +128,10 @@ export class LevelSelectScene extends Phaser.Scene {
         ExitBtn.on('pointerdown', () => {
             const original = this.scene.settings.data.originalScene;
             if (original) {
-                this.scene.resume(original); // reanuda PauseScene si fue la original
+                this.scene.resume(original); 
             }
-            this.scene.stop(); // cierra TutorialScene
+            this.scene.stop(); 
         });
-        
-        this.add.text(700, 180, 'Selecciona un Nivel',{ 
-            fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
-
         
     }
 }

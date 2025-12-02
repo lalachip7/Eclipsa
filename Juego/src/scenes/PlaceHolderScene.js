@@ -27,7 +27,7 @@ export class PlaceHolderScene extends Phaser.Scene {
         // Caja de fondo
         this.add.image(700, 400, 'tutorialBox')
             .setOrigin(0.5)
-            .setScale(1.4);
+            .setScale(1);
 
         // Botón de salir (x)
         const exitBtn = this.add.image(700, 670, 'ExitButton')

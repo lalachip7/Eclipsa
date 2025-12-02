@@ -55,6 +55,9 @@ export class GameScene extends Phaser.Scene {
         // Botón de reiniciar nivel
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
+
+        //Daño
+        this.load.image('damage', 'assets/trampas/lianas plataforma.png')
     }
 
     create() {
@@ -131,6 +134,7 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.existing(this.lightDoor1Hitbox, true);
 
         // daño placeholder
+        this.trampa = this.physics.add.staticSprite(450, 100, 'damage').setScale(0.5);
         this.damage = this.add.rectangle(450, 100, 60, 60, 0x33ff00).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.damage, true);
 

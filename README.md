@@ -145,23 +145,15 @@ Un círculo radiante rodeado de otro círculo difuminado para dar la sensación 
 
 
 ## 5.3. Música 
+
 ## 5.3.1. Banda sonora
+En el juego se utilizan dos canciones, una para el menú de inicio y otra para cuando se esta jugando. En el menú de inicio se escucha la canción, lost-worlds-adventures por makesoundmusic. Esta contiene instrumentos de viento suaves y voces melódicas que evocan una emoción de nuevos comienzos y a la vez, da la sensación de un etorno místico. Por otro lado, en el juego se encuentra la canción carelessness, también por makesoundmusic. Esta tiene un tono mas alegre que la anterior, pero sigue utilizando esos instrumentos de vientos suaves, manteniendo la homogeneidad musical a lo largo del juego.
+
 La banda sonora del videojuego busca reflejar la conexión entre la naturaleza, la luz y la oscuridad. Se componen de piezas que crean un ambiente melódico que acompaña el ritmo del jugador, creando una experiencia envolvente. El objetivo es que la música que esté en armonía con el entorno y los personajes. 
 Los instrumentos que se usarán serán cuerdas suaves, percusión ligera y flautas mezclados con sintetizadores para representar la unión de la naturaleza con lo etéreo.
 
 ## 5.3.2. Efectos de audio
-Los efectos de sonido ayudarán a reforzar la inmersión del jugador y comunicar lo que está pasando en pantalla de manera sonora. Todo diseño sonoro busca mantener la sensación de naturaleza y orgánica, mezclando los sonidos más sintéticos de cuando coges los ítems o avanzas con los puzles.
-
-Algunos de estos efectos ambientales son:
-* Sonido del viento en las hojas.
-* El crujido de las hojas y el césped al andar o caer.
-* Crujido suave de ramas.
-
-Los efectos al interactuar con el ambiente son:
-* Desactivación puerta de luz mediante tonos ascendentes.
-* Desactivación puerta de luz mediante ecos profundos.
-* Efecto sonoro al recolectar ítems.
-* Sutil armonía al colaborar y avanzar con los puzles.
+Los efectos de sonido ayudarán a reforzar la inmersión del jugador y comunicar lo que está pasando en pantalla de manera sonora. Todo diseño sonoro busca mantener la sensación de naturaleza y orgánica, mezclando los sonidos más sintéticos de cuando coges los ítems o avanzas con los puzles. En el juego podemos encontrar efectos de sonido cuando se recoge el moondrop y el sundrop. El primero hace un sonido de vacío frente al sonido de destello del segundo. Además se incluyo el sonido de los personajes al caminar por el césped.
 
 # 6. Interfaz
 La UI y el HUD de Eclipsa se diseñarán para ser mínimos, funcionales y altamente inmersivos. Se evitarán barras de salud o contadores innecesarios, ya que el juego se centra en el puzle y la muerte es instantánea por contacto con el elemento opuesto. 

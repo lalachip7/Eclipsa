@@ -13,7 +13,6 @@ export class GameScene extends Phaser.Scene {
         this.solenneHasSunCrystal = false;
         this.niviaOnPortal = false;
         this.solenneOnPortal = false;
-
     }
 
     preload() {
@@ -26,7 +25,7 @@ export class GameScene extends Phaser.Scene {
         this.load.spritesheet('moondrop_sheet', 'assets/items/moondrop.png', { frameWidth: 214, frameHeight: 206 });
 
         // Carga del fondo
-        this.load.image('fondo1', 'assets/Escenario/Nivel1/fondo_abajo (1).png');
+        this.load.image('fondo1', 'assets/Escenario/Nivel1/fondo_abajo.png');
         this.load.image('plataformas', 'assets/Escenario/Nivel1/plataformas_abajo.png');
 
         // Carga de los elementos del escenario
@@ -57,14 +56,10 @@ export class GameScene extends Phaser.Scene {
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
 
         //Daño
-        this.load.image('damage', 'assets/trampas/lianas plataforma.png')
+        this.load.image('damage', 'assets/trampas/lianas_plataforma.png')
     }
 
     create() {
-        // Configuración del tilemap
-        //const map = this.make.tilemap({ key: 'level1' });
-        //const tileset = map.addTilesetImage('myTileset', 'level1');
-
         const mapWidthInPixels = 1420;
         const mapHeightInPixels = 800;
 
@@ -77,12 +72,6 @@ export class GameScene extends Phaser.Scene {
 
         const plataforma = this.add.image(0, 0, 'plataformas').setOrigin(0, 0);
         plataforma.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
-
-
-        
-        // Capas del nivel
-        //const geometryLayer = map.createLayer('Geometry', tileset);
-        //geometryLayer.setCollisionByProperty({ collides: true });
 
         // Configuración de la física del mundo
         this.physics.world.gravity.y = 1500;
@@ -138,7 +127,6 @@ export class GameScene extends Phaser.Scene {
         this.damage = this.add.rectangle(450, 100, 60, 60, 0x33ff00).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.damage, true);
 
-
         // Colisiones entre personajes y el suelo y plataformas
         this.physics.add.collider(this.nivia, this.ground);
         this.physics.add.collider(this.solenne, this.ground);
@@ -160,7 +148,6 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.solenne, this.lightDoor1Hitbox);
         this.physics.add.collider(this.nivia, this.darkDoor1Hitbox);
         this.physics.add.collider(this.solenne, this.darkDoor1Hitbox);
-
 
         this.createAnimations('nivia');
         this.createAnimations('solenne');

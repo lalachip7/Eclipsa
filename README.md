@@ -123,6 +123,8 @@ Solenne personifica la luz. Su diseño tiene formas redondas y suaves que contra
 
 ![Nivia_Solenne](./Recursos/Nivia_Solenne.jpg)
 ![Nivia_Solenne_Color](./Recursos/Nivia_Solenne_Color.png)
+![Nivia_spritesheet](./Recursos/nivia_sheet.png)
+![Solenne_spritesheet](./Recursos/solenne_sheet.png)
 
 ## 5.2.2. Entornos
 El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refleja el contraste entre la luz y la oscuridad. Es un entorno lleno de vida, niebla y misterio, donde los rayos del sol solo atraviesan ciertas áreas, creando zonas de luz y oscuridad. Aquí, Solenne y Nivia comienzan a comprender que solo trabajando juntas pueden avanzar: la luz revela caminos ocultos, mientras que la sombra permite cruzar lugares donde la energía solar resulta peligrosa.
@@ -130,6 +132,8 @@ El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refl
 En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los árboles producen. También tiene ciertos acentos de colores rojos  que aportan contraste visual para marcar al jugador el peligro.
 
 En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
+
+
 
 ## 5.2.3. Ítems
 El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los personajes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para progresar en el nivel se tendrá que recuperar pequeños cristales que habilitarán nuevas secciones en el mapa. Por otro lado, para avanzar de nivel los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
@@ -142,6 +146,10 @@ Un círculo radiante rodeado de otro círculo difuminado para dar la sensación 
 
 ![Sol_Luna_bocetos](./Recursos/Sol_Luna_bocetos.jpg)
 ![Moondrop_Sundrop](./Recursos/Moondrop_Sundrop.png)
+![Sol](./Recursos/sol.png)
+![Luna](./Recursos/luna.png)
+![Sundrop](./Recursos/sundrop.png)
+![Moondrop](./Recursos/moondrop.png)
 
 
 ## 5.3. Música 
@@ -165,22 +173,28 @@ El fondo es una instantánea del bosque oscuro, donde se muestra a los dos prota
 En cuando a la tipografía, el título utiliza una fuente minimalista y desordenada, con un efecto de brillo, y las opciones del menú principal, usan una fuente rúnica clara, dispuesta como si fueran runas flotando sobre una placa de piedra oscura. 
 Además, al pasar el ratón o el cursor, la opción seleccionada se iluminará con un halo de luciérnagas.
 
-![Pantalla de incio](./Recursos/Pantalla_de_inicio.PNG)
+![Boceto pantalla de incio](./Recursos/Pantalla_de_inicio.PNG)
+![Pantalla de incio](./Recursos/pantallaDeInicio.png)
+
 
 ### 6.1.2. Pantalla de selección de nivel 
 Se muestra un diagrama de constelaciones donde cada nivel es un punto brillante en el mapa, conectada por líneas de luz. Los niveles completados se muestran con un símbolo de sol y luna unidos (el Eclipse).
 Al pasar el cursor sobre un nivel, se iluminará con el mismo halo de luciérnagas.
 
-![Pantalla de selección de nivel](./Recursos/Pantalla_seleccion_nivel.PNG)
+![Boceto pantalla de selección de nivel](./Recursos/Pantalla_seleccion_nivel.PNG)
+![Pantalla de selección de nivel](./Recursos/pantallaSeleccionNivel.png)
 
 ### 6.1.3. Pantalla del tutorial 
 El tutorial se muestra como un guía rápida y visual de las reglas fundamentales del juego y está accesible desde el menú principal y el menú de pausa.
 Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
 
+![Pantalla de tutorial](./Recursos/pantallTutorial.png)
+
 ### 6.1.4. Pantalla de créditos 
 Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.
 
-![Pantalla de créditos](./Recursos/Pantalla_de_creditos.PNG)
+![Boceto pantalla de créditos](./Recursos/Pantalla_de_creditos.PNG)
+![Pantalla de créditos](./Recursos/pantallaCreditos.png)
 
 ### 6.1.5. Pantalla del juego 
 El HUD se mantendrá lo más despejado posible para no interferir con la resolución de puzles. 
@@ -194,19 +208,26 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 * **Oscuridad:** la pantalla se satura más en tonos azules/negros, y los objetos visibles solo en la oscuridad se vuelven ligeramente traslúcidos y con contornos rúnicos.
 * **Luz:** la pantalla se vuelve más brillante y cálida, y los objetos visibles solo en la luz se destacan con un halo suave y blanco.
 
-![Pantalla del juego](./Recursos/Pantalla_juego.PNG)
+![Boceto pantalla del juego](./Recursos/Pantalla_juego.PNG)
+![Pantalla de nivel 1](./Recursos/pantallaNivel1.png)
+![Pantalla de nivel 2](./Recursos/pantallaNivel2.png)
 
 ### 6.1.6. Pantalla de game over 
 * **Si se ha completado el nivel:** Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aparecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.
 * **Si uno de los personajes muere:** La pantalla se desvanece hacia un blanco cegador (si Nivia muere) o una oscuridad profunda y penetrante (si Solenne muere). Este efecto visual y de sonido enfatiza la ruptura del equilibrio. Aparece un texto flotante que dice "El equilibrio se ha roto" y las opciones para reiniciar el nivel o volver a la selección de nivel.
 * **Si se acaba el tiempo:** Se muestra una imagen estática del bosque en desequilibrio, un texto flotante que dice "Se os ha acabado el tiempo" y las opciones para reiniciar el nivel o volver a la selección de nivel. 
 
+![Pantalla de victoria](./Recursos/pantallaVictoria.png)
+![Pantalla de derrota](./Recursos/pantallaDerrota.png)
+
 ### 6.1.7. Pantalla de pausa y opciones 
 El menú aparece como una superposición semitransparente sobre el juego. 
 Aparecen los botones para: reanudar, reiniciar el nivel, acceder a las opciones y volver al menú principal. 
 El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentrada para los botones y deslizadores. 
 
-![Pantalla de opciones](./Recursos/Pantalla_ajustes.PNG)
+![Boceto pantalla de opciones](./Recursos/Pantalla_ajustes.PNG)
+![Pantalla de opciones](./Recursos/pantallaAjustes.png)
+![Pantalla de pausa](./Recursos/pantallaPausa.png)
 
 ## 6.2. Diagrama de flujo 
 El diagrama de flujo que se muestra a continuación ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.

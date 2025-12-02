@@ -131,9 +131,8 @@ El juego se desarrolla en el Bosque Eclipse, un espacio donde la naturaleza refl
 En la paleta de colores dominan los verdes profundos, representando la vegetación, el musgo, las hojas… con azules oscuros, para dar la sensación de profundidad y oscuridad que los árboles producen. También tiene ciertos acentos de colores rojos  que aportan contraste visual para marcar al jugador el peligro.
 
 En el escenario se puede encontrar plataformas naturales de tierra y cubiertas de césped que ayudan al jugador a escalar por el mapa y arboles por los que el jugador puede trepar usando sus ramas. Además, el jugador puede descubrir cuevas semi escondidas, que albergan secretos.
-![abajo_final](./Recursos/abajo_final.jpg)
-![arriba_Final](./Recursos/arriba_Final.jpg)
-
+![Pantalla de nivel 1](./Recursos/pantallaNivel1.jpg)
+![Pantalla de nivel 2](./Recursos/pantallaNivel2.jpg)
 
 ## 5.2.3. Ítems
 El juego presenta dos ítems principales que representan los aspectos de luz y oscuridad. Los ítems siguen el mismo enfoque minimalista de los personajes y escenarios, usando color sólido sin lineart, formas claras y reconocibles. Para progresar en el nivel se tendrá que recuperar pequeños cristales que habilitarán nuevas secciones en el mapa. Por otro lado, para avanzar de nivel los jugadores deben de recuperar ambos ítems, la luna y el sol. Una vez reunidos, se combinan para formar un eclipse, símbolo visual de armonía entre luz y oscuridad. 
@@ -209,8 +208,7 @@ Cuando un personaje active un interruptor que cambie la iluminación del nivel, 
 * **Luz:** la pantalla se vuelve más brillante y cálida, y los objetos visibles solo en la luz se destacan con un halo suave y blanco.
 
 ![Boceto pantalla del juego](./Recursos/Pantalla_juego.PNG)
-![Pantalla de nivel 1](./Recursos/pantallaNivel1.png)
-![Pantalla de nivel 2](./Recursos/pantallaNivel2.png)
+
 
 ### 6.1.6. Pantalla de game over 
 * **Si se ha completado el nivel:** Aparece una animación en la que el sol y la luna se mueven el uno hacia el otro, formando el Eclipse, y aparecen los resultados (tiempo total transcurrido, puntuación...) y opciones para reintentar o volver a la selección de nivel.

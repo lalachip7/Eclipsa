@@ -419,7 +419,7 @@ export class GameScene extends Phaser.Scene {
 
     toggleSettings() {
         this.scene.launch('SettingsScene'); 
-        this.scene.pause();
+        //this.scene.pause();
     }
 
 

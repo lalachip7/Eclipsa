@@ -10,6 +10,7 @@ import { LevelSelectScene } from "./scenes/LevelSelectScene.js";
 import { PlaceHolderScene } from "./scenes/PlaceHolderScene.js";
 import { VictoryScene } from "./scenes/VictoryScene.js";
 import { GameOverScene } from "./scenes/GameOverScene.js";
+import { Level2Scene } from "./scenes/Level2Scene.js";
 
 
 
@@ -26,9 +27,8 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, GameScene, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene],
+    scene: [ MenuScene, Level2Scene, GameScene,  TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene],
     backgroundColor: '#021410ff',
-
 }    
 
 const game = new Phaser.Game(config);

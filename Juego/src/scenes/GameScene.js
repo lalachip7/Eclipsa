@@ -112,7 +112,7 @@ export class GameScene extends Phaser.Scene {
 
 
         // TEMPORAL: Crear un suelo simple para que puedan saltar y caer
-        this.ground = this.add.rectangle(0, mapHeightInPixels - 50, mapWidthInPixels, 40, 0x00FF00, 0).setOrigin(0, 0);
+        this.ground = this.add.rectangle(0, mapHeightInPixels, mapWidthInPixels, 10, 0x00FF00, 0).setOrigin(0, 0);
         this.physics.add.existing(this.ground, true); // true = estático
 
         //Creación de las plataformas
@@ -176,8 +176,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.nivia, this.pared2);
         this.physics.add.collider(this.solenne, this.pared2);
         this.physics.add.collider(this.nivia, this.lightDoor1Hitbox);
-        this.physics.add.collider(this.solenne, this.lightDoor1Hitbox);
-        this.physics.add.collider(this.nivia, this.darkDoor1Hitbox);
+        //this.physics.add.collider(this.solenne, this.lightDoor1Hitbox);
+        //this.physics.add.collider(this.nivia, this.darkDoor1Hitbox);
         this.physics.add.collider(this.solenne, this.darkDoor1Hitbox);
 
         this.createAnimations('nivia');

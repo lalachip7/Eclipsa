@@ -99,6 +99,7 @@ export class LevelSelectScene extends Phaser.Scene {
 
         // Placeholder lvl
         LvlDosBtn.on('pointerdown', () => {
+            this.scene.stop('MenuScene');
             this.scene.start('Level2Scene');
         });
 

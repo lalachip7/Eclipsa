@@ -69,7 +69,7 @@ export class GameScene extends Phaser.Scene {
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
 
         //Daño
-        this.load.image('damage', 'assets/trampas/lianas_plataforma.png')
+        this.load.image('damage', 'assets/trampas/lianas_plataformas.png')
 
         // Efectos de sonido y música de fondo
         this.load.audio('walkSound', 'assets/sonido/caminar.mp3');
@@ -116,26 +116,26 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.existing(this.ground, true); // true = estático
 
         //Creación de las plataformas
-        this.plataforma1 = this.add.rectangle(200, 480, 300, 20, 0x322b1d).setOrigin(0.5, 0.5);
+        this.plataforma1 = this.add.rectangle(200, 480, 300, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.plataforma1, true);
 
-        this.plataforma2 = this.add.rectangle(600, 480, 150, 20, 0x322b1d).setOrigin(0.5, 0.5);
+        this.plataforma2 = this.add.rectangle(575, 480, 150, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.plataforma2, true);
 
-        this.plataforma3 = this.add.rectangle(1000, 550, 400, 20, 0x322b1d).setOrigin(0.5, 0.5);
+        this.plataforma3 = this.add.rectangle(1000, 550, 400, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.plataforma3, true);
 
-        this.plataforma4 = this.add.rectangle(300, 150, 200, 20, 0x322b1d).setOrigin(0.5, 0.5);
+        this.plataforma4 = this.add.rectangle(300, 150, 200, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.plataforma4, true);
 
-        this.plataforma5 = this.add.rectangle(875, 300, 150, 20, 0x322b1d).setOrigin(0.5, 0.5);
+        this.plataforma5 = this.add.rectangle(875, 275, 150, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.plataforma5, true);
 
 
-        this.pared1 = this.add.rectangle(400, 50, 20, 200, 0x322b1d).setOrigin(0.5, 0.5);
+        this.pared1 = this.add.rectangle(400, 50, 20, 200, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.pared1, true);
 
-        this.pared2 = this.add.rectangle(900, 700, 200, 300, 0x322b1d).setOrigin(0.5, 0.5);
+        this.pared2 = this.add.rectangle(900, 700, 200, 300, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.pared2, true);
 
         this.exitPortal = this.physics.add.staticSprite(1000, 10, 'portal').setScale(1);
@@ -154,8 +154,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.existing(this.lightDoor1Hitbox, true);
 
         // daño placeholder
-        this.trampa = this.physics.add.staticSprite(450, 100, 'damage').setScale(0.5);
-        this.damage = this.add.rectangle(450, 100, 60, 60, 0x33ff00).setOrigin(0.5, 0.5);
+        this.trampa = this.physics.add.staticSprite(450, 150, 'damage').setScale(0.5);
+        this.damage = this.add.rectangle(480, 100, 100, 60, 0x33ff00, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.damage, true);
 
         // Colisiones entre personajes y el suelo y plataformas

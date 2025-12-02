@@ -6,6 +6,9 @@ export class MenuScene extends Phaser.Scene {
     }
 
     preload() {
+        // Música de fondo del menú
+        this.load.audio('MenuMusic', 'assets/sonido/inicio.mp3');
+
         // fondo del menú
         this.load.image('Pantalla_de_inicio', 'assets/fondo_pantalla_inicio.png');
 
@@ -30,6 +33,10 @@ export class MenuScene extends Phaser.Scene {
         this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
     }
     create() {
+
+        // Reproducir música del menú
+        this.sound.play('MenuMusic', { loop: true, volume: this.sound.volume });
+
         // Fondo del menú
         const bg = this.add.image(0, 0, 'Pantalla_de_inicio').setOrigin(0);
         bg.setDisplaySize(this.scale.width, this.scale.height);

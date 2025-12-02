@@ -24,16 +24,16 @@ export class SettingsScene extends Phaser.Scene {
         this.load.image('ExitMinButton', 'assets/cerrar.png');
         this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
+        this.load
     }
     create(){
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
 
-        // Volumen
-        
-        //let volume = this.scene.sound.volume;
-        let volume = 60;
+        // Volumen - CAMBIAR ESTA LÍNEA
+        let volume = this.sound.volume * 100; // Convertir de 0-1 a 0-100
+        //let volume = 60;
         //if(volume > 100) volume = 100;
 		//else if(volume < 0) volume = 0;
 
@@ -155,9 +155,11 @@ export class SettingsScene extends Phaser.Scene {
         plusVolumeBtn.on('pointerdown', () => {
             volume += 20;
             if(volume > 100) volume = 100;
-		    else if(volume < 0) volume = 0;
+            else if(volume < 0) volume = 0;
 
-            //this.scene.sound.setVolume(volume);
+            // Aplica el volumen a TODA la música que está sonando
+            this.sound.setVolume(volume / 100); // Convertir de 0-100 a 0-1
+            
 		    this.volumeText.destroy();
             this.volumeText = this.add.text(700, 300, volume,{ 
             fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
@@ -234,7 +236,8 @@ export class SettingsScene extends Phaser.Scene {
             if(volume > 100) volume = 100;
 		    else if(volume < 0) volume = 0;
 
-            //this.scene.sound.setVolume(volume);
+            this.sound.setVolume(volume / 100); // Convertir de 0-100 a 0-1
+            
             this.volumeText.destroy();
 		    this.volumeText = this.add.text(700, 300, volume,{ 
             fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);

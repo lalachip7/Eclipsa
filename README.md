@@ -65,7 +65,6 @@ Estas mecánicas sirven en conjunto para crear una experiencia multijugador comp
 Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
 
 ![diseño_de_niveles](./Recursos/diseño_de_niveles.jpeg)
-![nivel_11](./Recursos/nivel_11.jpeg)
 
 ## 3.4. Controles y físicas
 Las físicas del entorno son realistas: hay una gravedad constante, los ítems y obstáculos tienen peso y no se pueden atravesar, pero los saltos de los personajes se deberán sentir largos para el jugador. Como la temática del juego se centra en lo mágico e iluminado, habrá objetos flotantes, y el movimiento de los personajes se siente ligero y etéreo.

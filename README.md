@@ -62,7 +62,7 @@ El juego se centra en la naturaleza complementaria de la Luz y Oscuridad, con í
 Estas mecánicas sirven en conjunto para crear una experiencia multijugador compleja, que fomenta una comunicación y planificación entre los jugadores, y que también exige una destreza de navegación y movimiento para alcanzar el objetivo. 
 
 ## 3.3. Escenario
-Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara, a excepción de los niveles que contengan varios cuartos. En este caso, ambos jugadores deben salir del cuarto para avanzar al siguiente, pero permaneciendo con la cámara estática. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
+Los niveles serán niveles 2D, pero con una cámara estática que cubre todo el entorno. El desplazamiento de los personajes no afecta la cámara. Los niveles están ambientados en un bosque, con las plataformas parecidas a ramas y tierra, y con los elementos de juego interactivos más cercanos al diseño de Luz y Oscuridad de los personajes. 
 
 ![diseño_de_niveles](./Recursos/diseño_de_niveles.jpeg)
 ![nivel_11](./Recursos/nivel_11.jpeg)

@@ -27,7 +27,7 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, Level2Scene, GameScene,  TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene],
+    scene: [ MenuScene, GameScene, Level2Scene,   TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene],
     backgroundColor: '#021410ff',
 }    
 

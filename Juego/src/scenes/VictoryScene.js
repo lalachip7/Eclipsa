@@ -68,7 +68,10 @@ export class VictoryScene extends Phaser.Scene {
 
         // Ir al segundo nivel
         nextLevelbtn.on('pointerdown', () => {
-            this.scene.stop('GameScene');
+            const originalSceneKey = this.scene.settings.data.originalScene;
+            console.log("Original scene being removed:", originalSceneKey);
+            this.scene.stop(originalSceneKey);
+            this.scene.stop();
             this.scene.start('Level2Scene');
         });
 
@@ -97,7 +100,7 @@ export class VictoryScene extends Phaser.Scene {
         restartbtn.on('pointerdown', () => {
             const originalSceneKey = this.scene.settings.data.originalScene;
             this.scene.stop(originalSceneKey);
-            this.scene.start('GameScene');
+            this.scene.start(originalSceneKey);
         });
 
         // Volver al menú principal
@@ -123,10 +126,17 @@ export class VictoryScene extends Phaser.Scene {
         });
         
         menubtn.on('pointerdown', () => {
-            const originalSceneKey = this.scene.settings.data.originalScene;
-            this.scene.stop(originalSceneKey);
-            this.scene.start('MenuScene');
+            // Get all scenes
+            const scenes = this.game.scene.keys;
+
+            for (let key in scenes) {
+                if (key !== 'MenuScene') {
+                    this.scene.stop(key);
+                }
+            }
             this.scene.stop();
+            this.scene.start('MenuScene');
+
         });
     }
 }

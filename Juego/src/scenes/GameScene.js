@@ -31,12 +31,10 @@ export class GameScene extends Phaser.Scene {
         this.load.spritesheet('moon_sheet', 'assets/items/moon.png', { frameWidth: 347, frameHeight: 329 });
 
         // Carga del fondo
-        this.load.image('fondo1', 'assets/Escenario/Nivel1/fondo_abajo.png');
+        this.load.image('fondo', 'assets/Escenario/Nivel1/fondo_abajo.png');
         this.load.image('plataformas', 'assets/Escenario/Nivel1/plataformas_abajo.png');
 
         // Carga de los elementos del escenario
-        this.load.image('plataformasNivel1', 'assets/Escenario/Nivel1/plataformas_abajo.png');
-        this.load.image('plataformasNivel2', 'assets/Escenario/Nivel2/plataformas_arriba.png');
 
         this.load.image('puertaClaraNivel1', 'assets/Escenario/Nivel1/puerta_clara.png');
         this.load.image('puertaOscuraNivel1', 'assets/Escenario/Nivel1/puerta_oscura.png');
@@ -98,10 +96,10 @@ export class GameScene extends Phaser.Scene {
         //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
         //bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
-        const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
+        const bg = this.physics.add.staticSprite(0, 0, 'fondo').setOrigin(0, 0);
         bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
-        const plataforma = this.add.image(0, 0, 'plataformas').setOrigin(0, 0);
+        const plataforma = this.physics.add.staticSprite(0, 0, 'plataformas').setOrigin(0, 0);
         plataforma.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
         // Configuración de la física del mundo
@@ -609,7 +607,6 @@ export class GameScene extends Phaser.Scene {
         if (this.niviaOnPortal && this.solenneOnPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
             // Lanzar escena de victoria y pausar esta escena
             this.scene.launch('VictoryScene', { originalScene: this.scene.key });
-            this.scene.pause();
         }
     }
 

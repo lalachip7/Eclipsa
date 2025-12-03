@@ -72,6 +72,7 @@ export class LevelSelectScene extends Phaser.Scene {
         // Inicio Nivel 1
         LvlUnoBtn.on('pointerdown', () => {
             this.scene.stop('MenuScene');
+            this.scene.stop();
             this.scene.start('GameScene');
         });
 
@@ -97,9 +98,10 @@ export class LevelSelectScene extends Phaser.Scene {
             }
         });
 
-        // Placeholder lvl
+        // Lvl2
         LvlDosBtn.on('pointerdown', () => {
             this.scene.stop('MenuScene');
+            this.scene.stop();
             this.scene.start('Level2Scene');
         });
 

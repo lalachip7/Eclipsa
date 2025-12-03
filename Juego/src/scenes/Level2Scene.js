@@ -32,14 +32,10 @@ export class Level2Scene extends Phaser.Scene {
 
         // Carga del fondo
         this.load.image('fondo1', 'assets/Escenario/Nivel2/fondo_arriba.png');
-        this.load.image('plataformas', 'assets/Escenario/Nivel2/plataformas_arriba.png');
+        this.load.image('plataformas1', 'assets/Escenario/Nivel2/plataformas_arriba.png');
 
         // Carga de los elementos del escenario
-        this.load.image('plataformasNivel1', 'assets/Escenario/Nivel1/plataformas_abajo.png');
         this.load.image('plataformasNivel2', 'assets/Escenario/Nivel2/plataformas_arriba.png');
-
-        this.load.image('puertaClaraNivel1', 'assets/Escenario/Nivel1/puerta_clara.png');
-        this.load.image('puertaOscuraNivel1', 'assets/Escenario/Nivel1/puerta_oscura.png');
 
         this.load.image('puertaClara1Nivel2', 'assets/Escenario/Nivel2/puerta_clara1.png');
         this.load.image('puertaClara2Nivel2', 'assets/Escenario/Nivel2/puerta_clara2.png');
@@ -47,15 +43,12 @@ export class Level2Scene extends Phaser.Scene {
         this.load.image('puertaOscura1Nivel2', 'assets/Escenario/Nivel2/puerta_oscura1.png');
         this.load.image('puertaOscura2Nivel2', 'assets/Escenario/Nivel2/puerta_oscura2.png');
 
-        this.load.image('botonClaroNivel1', 'assets/Escenario/Nivel1/boton_claro.png');
-        this.load.image('botonOscuro1Nivel1', 'assets/Escenario/Nivel1/boton_oscuro.png');
-
         this.load.image('botonNivel2', 'assets/Escenario/Nivel2/boton.png');
         this.load.image('botonClaroNivel2', 'assets/Escenario/Nivel2/boton_claro.png');
         this.load.image('botonOscuro1Nivel2', 'assets/Escenario/Nivel2/boton_oscuro1.png');
         this.load.image('botonOscuro2Nivel2', 'assets/Escenario/Nivel2/boton_oscuro2.png');
 
-        this.load.image('portal', 'assets/Escenario/Nivel2/portal.png');
+        this.load.image('portal1', 'assets/Escenario/Nivel2/portal.png');
 
         // Carga de los botones
         this.load.image('PauseButton', 'assets/pausa.png');
@@ -69,7 +62,7 @@ export class Level2Scene extends Phaser.Scene {
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
 
         //Daño
-        this.load.image('damage', 'assets/trampas/trampas.png')
+        this.load.image('damage1', 'assets/trampas/trampas.png')
 
         // Efectos de sonido y música de fondo
         this.load.audio('walkSound', 'assets/sonido/caminar.mp3');
@@ -98,10 +91,10 @@ export class Level2Scene extends Phaser.Scene {
         //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
         //bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
-        const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
+        const bg = this.physics.add.staticSprite(0, 0, 'fondo1').setOrigin(0, 0);
         bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
-        const plataforma = this.add.image(0, 0, 'plataformas').setOrigin(0, 0);
+        const plataforma = this.physics.add.staticSprite(0, 0, 'plataformas1').setOrigin(0, 0);
         plataforma.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
         // Configuración de la física del mundo
@@ -137,7 +130,7 @@ export class Level2Scene extends Phaser.Scene {
 
         //this.pared2 = this.add.rectangle(900, 700, 200, 300, 0x322b1d).setOrigin(0.5, 0.5);
         //this.physics.add.existing(this.pared2, true);
-        this.portalSprite = this.physics.add.staticSprite(mapWidthInPixels*0.5, mapHeightInPixels*0.5, 'portal').setScale(0.75);
+        this.portalSprite = this.physics.add.staticSprite(mapWidthInPixels*0.5, mapHeightInPixels*0.5, 'portal1').setScale(0.75);
         this.portalSprite.setVisible(false);
 
         this.exitPortal = this.add.rectangle(200, 200, 200, 200).setScale(0.75);
@@ -194,7 +187,7 @@ export class Level2Scene extends Phaser.Scene {
 
         // daño hitboxes
         this.damageGroup = this.physics.add.staticGroup();
-        this.trampa = this.physics.add.staticSprite(mapWidthInPixels*0.5, mapHeightInPixels*0.5, 'damage').setScale(0.75);
+        this.trampa = this.physics.add.staticSprite(mapWidthInPixels*0.5, mapHeightInPixels*0.5, 'damage1').setScale(0.75);
         
         this.damage1 = this.add.rectangle(1350, 100, 200, 100, 0x33ff00, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.damage1, true);

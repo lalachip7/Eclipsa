@@ -133,7 +133,7 @@ export class PauseScene extends Phaser.Scene {
         restartbtn.on('pointerdown', () => {
             const originalSceneKey = this.scene.settings.data.originalScene;
             this.scene.stop(originalSceneKey);
-            this.scene.start('GameScene');
+            this.scene.start(originalSceneKey);
         });
 
         // Volver al menú principal
@@ -159,10 +159,17 @@ export class PauseScene extends Phaser.Scene {
         });
         
         menubtn.on('pointerdown', () => {
-            const originalSceneKey = this.scene.settings.data.originalScene;
-            this.scene.stop(originalSceneKey);
-            this.scene.start('MenuScene');
+            // Get all scenes
+            const scenes = this.game.scene.keys;
+
+            for (let key in scenes) {
+                if (key !== 'MenuScene') {
+                    this.scene.stop(key);
+                }
+            }
             this.scene.stop();
+            this.scene.start('MenuScene');
+
         });
     }
 }

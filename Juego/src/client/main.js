@@ -12,6 +12,8 @@ import { VictoryScene } from "./scenes/VictoryScene.js";
 import { GameOverScene } from "./scenes/GameOverScene.js";
 import { Level2Scene } from "./scenes/Level2Scene.js";
 import { ConnectionLostScene } from "./scenes/ConnectionLostScene.js";
+import { GameModeScene } from "./scenes/GameModeScene.js";
+import  LobbyScene  from "./scenes/LobbyScene.js";
 
 const config = {
     type: Phaser.AUTO,
@@ -26,7 +28,7 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, GameScene, Level2Scene,   TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, ConnectionLostScene],
+    scene: [ MenuScene, GameScene, Level2Scene, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, LobbyScene, ConnectionLostScene, GameModeScene],
     backgroundColor: '#021410ff',
 }    
 

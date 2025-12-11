@@ -71,7 +71,7 @@ export class MenuScene extends Phaser.Scene {
         });
 
         localBtn.on('pointerdown', () => {
-            this.scene.launch('LevelSelectScene');
+            this.scene.launch('GameModeScene');
             //this.scene.start('GameScene');
         });
 

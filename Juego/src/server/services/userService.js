@@ -4,40 +4,60 @@
  * y proporciona métodos para realizar operaciones CRUD
  */
 
+import fs from "fs";
+import bcrypt from "bcrypt";
+
+const SALT_ROUNDS = 10;
+
 export function createUserService() {
   // Estado privado: almacén de usuarios
-  let users = [];
-  let nextId = 1;
+  const USERS_FILE = "./src/server/data/users.json";
+  
+  function getNextId(users) {
+    if (users.length === 0) return 1;
+    return Math.max(...users.map(u => u.id)) + 1;
+  }
+
+  function readUsers() 
+  {
+    return JSON.parse(fs.readFileSync(USERS_FILE));
+  }
+
+  function writeUsers(users) 
+  {
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+  }
 
   /**
    * Crea un nuevo usuario
-   * @param {Object} userData - {email, name, avatar, level}
+   * @param {Object} userData - {username, password}
    * @returns {Object} Usuario creado
    */
-  function createUser(userData) {
-    // 1. Validar que el email no exista ya
-    const existingUser = users.find(u => u.email === userData.email);
+  async function createUser(userData) {
+    // 1. Validar que el username no exista ya
+    const users = readUsers();
+    const existingUser = users.find(u => u.username === userData.username);
     if (existingUser) {
-      throw new Error('El email ya está registrado');
+      throw new Error('El usuario ya está registrado');
     }
+
+    // La contraseña se guarda hasheada por seguridad
+    const passwordHash = await bcrypt.hash(userData.password, SALT_ROUNDS);
 
     // 2. Crear objeto usuario con id único y createdAt
     const newUser = {
-      id: String(nextId),
-      email: userData.email,
-      name: userData.name,
-      avatar: userData.avatar || '',
-      level: userData.level || 1,
+      id: String(getNextId(users)),
+      username: userData.username,
+      password: passwordHash,
+      bestTime: null,
       createdAt: new Date().toISOString()
     };
 
     // 3. Agregar a la lista de usuarios
     users.push(newUser);
+    writeUsers(users);
 
-    // 4. Incrementar nextId
-    nextId++;
-
-    // 5. Retornar el usuario creado
+    // 4. Retornar el usuario creado
     return newUser;
   }
 
@@ -46,9 +66,15 @@ export function createUserService() {
    * @returns {Array} Array de usuarios
    */
   function getAllUsers() {
-    // TODO: Implementar
     // Retornar una copia del array de usuarios
-    throw new Error('getAllUsers() no implementado');
+    const users = readUsers();
+
+    return users.map(({ id, username, createdAt, bestTime}) => ({
+      id,
+      username,
+      createdAt,
+      bestTime
+    }));
   }
 
   /**
@@ -57,7 +83,14 @@ export function createUserService() {
    * @returns {Object|null} Usuario encontrado o null
    */
   function getUserById(id) {
+    const users = readUsers();
     const user = users.find(u => u.id === id);
+    return user || null;
+  }
+
+  function getUserByUsername(username) {
+    const users = readUsers();
+    const user = users.find(u => u.username === username);
     return user || null;
   }
 
@@ -66,12 +99,12 @@ export function createUserService() {
    * @param {string} email - Email del usuario
    * @returns {Object|null} Usuario encontrado o null
    */
-  function getUserByEmail(email) {
+  //function getUserByEmail(email) {
     // TODO: Implementar
     // Buscar y retornar el usuario por email, o null si no existe
     // IMPORTANTE: Esta función será usada por el chat para verificar emails
-    throw new Error('getUserByEmail() no implementado');
-  }
+    //throw new Error('getUserByEmail() no implementado');
+  //}
 
   /**
    * Actualiza un usuario
@@ -80,13 +113,42 @@ export function createUserService() {
    * @returns {Object|null} Usuario actualizado o null si no existe
    */
   function updateUser(id, updates) {
-    // TODO: Implementar
     // 1. Buscar el usuario por id
+    const users = readUsers();
+    const index = users.findIndex(u => u.id === id);
+
     // 2. Si no existe, retornar null
+    if (index === -1) {
+      return null;
+    }
+
+    if (updates.username) {
+      // Verificar que el nuevo username no esté en uso por otro usuario
+      const existingUser = users.find(u => u.username === updates.username && u.id !== id);
+      if (existingUser) {
+        return -1; // Indicar que el username ya está en uso
+      }
+    }
+    
     // 3. Actualizar solo los campos permitidos (name, avatar, level)
     // 4. NO permitir actualizar id, email, o createdAt
-    // 5. Retornar el usuario actualizado
-    throw new Error('updateUser() no implementado');
+    Object.keys(updates).forEach(key => {
+      if (['username', 'bestTime'].includes(key)) {
+        users[index][key] = updates[key];
+      }
+    });
+
+    if (updates.password) {
+      // Hashear la nueva contraseña
+      const passwordHash = bcrypt.hashSync(updates.password, SALT_ROUNDS);
+      users[index].password = passwordHash;
+    }
+
+    // 5. Escribir usuario a memoria
+    writeUsers(users);
+
+    // 6. Retornar el usuario actualizado
+    return users[index];
   }
 
   /**
@@ -95,11 +157,17 @@ export function createUserService() {
    * @returns {boolean} true si se eliminó, false si no existía
    */
   function deleteUser(id) {
-    // TODO: Implementar
     // 1. Buscar el índice del usuario
+    const users = readUsers();
+    const index = users.findIndex(u => u.id === id);
+
     // 2. Si existe, eliminarlo del array
     // 3. Retornar true si se eliminó, false si no existía
-    throw new Error('deleteUser() no implementado');
+    if (index === -1) return false;
+
+    users.splice(index, 1);
+    writeUsers(users);
+    return true;
   }
 
   // Exponer la API pública del servicio
@@ -107,7 +175,7 @@ export function createUserService() {
     createUser,
     getAllUsers,
     getUserById,
-    getUserByEmail,
+    getUserByUsername,
     updateUser,
     deleteUser
   };

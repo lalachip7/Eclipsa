@@ -22,6 +22,12 @@ export function createUserRoutes(userController) {
   // GET /api/users/:id - Obtener un usuario por ID
   router.get('/:id', userController.getById);
 
+  // GET /api/users/ranking - Obtener ranking de usuarios
+  router.get('/ranking', userController.getRanking);
+
+  // PUT /api/users/:id/score - Actualizar puntaje de un usuario
+  router.put('/:id/score', userController.updateScore);
+
   // PUT /api/users/:id - Actualizar un usuario
   router.put('/:id', userController.update);
 

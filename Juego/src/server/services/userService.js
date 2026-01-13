@@ -170,6 +170,46 @@ export function createUserService() {
     return true;
   }
 
+  /**
+   * Obtiene el Top 10 de jugadores ordenados por tiempo (Fase 4)
+   * @returns {Array} Lista de usuarios ordenada
+   */
+  function getRanking() {
+    const users = readUsers();
+    
+    return users
+      // Filtramos a los que no tienen tiempo aún (bestTime: null)
+      .filter(u => u.bestTime !== null && u.bestTime !== undefined)
+      // Ordenamos de menor a mayor tiempo (el más rápido arriba)
+      .sort((a, b) => a.bestTime - b.bestTime)
+      // Nos quedamos con los 10 mejores
+      .slice(0, 10)
+      // Devolvemos solo lo necesario por seguridad (no enviar contraseñas)
+      .map(u => ({ username: u.username, bestTime: u.bestTime }));
+  }
+
+  /**
+ * Intenta actualizar el mejor tiempo de un usuario
+ * @param {string} id - ID del usuario
+ * @param {number} newTime - Tiempo conseguido en el nivel
+ * @returns {Object|null} Usuario actualizado o null
+ */
+function updateBestTime(id, newTime) {
+  const users = readUsers(); //
+  const index = users.findIndex(u => u.id === id); //
+
+  if (index === -1) return null;
+
+  // Solo actualizamos si no tiene tiempo previo o si el nuevo es mejor (menor)
+  const currentTime = users[index].bestTime;
+  if (currentTime === null || newTime < currentTime) {
+    users[index].bestTime = newTime;
+    writeUsers(users); //
+    return users[index];
+  }
+  return users[index];
+}
+
   // Exponer la API pública del servicio
   return {
     createUser,
@@ -177,6 +217,8 @@ export function createUserService() {
     getUserById,
     getUserByUsername,
     updateUser,
-    deleteUser
+    deleteUser,
+    getRanking,
+    updateBestTime
   };
 }

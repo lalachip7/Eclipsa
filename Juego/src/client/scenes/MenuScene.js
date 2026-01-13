@@ -127,6 +127,13 @@ export class MenuScene extends Phaser.Scene {
             this.scene.launch('CreditsScene');
         });
 
+        // Botón de pantalla de ranking
+        const rankingBtn = this.add.image(1300, 670, 'RankingButton') // Ajusta posición
+            .setOrigin(0.5)    
+            .setScale(0.75)
+            .setInteractive({ useHandCursor: true })
+            .on('pointerdown', () => this.scene.launch('RankingScene'));
+
         // Botón de salir de juego
         const exitBtn = this.add.image(312, 670, 'ExitButton')
             .setOrigin(0.5)

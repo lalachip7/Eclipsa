@@ -618,11 +618,31 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
-    checkLevelComplete(player, portal) {
+    async checkLevelComplete(player, portal) {
         // Los dos deben tocar el portal y tener sus respectivos cristales
-        if (this.niviaOnPortal && this.solenneOnPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+        if (niviaInPortal && solenneInPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+            // 1. Calcular tiempo 
+            const timeElapsed = Math.floor(this.time.now / 1000); 
+
+            // 2. Obtener el ID del usuario logueado 
+            const userId = localStorage.getItem('userId'); 
+
+            if (userId) {
+                try {
+                    await fetch(`/api/users/${userId}/score`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ time: timeElapsed })
+                    });
+                    console.log("Puntuación enviada con éxito");
+                } catch (error) {
+                    console.error("Error al enviar puntuación:", error);
+                }
+            }
+
             // Lanzar escena de victoria y pausar esta escena
             this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+            this.scene.pause();
         }
     }
 

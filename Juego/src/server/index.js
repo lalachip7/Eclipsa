@@ -84,6 +84,7 @@ app.use(express.static(path.join(__dirname, '../../dist')));
 app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/connected', connectionRoutes);
+app.use(express.static('dist'));
 
 // Ruta de health check
 app.get('/health', (req, res) => {

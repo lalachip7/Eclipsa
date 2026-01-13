@@ -163,13 +163,39 @@ export function createUserController(userService) {
     });
   }
 
+  async function getRanking(req, res, next) {
+    try {
+      const ranking = userService.getRanking();
+      res.status(200).json(ranking);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async function updateScore(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { time } = req.body;
+    
+    const updatedUser = userService.updateBestTime(id, time);
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+}
+
   // Exponer la API pública del controlador
   return {
     create,
     getAll,
+    getRanking,
     getById,
     update,
     remove,
-    login
+    login,
+    updateScore
   };
 }

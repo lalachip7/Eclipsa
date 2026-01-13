@@ -1,0 +1,16 @@
+[
+  {
+    "id": "3",
+    "username": "Laura",
+    "password": "$2b$10$1umTAUDIGwN4G1iCbJE4yuboSbXiSz9iuxF.uOuxDWrgyAaux.VJm",
+    "bestTime": null,
+    "createdAt": "2026-01-13T15:19:54.224Z"
+  },
+  {
+    "id": "4",
+    "username": "Gabriel",
+    "password": "$2b$10$lfMvAGkxxCTYg4WnjF595uYRiZFv7mTlluOr0IguIE0VygbT2AniS",
+    "bestTime": null,
+    "createdAt": "2026-01-13T16:29:07.954Z"
+  }
+]

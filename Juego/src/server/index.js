@@ -17,7 +17,7 @@ import { createMessageController } from './controllers/messageController.js';
 import { createConnectionController } from './controllers/connectionController.js';
 
 // Rutas (factory functions)
-import { createUserRoutes } from './routes/users.js';
+import { createUserRoutes } from './routes/userRoutes.js';
 import { createMessageRoutes } from './routes/messages.js';
 import { createConnectionRoutes } from './routes/connections.js';
 
@@ -180,5 +180,6 @@ server.listen(PORT, () => {
   console.log(`   - DELETE /api/users/:id`);
   console.log(`   - GET    /api/messages`);
   console.log(`   - POST   /api/messages`);
+  console.log(`   - POST   /api/users/login`);
   console.log('========================================\n');
 });

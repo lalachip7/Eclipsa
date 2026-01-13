@@ -10,8 +10,11 @@ import express from 'express';
 export function createUserRoutes(userController) {
   const router = express.Router();
 
-  // POST /api/users - Crear nuevo usuario
-  router.post('/', userController.create);
+  // POST /api/users/login - Login de usuario
+  router.post('/login', userController.login);
+
+  // POST /api/users/register - Crear nuevo usuario
+  router.post('/register', userController.create);
 
   // GET /api/users - Obtener todos los usuarios
   router.get('/', userController.getAll);

@@ -7,6 +7,7 @@ export default class LobbyScene extends Phaser.Scene {
     super('LobbyScene');
   }
 
+ 
   create() {
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;

@@ -13,6 +13,8 @@ export class RankingScene extends Phaser.Scene {
         this.load.image('ExitMinButton', 'assets/cerrar.png');
         this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
+        // Texto de ranking
+        this.load.image('RankingText', 'assets/texto_ranking.png');
     }
 
     create() {
@@ -30,11 +32,10 @@ export class RankingScene extends Phaser.Scene {
             .setScale(1);
 
         // Título estilizado según el GDD (tipografía rúnica/clara)
-        this.add.text(w / 2, 200, 'Ranking', { 
-            fontSize: '64px', 
-            fill: '#d4eaf1ff',
-            fontStyle: 'bold' 
-        }).setOrigin(0.5);
+        this.add.image(700, 210, 'RankingText')
+            .setOrigin(0.5)
+            .setScale(1);
+
 
         // Contenedor para la lista
         this.fetchRanking();

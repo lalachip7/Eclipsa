@@ -1,3 +1,5 @@
+// src/server/services/matchmakingService.js
+
 /**
  * Matchmaking service - manages player queue and matches players
  */
@@ -15,6 +17,7 @@ export function createMatchmakingService(gameRoomService) {
     }
 
     queue.push({ ws });
+    console.log(`📥 Jugador añadido a la cola. Total: ${queue.length}`);
 
     // Notify player they're in queue
     ws.send(JSON.stringify({
@@ -35,6 +38,7 @@ export function createMatchmakingService(gameRoomService) {
     const index = queue.findIndex(player => player.ws === ws);
     if (index !== -1) {
       queue.splice(index, 1);
+      console.log(`📤 Jugador salió de la cola. Total: ${queue.length}`);
     }
   }
 
@@ -49,36 +53,26 @@ export function createMatchmakingService(gameRoomService) {
       // Create a game room
       const roomId = gameRoomService.createRoom(player1.ws, player2.ws);
 
-      // Generate random ball direction
-      const angle = (Math.random() * 60 - 30) * (Math.PI / 180); // -30 to 30 degrees
-      const speed = 300;
-      const ballData = {
-        x: 400,
-        y: 300,
-        vx: speed * Math.cos(angle),
-        vy: speed * Math.sin(angle)
-      };
+      console.log(`🎮 Partida iniciada: ${roomId}`);
 
       // Notify both players
       player1.ws.send(JSON.stringify({
         type: 'gameStart',
-        role: 'player1',
-        roomId,
-        ball: ballData
+        role: 'nivia',
+        roomId
       }));
 
       player2.ws.send(JSON.stringify({
         type: 'gameStart',
-        role: 'player2',
-        roomId,
-        ball: ballData
+        role: 'solenne',
+        roomId
       }));
     }
   }
 
   /**
    * Get current queue size
-   * @returns {number} Number of players in queue
+   * @returns {number}
    */
   function getQueueSize() {
     return queue.length;

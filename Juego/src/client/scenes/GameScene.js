@@ -1,12 +1,13 @@
 import Phaser from "phaser";
 import { connectionManager } from "../services/ConnectionManager";
+import { wsService } from "../services/WebSocketService";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
         super('GameScene');
     }
 
-    init() {
+    init(data) {
         this.isPaused = false;
         this.escWasDown = false;
 
@@ -22,7 +23,64 @@ export class GameScene extends Phaser.Scene {
         this.isHandlingDisconnection = false;
         this.lastDisconnectionTime = 0;
         this.disconnectionCooldown = 1000; // 1 segundo de espera entre detecciones
-    }
+    
+        // Datos multijugador
+        this.isMultiplayer = data.isMultiplayer || false;
+        this.playerRole = data.playerRole || null;
+        this.roomId = data.roomId || null;
+
+        // Control de personajes en multijugador
+        this.localPlayer = null;  // El que controlas tú
+        this.remotePlayer = null; // El que controla el otro jugador
+
+        // Sincronización de red
+        this.lastSyncTime = 0;
+        this.syncInterval = 50; // Enviar posición cada 50ms
+
+        console.log(`🎮 GameScene iniciado`);
+        if (this.isMultiplayer) {
+            console.log(`👤 Rol: ${this.playerRole} | 🚪 Sala: ${this.roomId}`);
+        }
+
+        if (this.isMultiplayer) {
+            const leaveButton = this.add.text(this.cameras.main.width / 2, 40, '🚪 Abandonar', {
+                fontSize: '18px',
+                color: '#ff6666',
+                backgroundColor: '#000000',
+                padding: { x: 10, y: 5 }
+            })
+            .setOrigin(0.5)
+            .setScrollFactor(0)
+            .setInteractive({ useHandCursor: true })
+            .setDepth(100);
+
+            leaveButton.on('pointerover', () => {
+                leaveButton.setStyle({ backgroundColor: '#333333', color: '#ff0000' });
+            });
+
+            leaveButton.on('pointerout', () => {
+                leaveButton.setStyle({ backgroundColor: '#000000', color: '#ff6666' });
+            });
+
+            leaveButton.on('pointerdown', () => {
+                // Confirmar antes de abandonar
+                const confirmLeave = confirm('¿Seguro que quieres abandonar la partida?\n\nEl otro jugador será notificado.');
+                
+                if (confirmLeave) {
+                    // Notificar al servidor que abandonas
+                    wsService.sendGameOver('disconnect');
+                    
+                    // Desconectar
+                    wsService.disconnect();
+                    
+                    // Volver al menú
+                    this.sound.stopAll();
+                    this.scene.stop();
+                    this.scene.start('MenuScene');
+                }
+            });
+        }
+    }   
 
     preload() {
         // Carga de los personajes
@@ -376,14 +434,231 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.physics.add.overlap(this.nivia, this.damage, () => {
-            this.scene.launch('GameOverScene', { originalScene: this.scene.key });
-            this.scene.pause();
+            if (this.isMultiplayer && wsService.isConnected()) {
+                wsService.sendGameOver('trap');
+            } else {
+                // Modo local
+                this.scene.launch('GameOverScene', { originalScene: this.scene.key });
+                this.scene.pause();
+            }
         });
+
         this.physics.add.overlap(this.solenne, this.damage, () => {
-            this.scene.launch('GameOverScene', { originalScene: this.scene.key });
-            this.scene.pause();
+            if (this.isMultiplayer && wsService.isConnected()) {
+                wsService.sendGameOver('trap');
+            } else {
+                // Modo local
+                this.scene.launch('GameOverScene', { originalScene: this.scene.key });
+                this.scene.pause();
+            }
         });
+
+        if (this.isMultiplayer) {
+            this.setupMultiplayer();
+        }
     }
+
+    setupMultiplayer() {    
+        if (this.playerRole === 'nivia') {
+            this.localPlayer = this.nivia;
+            this.remotePlayer = this.solenne;
+        } else if (this.playerRole === 'solenne') {
+            this.localPlayer = this.solenne;
+            this.remotePlayer = this.nivia;
+        }
+
+        // Configurar los handlers para eventos de red
+        this.playerMoveHandler = this.handleRemotePlayerMove.bind(this);
+        this.crystalCollectedHandler = this.handleRemoteCrystalCollected.bind(this);
+        this.portalSpawnedHandler = this.handleRemotePortalSpawned.bind(this);
+        this.victoryHandler = this.handleRemoteVictory.bind(this);
+        this.gameOverHandler = this.handleRemoteGameOver.bind(this);  
+        this.playerDisconnectedHandler = this.handlePlayerDisconnected.bind(this);
+    
+        wsService.on('playerMove', this.playerMoveHandler);
+        wsService.on('crystalCollected', this.crystalCollectedHandler);
+        wsService.on('portalSpawned', this.portalSpawnedHandler);
+        wsService.on('victory', this.victoryHandler);
+        wsService.on('gameOver', this.gameOverHandler);
+        wsService.on('playerDisconnected', this.playerDisconnectedHandler);
+    
+    }
+
+    syncLocalPlayerPosition() {
+        const now = Date.now();
+        
+        // Solo enviar cada X milisegundos para no saturar la red
+        if (now - this.lastSyncTime < this.syncInterval) {
+            return;
+        }
+        this.lastSyncTime = now;
+
+        // Enviar posición del jugador local
+        if (this.localPlayer && wsService.isConnected()) {
+            wsService.sendPlayerMove(
+                this.localPlayer.x,
+                this.localPlayer.y,
+                this.localPlayer.flipX,
+                this.localPlayer.anims.currentAnim?.key || 'idle'
+            );
+        }
+    }
+
+    // ==================== HANDLERS DE RED ====================
+
+    /**
+     * Manejar movimiento del jugador remoto
+     */
+    handleRemotePlayerMove(data) {
+        if (!this.remotePlayer) return;
+
+        // Actualizar posición del otro jugador
+        this.remotePlayer.setPosition(data.x, data.y);
+        this.remotePlayer.setFlipX(data.flipX);
+
+        // Reproducir animación
+        if (data.animKey && this.remotePlayer.anims.currentAnim?.key !== data.animKey) {
+            this.remotePlayer.anims.play(data.animKey, true);
+        }
+    }
+
+    /**
+     * Manejar recolección de cristal por el otro jugador
+     */
+    handleRemoteCrystalCollected(data) {
+        console.log(`💎 Cristal ${data.crystalType} recogido por el otro jugador`);
+
+        if (data.crystalType === 'moon') {
+            // Desactivar cristal de luna
+            this.moonCrystal.disableBody(true, true);
+            this.niviaHasMoonCrystal = true;
+            this.moonHUD.setVisible(true);
+            
+            // Desbloquear puerta oscura
+            if (data.darkDoorUnlocked) {
+                this.unlockDarkDoor();
+            }
+        } else if (data.crystalType === 'sun') {
+            // Desactivar cristal de sol
+            this.sunCrystal.disableBody(true, true);
+            this.solenneHasSunCrystal = true;
+            this.sunHUD.setVisible(true);
+            
+            // Desbloquear puerta clara
+            if (data.lightDoorUnlocked) {
+                this.unlockLightDoor();
+            }
+        }
+    }
+
+    /**
+     * Manejar aparición del portal
+     */
+    handleRemotePortalSpawned(data) {
+        console.log('🚪 Portal activado por el servidor');
+        
+        if (!this.exitPortal.visible) {
+            this.exitPortal.setVisible(true);
+            this.exitPortal.body.enable = true;
+        }
+    }
+
+    /**
+     * Manejar victoria
+     */
+    handleRemoteVictory(data) {
+        console.log('🎉 ¡VICTORIA MULTIJUGADOR!');
+        
+        // Lanzar escena de victoria
+        this.scene.launch('VictoryScene', { 
+            originalScene: this.scene.key,
+            isMultiplayer: true 
+        });
+        this.scene.pause();
+    }
+
+    /**
+     * Manejar game over sincronizado
+     */
+    handleRemoteGameOver(data) {
+        console.log('💀 Game Over recibido del servidor:', data.reason);
+        
+        // Pausar física
+        this.physics.pause();
+        
+        // Lanzar escena de Game Over
+        this.scene.launch('GameOverScene', { 
+            originalScene: this.scene.key,
+            isMultiplayer: true,
+            reason: data.reason
+        });
+        this.scene.pause();
+    }
+
+    /**
+     * Manejar desconexión del otro jugador
+     */
+    handlePlayerDisconnected() {
+    console.log('❌ El otro jugador se desconectó');
+    
+    // Pausar física
+    this.physics.pause();
+    
+    // Pausar escena
+    this.scene.pause();
+    
+    // Mostrar mensaje con fondo oscuro
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
+    
+    const bg = this.add.rectangle(0, 0, width, height, 0x000000, 0.9)
+        .setOrigin(0)
+        .setScrollFactor(0)
+        .setDepth(2000);
+    
+    const text = this.add.text(width / 2, height / 2 - 80, 
+        '⚠️ PARTIDA TERMINADA', {
+        fontSize: '48px',
+        color: '#ff6666',
+        align: 'center',
+        fontStyle: 'bold'
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(2001);
+
+    const reasonText = this.add.text(width / 2, height / 2, 
+        'El otro jugador abandonó la partida', {
+        fontSize: '24px',
+        color: '#ffffff',
+        align: 'center'
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(2001);
+
+    const backBtn = this.add.text(width / 2, height / 2 + 100,
+        '🏠 Volver al Menú', {
+        fontSize: '28px',
+        color: '#ffffff',
+        backgroundColor: '#444444',
+        padding: { x: 20, y: 10 }
+    }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setScrollFactor(0).setDepth(2001);
+
+    backBtn.on('pointerover', () => {
+        backBtn.setStyle({ backgroundColor: '#666666' });
+    });
+
+    backBtn.on('pointerout', () => {
+        backBtn.setStyle({ backgroundColor: '#444444' });
+    });
+
+    backBtn.on('pointerdown', () => {
+        // Desconectar WebSocket
+        wsService.disconnect();
+        
+        // Detener música
+        this.sound.stopAll();
+        
+        // Volver al menú
+        this.scene.stop();
+        this.scene.start('MenuScene');
+    });
+}
 
     onConnectionLost() {
         this.isPaused = true;
@@ -486,15 +761,26 @@ export class GameScene extends Phaser.Scene {
             this.togglePause();
         }
 
-        // Movimiento de Nivia
-        this.handlePlayerMovement(this.nivia, this.niviaControls);
-
-        // Movimiento de Solenne
-        this.handlePlayerMovement(this.solenne, this.solenneControls);
+        if (this.isMultiplayer) {
+            // Solo controlas TU personaje
+            if (this.playerRole === 'nivia') {
+                this.handlePlayerMovement(this.nivia, this.niviaControls);
+                // Sincronizar posición por red
+                this.syncLocalPlayerPosition();
+            } else if (this.playerRole === 'solenne') {
+                this.handlePlayerMovement(this.solenne, this.solenneControls);
+                // Sincronizar posición por red
+                this.syncLocalPlayerPosition();
+            }
+        } else {
+            // MODO LOCAL: Controlas ambos personajes
+            this.handlePlayerMovement(this.nivia, this.niviaControls);
+            this.handlePlayerMovement(this.solenne, this.solenneControls);
+        }
 
         this.handleCameraAndConstraints();
         
-        if(this.exitPortal.visible) {
+        if (this.exitPortal.visible) {
             this.checkLevelComplete();
         }
     }
@@ -615,6 +901,10 @@ export class GameScene extends Phaser.Scene {
         this.sound.play('collectMoonCrystalSound', { volume: 0.5 });
         console.log('Nivia ha recogido el Cristal de la Luna');
         this.unlockDarkDoor();
+
+        if (this.isMultiplayer && wsService.isConnected()) {
+            wsService.sendCrystalCollect('moon');
+        }   
     }
 
     collectSunCrystal(player, crystal) {
@@ -624,6 +914,10 @@ export class GameScene extends Phaser.Scene {
         this.sound.play('collectSunCrystalSound', { volume: 0.5 });
         console.log('Solenne ha recogido el Cristal del Sol');
         this.unlockLightDoor();
+
+        if (this.isMultiplayer && wsService.isConnected()) {
+            wsService.sendCrystalCollect('sun');
+        }   
     }
 
     unlockDarkDoor() {
@@ -654,12 +948,30 @@ export class GameScene extends Phaser.Scene {
 
     checkLevelComplete() {
         try {
-            // Los dos deben tocar el portal y tener sus respectivos cristales
-            if (this.niviaOnPortal && this.solenneOnPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
-                console.log('¡NIVEL COMPLETADO!');
-                // Lanzar escena de victoria y pausar esta escena
-                this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+        // ✨ ENVIAR ESTADO DEL PORTAL EN MULTIJUGADOR
+            if (this.isMultiplayer && this.exitPortal.visible) {
+                // Verificar si el jugador local está en el portal
+                const localPlayerOnPortal = this.physics.overlap(this.localPlayer, this.exitPortal);
+                
+                // Enviar al servidor solo si cambió el estado
+                if (this.playerRole === 'nivia' && localPlayerOnPortal !== this.niviaOnPortal) {
+                    this.niviaOnPortal = localPlayerOnPortal;
+                    wsService.sendPortalTouch(localPlayerOnPortal);
+                } else if (this.playerRole === 'solenne' && localPlayerOnPortal !== this.solenneOnPortal) {
+                    this.solenneOnPortal = localPlayerOnPortal;
+                    wsService.sendPortalTouch(localPlayerOnPortal);
+                }
             }
+
+            // MODO LOCAL: Verificación tradicional
+            if (!this.isMultiplayer) {
+                if (this.niviaOnPortal && this.solenneOnPortal && 
+                    this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+                    console.log('¡NIVEL COMPLETADO!');
+                    this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+                }
+            }
+        // En multijugador, el servidor enviará el mensaje 'victory'
         } catch (error) {
             console.error('Error en checkLevelComplete:', error);
         }
@@ -703,6 +1015,14 @@ export class GameScene extends Phaser.Scene {
     shutdown() {
         if (this.connectionListener) {
             connectionManager.removeListener(this.connectionListener);
+        }
+        if (this.isMultiplayer) {
+            wsService.off('playerMove', this.playerMoveHandler);
+            wsService.off('crystalCollected', this.crystalCollectedHandler);
+            wsService.off('portalSpawned', this.portalSpawnedHandler);
+            wsService.off('victory', this.victoryHandler);
+            wsService.off('gameOver', this.gameOverHandler);
+            wsService.off('playerDisconnected', this.playerDisconnectedHandler); 
         }
     }
 }

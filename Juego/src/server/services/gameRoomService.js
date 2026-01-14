@@ -1,3 +1,5 @@
+// src/server/services/gameRoomService.js
+
 /**
  * Game Room service - manages active game rooms and game state
  */
@@ -7,8 +9,8 @@ export function createGameRoomService() {
 
   /**
    * Create a new game room with two players
-   * @param {WebSocket} player1Ws - Player 1's WebSocket
-   * @param {WebSocket} player2Ws - Player 2's WebSocket
+   * @param {WebSocket} player1Ws - Player 1's WebSocket (Nivia)
+   * @param {WebSocket} player2Ws - Player 2's WebSocket (Solenne)
    * @returns {string} Room ID
    */
   function createRoom(player1Ws, player2Ws) {
@@ -18,14 +20,26 @@ export function createGameRoomService() {
       id: roomId,
       player1: {
         ws: player1Ws,
-        score: 0
+        role: 'nivia',
+        x: 1300,
+        y: 700,
+        hasCrystal: false
       },
       player2: {
         ws: player2Ws,
-        score: 0
+        role: 'solenne',
+        x: 100,
+        y: 700,
+        hasCrystal: false
       },
-      active: true,
-      ballActive: true // Track if ball is in play (prevents duplicate goals)
+      gameState: {
+        moonCrystalCollected: false,
+        sunCrystalCollected: false,
+        darkDoorUnlocked: false,
+        lightDoorUnlocked: false,
+        portalVisible: false
+      },
+      active: true
     };
 
     rooms.set(roomId, room);
@@ -34,114 +48,185 @@ export function createGameRoomService() {
     player1Ws.roomId = roomId;
     player2Ws.roomId = roomId;
 
+    console.log(`✅ Sala creada: ${roomId}`);
+
     return roomId;
   }
 
   /**
-   * Handle paddle movement from a player
+   * Handle player movement
    * @param {WebSocket} ws - Player's WebSocket
-   * @param {number} y - Paddle Y position
+   * @param {Object} position - {x, y, flipX, animKey}
    */
-  function handlePaddleMove(ws, y) {
+  function handlePlayerMove(ws, position) {
     const roomId = ws.roomId;
     if (!roomId) return;
 
     const room = rooms.get(roomId);
     if (!room || !room.active) return;
 
+    // Update player position in server state
+    const player = room.player1.ws === ws ? room.player1 : room.player2;
+    player.x = position.x;
+    player.y = position.y;
+
     // Relay to the other player
     const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
+    const playerRole = player.role;
 
     if (opponent.readyState === 1) { // WebSocket.OPEN
       opponent.send(JSON.stringify({
-        type: 'paddleUpdate',
-        y
+        type: 'playerMove',
+        player: playerRole,
+        x: position.x,
+        y: position.y,
+        flipX: position.flipX,
+        animKey: position.animKey
       }));
     }
   }
 
   /**
-   * Handle goal event from a player
+   * Handle crystal collection
    * @param {WebSocket} ws - Player's WebSocket
-   * @param {string} side - Which side scored ('left' or 'right')
+   * @param {string} crystalType - 'moon' or 'sun'
    */
-  function handleGoal(ws, side) {
+  function handleCrystalCollect(ws, crystalType) {
     const roomId = ws.roomId;
     if (!roomId) return;
 
     const room = rooms.get(roomId);
     if (!room || !room.active) return;
 
-    // Prevent duplicate goal detection (both clients send goal event)
-    // Only process goal if ball is active
-    if (!room.ballActive) {
-      return; // Ball not in play, ignore goal
-    }
-    room.ballActive = false; // Mark ball as inactive until relaunched
+    const player = room.player1.ws === ws ? room.player1 : room.player2;
+    const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
 
-    // Update scores
-    // When ball hits LEFT goal (x=0), player2 scores (player1 missed)
-    // When ball hits RIGHT goal (x=800), player1 scores (player2 missed)
-    if (side === 'left') {
-      room.player2.score++;
-    } else if (side === 'right') {
-      room.player1.score++;
-    }
+    // Update game state
+    if (crystalType === 'moon' && !room.gameState.moonCrystalCollected) {
+      room.gameState.moonCrystalCollected = true;
+      room.gameState.darkDoorUnlocked = true;
+      player.hasCrystal = true;
 
-    // Broadcast score update to both players
-    const scoreUpdate = {
-      type: 'scoreUpdate',
-      player1Score: room.player1.score,
-      player2Score: room.player2.score
-    };
-
-    room.player1.ws.send(JSON.stringify(scoreUpdate));
-    room.player2.ws.send(JSON.stringify(scoreUpdate));
-
-    // Check win condition (first to 2)
-    if (room.player1.score >= 2 || room.player2.score >= 2) {
-      const winner = room.player1.score >= 2 ? 'player1' : 'player2';
-
-      const gameOverMsg = {
-        type: 'gameOver',
-        winner,
-        player1Score: room.player1.score,
-        player2Score: room.player2.score
+      // Notify both players
+      const msg = {
+        type: 'crystalCollected',
+        crystalType: 'moon',
+        darkDoorUnlocked: true
       };
 
-      room.player1.ws.send(JSON.stringify(gameOverMsg));
-      room.player2.ws.send(JSON.stringify(gameOverMsg));
+      ws.send(JSON.stringify(msg));
+      if (opponent.readyState === 1) {
+        opponent.send(JSON.stringify(msg));
+      }
 
-      // Mark room as inactive
-      room.active = false;
-    } else {
-      // Relaunch ball after 1 second delay
-      setTimeout(() => {
-        if (room.active) {
-          // Generate new ball direction
-          const angle = (Math.random() * 60 - 30) * (Math.PI / 180); // -30 to 30 degrees
-          const speed = 300;
-          const ballData = {
-            x: 400,
-            y: 300,
-            vx: speed * Math.cos(angle),
-            vy: speed * Math.sin(angle)
-          };
+      console.log(`🌙 Cristal de Luna recogido en ${roomId}`);
+    } 
+    else if (crystalType === 'sun' && !room.gameState.sunCrystalCollected) {
+      room.gameState.sunCrystalCollected = true;
+      room.gameState.lightDoorUnlocked = true;
+      player.hasCrystal = true;
 
-          // Send ball relaunch to both players
-          const relaunchMsg = {
-            type: 'ballRelaunch',
-            ball: ballData
-          };
+      // Notify both players
+      const msg = {
+        type: 'crystalCollected',
+        crystalType: 'sun',
+        lightDoorUnlocked: true
+      };
 
-          room.player1.ws.send(JSON.stringify(relaunchMsg));
-          room.player2.ws.send(JSON.stringify(relaunchMsg));
+      ws.send(JSON.stringify(msg));
+      if (opponent.readyState === 1) {
+        opponent.send(JSON.stringify(msg));
+      }
 
-          // Mark ball as active again
-          room.ballActive = true;
-        }
-      }, 1000);
+      console.log(`☀️ Cristal de Sol recogido en ${roomId}`);
     }
+
+    // Check if portal should appear
+    if (room.gameState.moonCrystalCollected && room.gameState.sunCrystalCollected) {
+      room.gameState.portalVisible = true;
+
+      const portalMsg = {
+        type: 'portalSpawned'
+      };
+
+      ws.send(JSON.stringify(portalMsg));
+      if (opponent.readyState === 1) {
+        opponent.send(JSON.stringify(portalMsg));
+      }
+
+      console.log(`🚪 Portal activado en ${roomId}`);
+    }
+  }
+
+  /**
+   * Handle victory condition
+   * @param {WebSocket} ws - Player's WebSocket
+   * @param {boolean} onPortal - If player is on portal
+   */
+  function handlePortalTouch(ws, onPortal) {
+    const roomId = ws.roomId;
+    if (!roomId) return;
+
+    const room = rooms.get(roomId);
+    if (!room || !room.active) return;
+
+    const player = room.player1.ws === ws ? room.player1 : room.player2;
+    const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
+
+    // Update player portal status
+    if (room.player1.ws === ws) {
+      room.player1.onPortal = onPortal;
+    } else {
+      room.player2.onPortal = onPortal;
+    }
+
+    // Check victory condition
+    if (room.player1.onPortal && room.player2.onPortal && 
+        room.player1.hasCrystal && room.player2.hasCrystal) {
+      
+      const victoryMsg = {
+        type: 'victory'
+      };
+
+      ws.send(JSON.stringify(victoryMsg));
+      if (opponent.readyState === 1) {
+        opponent.send(JSON.stringify(victoryMsg));
+      }
+
+      console.log(`🎉 Victoria en ${roomId}`);
+      room.active = false;
+    }
+  }
+
+  /**
+   * Handle game over event (trap hit, etc)
+   * @param {WebSocket} ws - Player's WebSocket
+   * @param {string} reason - Reason for game over
+   */
+  function handleGameOver(ws, reason = 'trap') {
+    const roomId = ws.roomId;
+    if (!roomId) return;
+
+    const room = rooms.get(roomId);
+    if (!room || !room.active) return;
+
+    const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
+
+    console.log(`💀 Game Over en ${roomId} - Razón: ${reason}`);
+
+    // Notificar a AMBOS jugadores
+    const gameOverMsg = {
+      type: 'gameOver',
+      reason: reason
+    };
+
+    ws.send(JSON.stringify(gameOverMsg));
+    if (opponent.readyState === 1) { // WebSocket.OPEN
+      opponent.send(JSON.stringify(gameOverMsg));
+    }
+
+    // Marcar sala como inactiva
+    room.active = false;
   }
 
   /**
@@ -155,8 +240,7 @@ export function createGameRoomService() {
     const room = rooms.get(roomId);
     if (!room) return;
 
-    // Only notify the other player if the game is still active
-    // If the game already ended (room.active = false), don't send disconnect message
+    // Only notify if game is still active
     if (room.active) {
       const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
 
@@ -165,6 +249,8 @@ export function createGameRoomService() {
           type: 'playerDisconnected'
         }));
       }
+
+      console.log(`❌ Jugador desconectado en ${roomId}`);
     }
 
     // Clean up room
@@ -174,7 +260,7 @@ export function createGameRoomService() {
 
   /**
    * Get number of active rooms
-   * @returns {number} Number of active rooms
+   * @returns {number}
    */
   function getActiveRoomCount() {
     return Array.from(rooms.values()).filter(room => room.active).length;
@@ -182,8 +268,10 @@ export function createGameRoomService() {
 
   return {
     createRoom,
-    handlePaddleMove,
-    handleGoal,
+    handlePlayerMove,
+    handleCrystalCollect,
+    handlePortalTouch,
+    handleGameOver,
     handleDisconnect,
     getActiveRoomCount
   };

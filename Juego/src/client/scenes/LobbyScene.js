@@ -1,127 +1,179 @@
-// escena de lobby 
+// src/client/scenes/LobbyScene.js
 import Phaser from "phaser";
+import { wsService } from '../services/WebSocketService';
 
 export default class LobbyScene extends Phaser.Scene {
   constructor() {
     super('LobbyScene');
-    this.ws = null;
   }
 
   create() {
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
 
+    // Fondo
     this.background = this.add.rectangle(0, 0, width, height, 0x070722, 0.9).setOrigin(0);
 
-    // Title
-    this.add.text(width / 2, 100, 'Online Multiplayer', {
+    // Título
+    this.add.text(width / 2, 100, 'MULTIJUGADOR ONLINE', {
       fontSize: '48px',
-      color: '#ffffff'
+      color: '#ffffff',
+      fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Status text
-    this.statusText = this.add.text(width / 2, height / 2 - 50, 'Connecting to server...', {
+    // Subtítulo
+    this.add.text(width / 2, 160, 'Fireboy & Watergirl Style', {
       fontSize: '24px',
+      color: '#888888'
+    }).setOrigin(0.5);
+
+    // Estado de conexión
+    this.statusText = this.add.text(width / 2, height / 2 - 50, 'Conectando al servidor...', {
+      fontSize: '28px',
       color: '#ffff00'
     }).setOrigin(0.5);
 
-    // Player count text
+    // Contador de jugadores
     this.playerCountText = this.add.text(width / 2, height / 2 + 20, '', {
-      fontSize: '20px',
+      fontSize: '22px',
       color: '#00ff00'
     }).setOrigin(0.5);
 
-    // Cancel button
-    const cancelButton = this.add.text(width / 2, height - 100, 'Cancel', {
+    // Indicador de carga (puntos animados)
+    this.loadingDots = '';
+    this.time.addEvent({
+      delay: 500,
+      callback: () => {
+        if (this.scene.isActive('LobbyScene')) {
+          this.loadingDots = (this.loadingDots.length >= 3) ? '' : this.loadingDots + '.';
+          if (this.statusText.text.includes('Esperando')) {
+            this.statusText.setText(`Esperando oponente${this.loadingDots}`);
+          }
+        }
+      },
+      loop: true
+    });
+
+    // Botón de cancelar
+    const cancelButton = this.add.text(width / 2, height - 100, '❌ Cancelar', {
       fontSize: '24px',
       color: '#ff6666',
       backgroundColor: '#333333',
       padding: { x: 20, y: 10 }
-    }).setOrigin(0.5).setInteractive();
+    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
     cancelButton.on('pointerover', () => {
-      cancelButton.setColor('#ff0000');
+      cancelButton.setStyle({ backgroundColor: '#555555', color: '#ff0000' });
     });
 
     cancelButton.on('pointerout', () => {
-      cancelButton.setColor('#ff6666');
+      cancelButton.setStyle({ backgroundColor: '#333333', color: '#ff6666' });
     });
 
     cancelButton.on('pointerdown', () => {
       this.leaveQueue();
-      this.scene.start('MenuScene');
     });
 
-    // Connect to WebSocket server
+    // Conectar al servidor WebSocket
     this.connectToServer();
   }
 
-  connectToServer() {
+  async connectToServer() {
     try {
-      // Connect to WebSocket server (same host as web server)
-      const wsUrl = `ws://${window.location.host}`;
+      // Conectar al WebSocket
+      await wsService.connect();
+      
+      this.statusText.setText('Esperando oponente');
+      this.statusText.setColor('#00ff00');
 
-      this.ws = new WebSocket(wsUrl);
+      // Registrar handlers de mensajes
+      this.queueStatusHandler = this.handleQueueStatus.bind(this);
+      this.gameStartHandler = this.handleGameStart.bind(this);
+      this.connectionLostHandler = this.handleConnectionLost.bind(this);
 
-      this.ws.onopen = () => {
-        console.log('Connected to WebSocket server');
-        this.statusText.setText('Waiting for other player...');
+      wsService.on('queueStatus', this.queueStatusHandler);
+      wsService.on('gameStart', this.gameStartHandler);
+      wsService.on('connectionLost', this.connectionLostHandler);
 
-        // Join matchmaking queue
-        this.ws.send(JSON.stringify({ type: 'joinQueue' }));
-      };
+      // Unirse a la cola
+      wsService.joinQueue();
 
-      this.ws.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          this.handleServerMessage(data);
-        } catch (error) {
-          console.error('Error parsing server message:', error);
-        }
-      };
-
-      this.ws.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        this.statusText.setText('Connection error!');
-        this.statusText.setColor('#ff0000');
-      };
-
-      this.ws.onclose = () => {
-        console.log('WebSocket connection closed');
-        if (this.scene.isActive('LobbyScene')) {
-          this.statusText.setText('Connection lost!');
-          this.statusText.setColor('#ff0000');
-        }
-      };
     } catch (error) {
-      console.error('Error connecting to server:', error);
-      this.statusText.setText('Failed to connect!');
+      console.error('❌ Error conectando al servidor:', error);
+      this.statusText.setText('Error de conexión');
       this.statusText.setColor('#ff0000');
+      
+      // Botón de reintentar
+      const retryButton = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 100, 
+        '🔄 Reintentar', {
+        fontSize: '24px',
+        color: '#ffffff',
+        backgroundColor: '#4444ff',
+        padding: { x: 20, y: 10 }
+      }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+
+      retryButton.on('pointerdown', () => {
+        retryButton.destroy();
+        this.connectToServer();
+      });
     }
   }
 
-  handleServerMessage(data) {
-    switch (data.type) {
-      case 'queueStatus':
-        this.playerCountText.setText(`Players in queue: ${data.position}/2`);
-        break;
+  handleQueueStatus(data) {
+    this.playerCountText.setText(`Jugadores en cola: ${data.position}/2`);
+  }
 
-      case 'gameStart':
-        console.log('Game starting!', data);
-        // Store game data and transition to multiplayer game scene
-        this.scene.start('GameScene');
-        break;
+  handleGameStart(data) {
+    console.log('🎮 ¡Partida encontrada!', data);
+    
+    // Guardar el rol del jugador
+    wsService.setPlayerRole(data.role);
+    
+    this.statusText.setText('¡Partida encontrada!');
+    this.statusText.setColor('#00ff00');
+    this.playerCountText.setText('Iniciando juego...');
 
-      default:
-        console.log('Unknown message type:', data.type);
-    }
+    // Transición a la escena de juego después de 1 segundo
+    this.time.delayedCall(1000, () => {
+      // Pasar el rol al GameScene
+      this.scene.start('GameScene', { 
+        isMultiplayer: true,
+        playerRole: data.role,
+        roomId: data.roomId
+      });
+    });
+  }
+
+  handleConnectionLost() {
+    console.log('❌ Conexión perdida en Lobby');
+    this.statusText.setText('Conexión perdida');
+    this.statusText.setColor('#ff0000');
+    this.playerCountText.setText('');
+
+    // Volver al menú después de 2 segundos
+    this.time.delayedCall(2000, () => {
+      this.leaveQueue();
+    });
   }
 
   leaveQueue() {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({ type: 'leaveQueue' }));
-      this.ws.close();
+    // Limpiar handlers
+    if (this.queueStatusHandler) {
+      wsService.off('queueStatus', this.queueStatusHandler);
     }
+    if (this.gameStartHandler) {
+      wsService.off('gameStart', this.gameStartHandler);
+    }
+    if (this.connectionLostHandler) {
+      wsService.off('connectionLost', this.connectionLostHandler);
+    }
+
+    // Salir de la cola y desconectar
+    wsService.leaveQueue();
+    wsService.disconnect();
+
+    // Volver al menú
+    this.scene.start('MenuScene');
   }
 
   shutdown() {

@@ -118,7 +118,7 @@ const server = createServer(app);
 const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
-  console.log('Cliente WebSocket conectado');
+  console.log('🔌 Cliente WebSocket conectado');
 
   ws.on('message', (message) => {
     try {
@@ -133,30 +133,46 @@ wss.on('connection', (ws) => {
           matchmakingService.leaveQueue(ws);
           break;
 
-        case 'paddleMove':
-          gameRoomService.handlePaddleMove(ws, data.y);
+        case 'playerMove':
+          // data: { x, y, flipX, animKey }
+          gameRoomService.handlePlayerMove(ws, {
+            x: data.x,
+            y: data.y,
+            flipX: data.flipX,
+            animKey: data.animKey
+          });
           break;
 
-        case 'goal':
-          gameRoomService.handleGoal(ws, data.side);
+        case 'crystalCollect':
+          // data: { crystalType: 'moon' | 'sun' }
+          gameRoomService.handleCrystalCollect(ws, data.crystalType);
+          break;
+
+        case 'portalTouch':
+          // data: { onPortal: true/false }
+          gameRoomService.handlePortalTouch(ws, data.onPortal);
+          break;
+
+        case 'gameOver':
+          gameRoomService.handleGameOver(ws, data.reason);
           break;
 
         default:
-          console.log('Mensaje desconocido:', data.type);
+          console.log('⚠️ Mensaje desconocido:', data.type);
       }
     } catch (error) {
-      console.error('Error procesando mensaje:', error);
+      console.error('❌ Error procesando mensaje:', error);
     }
   });
 
   ws.on('close', () => {
-    console.log('Cliente WebSocket desconectado');
+    console.log('🔌 Cliente WebSocket desconectado');
     matchmakingService.leaveQueue(ws);
     gameRoomService.handleDisconnect(ws);
   });
 
   ws.on('error', (error) => {
-    console.error('Error en WebSocket:', error);
+    console.error('❌ Error en WebSocket:', error);
   });
 });
 

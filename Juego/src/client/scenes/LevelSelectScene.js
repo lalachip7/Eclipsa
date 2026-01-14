@@ -73,7 +73,7 @@ export class LevelSelectScene extends Phaser.Scene {
         LvlUnoBtn.on('pointerdown', () => {
             this.scene.stop('MenuScene');
             this.scene.stop();
-            this.scene.start('GameScene');
+            this.scene.start('GameLocalScene');
         });
 
         //Placeholder
@@ -102,7 +102,7 @@ export class LevelSelectScene extends Phaser.Scene {
         LvlDosBtn.on('pointerdown', () => {
             this.scene.stop('MenuScene');
             this.scene.stop();
-            this.scene.start('Level2Scene');
+            this.scene.start('Level2SceneLocal');
         });
 
         // Botón de salir (x)

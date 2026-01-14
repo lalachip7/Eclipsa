@@ -65,7 +65,7 @@ export default class LobbyScene extends Phaser.Scene {
 
       this.ws.onopen = () => {
         console.log('Connected to WebSocket server');
-        this.statusText.setText('Waiting for opponent...');
+        this.statusText.setText('Waiting for other player...');
 
         // Join matchmaking queue
         this.ws.send(JSON.stringify({ type: 'joinQueue' }));

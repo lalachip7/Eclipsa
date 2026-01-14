@@ -207,7 +207,6 @@ export class MenuScene extends Phaser.Scene {
         if (!this.connectionText || !this.scene || !this.scene.isActive('MenuScene')) {
             return;
         }
-
         try {
             if (data.connected) {
                 this.connectionText.setText(`Servidor: ${data.count} usuario(s) conectado(s)`);

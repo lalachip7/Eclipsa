@@ -17,6 +17,11 @@ export class GameScene extends Phaser.Scene {
 
         this.isNiviaWalking = null;
         this.isSolenneWalking = null;
+        
+        // Control de desconexión para evitar loops
+        this.isHandlingDisconnection = false;
+        this.lastDisconnectionTime = 0;
+        this.disconnectionCooldown = 1000; // 1 segundo de espera entre detecciones
     }
 
     preload() {
@@ -81,14 +86,37 @@ export class GameScene extends Phaser.Scene {
 
     create() {
 
-        this.connectionListerner = (data) => {
-            if(!data.connected && this.scene.isActive()){
-                this.onConnectionLost();
-            };
-            
-        }
-        connectionManager.addListener(this.connectionListerner);
+        // Detecta pérdida de conexión
+        this.connectionListener = (data) => {
+            // Evitar múltiples disparos del mismo evento
+            const now = Date.now();
+            if (!data.connected && this.scene.isActive('GameScene') && !this.isHandlingDisconnection) {
+                if (now - this.lastDisconnectionTime > this.disconnectionCooldown) {
+                    console.log('❌ Conexión perdida durante el juego');
+                    this.isHandlingDisconnection = true;
+                    this.lastDisconnectionTime = now;
+                    this.onConnectionLost();
+                }
+            } else if (data.connected && this.isHandlingDisconnection) {
+                // Reconexión detectada
+                this.isHandlingDisconnection = false;
+                console.log('✅ Reconexión detectada');
+            }
+        };
+        connectionManager.addListener(this.connectionListener);
         
+        // Event listener para cuando la escena se reanuda
+        this.events.on('resume', () => {
+            console.log('GameScene reanudada');
+            this.isPaused = false;
+            this.physics.resume();
+        });
+        
+        // Event listener para cuando la escena se pausa
+        this.events.on('pause', () => {
+            console.log('GameScene pausada');
+            this.physics.pause();
+        });
 
         const mapWidthInPixels = 1420;
         const mapHeightInPixels = 800;
@@ -338,7 +366,6 @@ export class GameScene extends Phaser.Scene {
            this.scene.launch('SettingsScene');
         });
 
-
         this.events.on('update', () => {
             if (!this.physics.overlap(this.nivia, this.exitPortal)) {
                 this.niviaOnPortal = false;
@@ -347,6 +374,7 @@ export class GameScene extends Phaser.Scene {
                 this.solenneOnPortal = false;
             }
         });
+
         this.physics.add.overlap(this.nivia, this.damage, () => {
             this.scene.launch('GameOverScene', { originalScene: this.scene.key });
             this.scene.pause();
@@ -358,8 +386,13 @@ export class GameScene extends Phaser.Scene {
     }
 
     onConnectionLost() {
-            this.scene.pause();
-            this.scene.launch('ConnectionLostScene', {previousScene: 'GameScene'});
+        this.isPaused = true;
+        // Remover listener para evitar que se dispare mientras ConnectionLostScene está activa
+        if (this.connectionListener) {
+            connectionManager.removeListener(this.connectionListener);
+        }
+        this.scene.launch('ConnectionLostScene', {previousScene: 'GameScene'});
+        this.scene.pause();
     }
 
     setUpPlayers() {
@@ -433,6 +466,7 @@ export class GameScene extends Phaser.Scene {
 
     resume() {
         this.isPaused = false;
+        this.isHandlingDisconnection = false; // Reset del flag de desconexión
     }
 
     togglePause() {
@@ -461,7 +495,7 @@ export class GameScene extends Phaser.Scene {
         this.handleCameraAndConstraints();
         
         if(this.exitPortal.visible) {
-            this.checkLevelComplete(this.exitPortal);
+            this.checkLevelComplete();
         }
     }
 
@@ -618,31 +652,16 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
-    async checkLevelComplete(player, portal) {
-        // Los dos deben tocar el portal y tener sus respectivos cristales
-        if (niviaInPortal && solenneInPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
-            // 1. Calcular tiempo 
-            const timeElapsed = Math.floor(this.time.now / 1000); 
-
-            // 2. Obtener el ID del usuario logueado 
-            const userId = localStorage.getItem('userId'); 
-
-            if (userId) {
-                try {
-                    await fetch(`/api/users/${userId}/score`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ time: timeElapsed })
-                    });
-                    console.log("Puntuación enviada con éxito");
-                } catch (error) {
-                    console.error("Error al enviar puntuación:", error);
-                }
+    checkLevelComplete() {
+        try {
+            // Los dos deben tocar el portal y tener sus respectivos cristales
+            if (this.niviaOnPortal && this.solenneOnPortal && this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+                console.log('¡NIVEL COMPLETADO!');
+                // Lanzar escena de victoria y pausar esta escena
+                this.scene.launch('VictoryScene', { originalScene: this.scene.key });
             }
-
-            // Lanzar escena de victoria y pausar esta escena
-            this.scene.launch('VictoryScene', { originalScene: this.scene.key });
-            this.scene.pause();
+        } catch (error) {
+            console.error('Error en checkLevelComplete:', error);
         }
     }
 
@@ -680,5 +699,10 @@ export class GameScene extends Phaser.Scene {
             this.scene.stop(originalSceneKey);
             this.scene.start('GameScene');
         });
+    }
+    shutdown() {
+        if (this.connectionListener) {
+            connectionManager.removeListener(this.connectionListener);
+        }
     }
 }

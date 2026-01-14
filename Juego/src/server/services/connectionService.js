@@ -1,43 +1,59 @@
-/**
- * Service para gestionar las conexiones activas de usuarios
- */
 export function createConnectionService() {
-  // Map para almacenar sesiones conectadas: sessionId -> timestamp de última conexión
-  const connectedSessions = new Map();
-
-  // Configuración de timeout (5 segundos sin actividad = desconectado)
-  const CONNECTION_TIMEOUT = 5000; // 5 segundos en milisegundos
-  const CLEANUP_INTERVAL = 2000;    // Limpiar cada 2 segundos
+  // Map para almacenar sesiones
+  const activeSessions = new Map();
+  const INACTIVITY_TIMEOUT = 10000; // 10 segundos
 
   // Limpiar sesiones inactivas periódicamente
-  const cleanupInterval = setInterval(() => {
-    // Implementar
-  }, CLEANUP_INTERVAL);
+  setInterval(() => {
+    const now = Date.now();
+    let removed = 0;
+
+    activeSessions.forEach((lastSeen, sessionId) => {
+      if (now - lastSeen > INACTIVITY_TIMEOUT) {
+        activeSessions.delete(sessionId);
+        console.log(`Sesión desconectada: ${sessionId}`);
+        removed++;
+      }
+    });
+
+    if (removed > 0) {
+      console.log(`Sesiones activas: ${activeSessions.size}`);
+    }
+  }, 2000);
 
   return {
     /**
-     * Registrar o actualizar la conexión de una sesión
-     * @param {string} sessionId - ID único de la sesión del cliente
-     * @returns {number} Número total de sesiones conectadas
+     * Actualizar la última vez vista de una sesión
+     * @param {string} sessionId - ID de la sesión del cliente
+     * @returns {number} - Número de sesiones conectadas
      */
     updateConnection(sessionId) {
-      connectedSessions.set(sessionId, Date.now());
-      return connectedSessions.size;
+      const wasNew = !activeSessions.has(sessionId);
+      
+      activeSessions.set(sessionId, Date.now());
+      
+      if (wasNew) {
+        console.log(`Nueva conexión: ${sessionId}`);
+      }
+      
+      return activeSessions.size;
     },
 
     /**
-     * Obtener el número de sesiones conectadas
+     * Obtener el número de sesiones activas
      * @returns {number}
      */
-    getConnectedCount() {
-      return connectedSessions.size;
+    getActiveCount() {
+      return activeSessions.size;
     },
 
     /**
-     * Detener el cleanup interval (útil para testing o shutdown)
+     * Verificar si una sesión está activa
+     * @param {string} sessionId
+     * @returns {boolean}
      */
-    stopCleanup() {
-      clearInterval(cleanupInterval);
+    isSessionActive(sessionId) {
+      return activeSessions.has(sessionId);
     }
   };
 }

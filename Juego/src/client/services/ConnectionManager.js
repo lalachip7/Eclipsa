@@ -135,6 +135,20 @@ export class ConnectionManager {
       this.intervalId = null;
     }
   }
+
+  /**
+   * Verificar si hay conexión (útil para otras escenas)
+   */
+  getIsConnected() {
+    return this.isConnected;
+  }
+
+  /**
+   * Obtener número de usuarios conectados
+   */
+  getConnectedUsers() {
+    return this.connectedCount;
+  }
 }
 
 // Crear instancia singleton

@@ -8,15 +8,20 @@ import { connectionManager } from '../services/ConnectionManager';
 export class ConnectionLostScene extends Phaser.Scene {
     constructor() {
         super('ConnectionLostScene');
-        this.reconnectCheckInterval = null;
+        this.reconnectCheckTimer = null;
+        this.connectionListener = null;
+        this.isChecking = false;
     }
 
     init(data) {
         // Guardar la escena que estaba activa cuando se perdió la conexión
-        this.previousScene = data.previousScene;
+        this.previousScene = data?.previousScene;
     }
 
     create() {
+        // No pausar la escena anterior nuevamente, ya está pausada
+        // Solo mostrar la escena de conexión perdida
+
         // Fondo semi-transparente
         this.add.rectangle(400, 300, 800, 600, 0x000000, 0.8);
 
@@ -27,7 +32,7 @@ export class ConnectionLostScene extends Phaser.Scene {
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        // Mensaje
+        // Mensaje de estado
         this.statusText = this.add.text(400, 300, 'Intentando reconectar...', {
             fontSize: '24px',
             color: '#ffff00'
@@ -40,19 +45,19 @@ export class ConnectionLostScene extends Phaser.Scene {
             color: '#ffffff'
         }).setOrigin(0.5);
 
-        // Indicador parpadeante
+        // Indicador parpadeante (...)
         this.dotCount = 0;
         this.time.addEvent({
             delay: 2000,
+            loop: true,
             callback: () => {
                 this.dotCount = (this.dotCount + 1) % 4;
                 const dots = '.'.repeat(this.dotCount);
                 this.statusText.setText(`Intentando reconectar${dots}`);
-            },
-            loop: true
+            }
         });
 
-        // Listener para cambios de conexión
+        // Listener de reconexión
         this.connectionListener = (data) => {
             if (data.connected) {
                 this.onReconnected();
@@ -60,49 +65,68 @@ export class ConnectionLostScene extends Phaser.Scene {
         };
         connectionManager.addListener(this.connectionListener);
 
-        // Intentar reconectar cada 2 segundos
-        this.reconnectCheckInterval = setInterval(() => {
-            this.attemptReconnect();
-        }, 2000);
+        // Intentos de reconexión 
+        this.reconnectCheckTimer = this.time.addEvent({
+            delay: 2000,
+            loop: true,
+            callback: this.attemptReconnect,
+            callbackScope: this
+        });
 
         // Primer intento inmediato
         this.attemptReconnect();
     }
 
     async attemptReconnect() {
+        if (this.isChecking) return;
+        this.isChecking = true;
+
         this.attemptCount++;
         this.attemptText.setText(`Intentos: ${this.attemptCount}`);
-        await connectionManager.checkConnection();
+
+        try {
+            await connectionManager.checkConnection();
+        } finally {
+            this.isChecking = false;
+        }
     }
 
     onReconnected() {
-        // Limpiar interval
-        if (this.reconnectCheckInterval) {
-            clearInterval(this.reconnectCheckInterval);
+        // Limpiar timers
+        if (this.reconnectCheckTimer) {
+            this.reconnectCheckTimer.remove();
+            this.reconnectCheckTimer = null;
         }
 
         // Remover listener
-        connectionManager.removeListener(this.connectionListener);
+        if (this.connectionListener) {
+            connectionManager.removeListener(this.connectionListener);
+            this.connectionListener = null;
+        }
 
         // Mensaje de éxito
         this.statusText.setText('¡Conexión restablecida!');
         this.statusText.setColor('#00ff00');
 
-        // Volver a la escena anterior
+        // Reanudar escena anterior y detener la actual
         this.time.delayedCall(1000, () => {
-            this.scene.stop();
             if (this.previousScene) {
+                // Obtener la escena anterior y re-agregar su listener
+                const gameScene = this.scene.get(this.previousScene);
+                if (gameScene && gameScene.connectionListener) {
+                    connectionManager.addListener(gameScene.connectionListener);
+                }
                 this.scene.resume(this.previousScene);
             }
+            this.scene.stop();
         });
     }
 
     shutdown() {
-        // Limpiar el interval al cerrar la escena
-        if (this.reconnectCheckInterval) {
-            clearInterval(this.reconnectCheckInterval);
+        // Limpieza extra por seguridad
+        if (this.reconnectCheckTimer) {
+            this.reconnectCheckTimer.remove();
         }
-        // Remover el listener
         if (this.connectionListener) {
             connectionManager.removeListener(this.connectionListener);
         }

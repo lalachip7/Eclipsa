@@ -190,8 +190,10 @@ export class MenuScene extends Phaser.Scene {
     // Indicador de conexión al servidor  --  comprobado conexion 
         this.connectionText = this.add.text(400, 500, 'Servidor: Comprobando...', {
             fontSize: '18px',
-            color: '#ffff00'
-        }).setOrigin(0.5);
+            color: '#ffff00',
+            backgroundColor: '#000000',
+            padding: { x: 8, y: 4 }
+        }).setOrigin(0).setDepth(1000);
 
     // Listener para cambios de conexión  --  usuarios conectados
         this.connectionListener = (data) => {

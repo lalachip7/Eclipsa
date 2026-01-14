@@ -14,10 +14,13 @@ export class GameModeScene extends Phaser.Scene {
         this.load.image('ExitButton', 'assets/salir.png');
         this.load.image('ExitButtonHover', 'assets/salirHover.png');
 
-        // botón de juego local
-        this.load.image('LocalPlayButton', 'assets/jugar.png');
-        this.load.image('LocalPlayButtonHover', 'assets/jugarHover.png');
-  
+        // Botón de jugar en local
+        this.load.image('LocalButton', 'assets/jugarLocal.png');
+        this.load.image('LocalButtonHover', 'assets/jugarLocalHover.png');
+
+        // Botón de jugar en online
+        this.load.image('OnlineButton', 'assets/jugarOnline.png');
+        this.load.image('OnlineButtonHover', 'assets/jugarOnlineHover.png');
     }
     create(){
         // dimensiones de la pantalla
@@ -66,14 +69,14 @@ export class GameModeScene extends Phaser.Scene {
 
             
        // Botón de juego local
-        const localBtn = this.add.image(305, 340, 'LocalPlayButton')
+        const localBtn = this.add.image(305, 340, 'LocalButton')
             .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
         localBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(305, 340, 'LocalPlayButtonHover')
+                hoverImg = this.add.image(305, 340, 'LocalButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(localBtn.depth + 1);
@@ -93,14 +96,14 @@ export class GameModeScene extends Phaser.Scene {
         });
         
         // Botón de Juego Online
-        const onlineBtn = this.add.image(1095, 340, 'LocalPlayButton')
+        const onlineBtn = this.add.image(1095, 340, 'OnlineButton')
             .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
         onlineBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1095, 340, 'LocalPlayButtonHover')
+                hoverImg = this.add.image(1095, 340, 'OnlineButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(onlineBtn.depth + 1);

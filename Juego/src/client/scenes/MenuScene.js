@@ -132,7 +132,7 @@ export class MenuScene extends Phaser.Scene {
         });
 
         // Botón de pantalla de ranking
-        const rankingBtn = this.add.image(1230, 75, 'RankingButton') 
+        const rankingBtn = this.add.image(1200, 75, 'RankingButton') 
             .setOrigin(0.5)    
             .setScale(0.75)
             .setInteractive({ useHandCursor: true })
@@ -140,7 +140,7 @@ export class MenuScene extends Phaser.Scene {
 
         rankingBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1230, 75, 'RankingButtonHover')
+                hoverImg = this.add.image(1200, 75, 'RankingButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(rankingBtn.depth + 1);

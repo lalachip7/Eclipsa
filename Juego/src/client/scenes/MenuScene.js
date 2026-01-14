@@ -33,6 +33,10 @@ export class MenuScene extends Phaser.Scene {
         // botón de ajustes
         this.load.image('SettingsButton', 'assets/ajustes.png');
         this.load.image('SettingsButtonHover', 'assets/ajustesHover.png');
+
+        // botón de ranking
+        this.load.image('RankingButton', 'assets/ranking.png');
+        this.load.image('RankingButtonHover', 'assets/rankingHover.png');
     }
     create() {
         // Detener la música del juego si está sonando
@@ -128,11 +132,27 @@ export class MenuScene extends Phaser.Scene {
         });
 
         // Botón de pantalla de ranking
-        const rankingBtn = this.add.image(1300, 670, 'RankingButton') // Ajusta posición
+        const rankingBtn = this.add.image(1230, 75, 'RankingButton') 
             .setOrigin(0.5)    
             .setScale(0.75)
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.scene.launch('RankingScene'));
+
+        rankingBtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(1230, 75, 'RankingButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.75)
+                    .setDepth(rankingBtn.depth + 1);
+            }
+        });
+
+        rankingBtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
 
         // Botón de salir de juego
         const exitBtn = this.add.image(312, 670, 'ExitButton')

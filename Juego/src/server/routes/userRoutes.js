@@ -19,6 +19,9 @@ export function createUserRoutes(userController) {
   // GET /api/users - Obtener todos los usuarios
   router.get('/', userController.getAll);
 
+  // GET /api/users/ranking - Obtener ranking de usuarios
+  router.get('/ranking', userController.getRanking);
+
   // GET /api/users/:id - Obtener un usuario por ID
   router.get('/:id', userController.getById);
 

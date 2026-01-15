@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
 import { MenuScene } from "./scenes/MenuScene.js";
+import {AuthScene } from "./scenes/AuthScene.js"
 import { GameScene } from "./scenes/GameScene.js";
 import { PauseScene } from "./scenes/PauseScene.js";
 import { TutorialScene } from "./scenes/TutorialScene.js";
@@ -26,6 +27,9 @@ const config = {
     width: 1420,
     height: 800,
     parent: 'game-container',
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -34,7 +38,7 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, LobbyScene, ConnectionLostScene, GameModeScene, RankingScene],
+    scene: [  MenuScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, GameModeScene, AuthScene, LobbyScene, ConnectionLostScene, RankingScene],
     backgroundColor: '#021410ff',
 }    
 

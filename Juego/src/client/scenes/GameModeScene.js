@@ -118,7 +118,18 @@ export class GameModeScene extends Phaser.Scene {
         });
 
         onlineBtn.on('pointerdown', () => {
-            this.scene.start('LobbyScene'); 
+            console.log("👉 Botón Online pulsado"); // <--- MIRA LA CONSOLA
+
+            const user = this.registry.get('user');
+            console.log("👤 Usuario en registro:", user); // <--- ¿SALE NULL O ALGO?
+
+            if (user) {
+                console.log("✅ Usuario encontrado, voy al Lobby");
+                this.scene.start('LobbyScene');
+            } else {
+                console.log("❌ No hay usuario, voy a AuthScene");
+                this.scene.start('AuthScene', { destination: 'LobbyScene' });
+            }
         });
     }
 }

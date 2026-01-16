@@ -74,6 +74,7 @@ export class RankingScene extends Phaser.Scene {
             // Llamada al endpoint que crearemos en userRoutes.js
             const response = await fetch('/api/users/ranking');
             const players = await response.json();
+            const w = this.scale.width;
 
             players.forEach((player, index) => {
                 const yPos = 200 + (index * 50);

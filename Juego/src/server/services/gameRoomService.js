@@ -1,5 +1,3 @@
-// src/server/services/gameRoomService.js
-
 /**
  * Game Room service - manages active game rooms and game state
  */
@@ -23,14 +21,16 @@ export function createGameRoomService() {
         role: 'nivia',
         x: 1300,
         y: 700,
-        hasCrystal: false
+        hasCrystal: false,
+        onPortal: false
       },
       player2: {
         ws: player2Ws,
         role: 'solenne',
         x: 100,
         y: 700,
-        hasCrystal: false
+        hasCrystal: false,
+        onPortal: false
       },
       gameState: {
         moonCrystalCollected: false,
@@ -170,30 +170,41 @@ export function createGameRoomService() {
     const room = rooms.get(roomId);
     if (!room || !room.active) return;
 
-    const player = room.player1.ws === ws ? room.player1 : room.player2;
-    const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
-
     // Update player portal status
     if (room.player1.ws === ws) {
       room.player1.onPortal = onPortal;
+      console.log(`🚪 Player 1 (Nivia) en portal: ${onPortal}`);
     } else {
       room.player2.onPortal = onPortal;
+      console.log(`🚪 Player 2 (Solenne) en portal: ${onPortal}`);
     }
 
+    // Debug: Mostrar estado actual
+    console.log(`📊 Estado portal - P1: ${room.player1.onPortal}, P2: ${room.player2.onPortal}`);
+    console.log(`📊 Cristales - Moon: ${room.gameState.moonCrystalCollected}, Sun: ${room.gameState.sunCrystalCollected}`);
+
     // Check victory condition
-    if (room.player1.onPortal && room.player2.onPortal && 
-        room.player1.hasCrystal && room.player2.hasCrystal) {
+    // Both players must be on portal AND both crystals must be collected
+    const bothOnPortal = room.player1.onPortal && room.player2.onPortal;
+    const bothCrystals = room.gameState.moonCrystalCollected && room.gameState.sunCrystalCollected;
+
+    console.log(`✅ Verificación de victoria - Portal P1: ${room.player1.onPortal}, Portal P2: ${room.player2.onPortal}, BothOnPortal: ${bothOnPortal}`);
+    console.log(`✅ Verificación de victoria - Moon: ${room.gameState.moonCrystalCollected}, Sun: ${room.gameState.sunCrystalCollected}, BothCrystals: ${bothCrystals}`);
+
+    if (bothOnPortal && bothCrystals) {
+      const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
       
       const victoryMsg = {
         type: 'victory'
       };
+
+      console.log(`🎉 ¡VICTORIA! Enviando mensaje a ambos jugadores en ${roomId}`);
 
       ws.send(JSON.stringify(victoryMsg));
       if (opponent.readyState === 1) {
         opponent.send(JSON.stringify(victoryMsg));
       }
 
-      console.log(`🎉 Victoria en ${roomId}`);
       room.active = false;
     }
   }
@@ -240,6 +251,8 @@ export function createGameRoomService() {
     const room = rooms.get(roomId);
     if (!room) return;
 
+    console.log(`❌ Jugador desconectado en ${roomId}`);
+
     // Only notify if game is still active
     if (room.active) {
       const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
@@ -248,14 +261,15 @@ export function createGameRoomService() {
         opponent.send(JSON.stringify({
           type: 'playerDisconnected'
         }));
+        
+        console.log(`📢 Notificando desconexión al otro jugador`);
       }
-
-      console.log(`❌ Jugador desconectado en ${roomId}`);
     }
 
     // Clean up room
     room.active = false;
     rooms.delete(roomId);
+    console.log(`🗑️ Sala ${roomId} eliminada`);
   }
 
   /**

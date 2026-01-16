@@ -40,6 +40,36 @@ export class GameScene extends Phaser.Scene {
         console.log(`🎮 GameScene iniciado`);
         if (this.isMultiplayer) {
             console.log(`👤 Rol: ${this.playerRole} | 🚪 Sala: ${this.roomId}`);
+            
+            // Mostrar anuncio de qué personaje es
+            const characterName = this.playerRole === 'nivia' ? '🌙 NIVIA (Luna)' : '☀️ SOLENNE (Sol)';
+            const announcementText = this.add.text(
+                this.cameras.main.width / 2,
+                this.cameras.main.height / 2,
+                `¡Eres ${characterName}!`,
+                {
+                    fontSize: '48px',
+                    fontStyle: 'bold',
+                    color: this.playerRole === 'nivia' ? '#87CEEB' : '#FFD700',
+                    align: 'center',
+                    backgroundColor: '#000000',
+                    padding: { x: 20, y: 10 }
+                }
+            )
+            .setOrigin(0.5)
+            .setScrollFactor(0)
+            .setDepth(1000);
+            
+            // Animar el texto y luego desaparecerlo
+            this.tweens.add({
+                targets: announcementText,
+                alpha: 0,
+                duration: 3000,
+                delay: 1500,
+                onComplete: () => {
+                    announcementText.destroy();
+                }
+            });
         }
 
         if (this.isMultiplayer) {
@@ -424,14 +454,16 @@ export class GameScene extends Phaser.Scene {
            this.scene.launch('SettingsScene');
         });
 
-        this.events.on('update', () => {
-            if (!this.physics.overlap(this.nivia, this.exitPortal)) {
-                this.niviaOnPortal = false;
-            }
-            if (!this.physics.overlap(this.solenne, this.exitPortal)) {
-                this.solenneOnPortal = false;
-            }
-        });
+        if (!this.isMultiplayer) {
+            this.events.on('update', () => {
+                if (!this.physics.overlap(this.nivia, this.exitPortal)) {
+                    this.niviaOnPortal = false;
+                }
+                if (!this.physics.overlap(this.solenne, this.exitPortal)) {
+                    this.solenneOnPortal = false;
+                }
+            });
+        }
 
         this.physics.add.overlap(this.nivia, this.damage, () => {
             if (this.isMultiplayer && wsService.isConnected()) {
@@ -755,9 +787,9 @@ export class GameScene extends Phaser.Scene {
     }
 
 
-    update(){
+    update() {
         // Lógica de pausa con tecla ESC
-        if(this.escKey.isDown){
+        if (this.escKey.isDown) {
             this.togglePause();
         }
 
@@ -765,22 +797,20 @@ export class GameScene extends Phaser.Scene {
             // Solo controlas TU personaje
             if (this.playerRole === 'nivia') {
                 this.handlePlayerMovement(this.nivia, this.niviaControls);
-                // Sincronizar posición por red
                 this.syncLocalPlayerPosition();
             } else if (this.playerRole === 'solenne') {
                 this.handlePlayerMovement(this.solenne, this.solenneControls);
-                // Sincronizar posición por red
                 this.syncLocalPlayerPosition();
             }
         } else {
-            // MODO LOCAL: Controlas ambos personajes
+            // MODO LOCAL
             this.handlePlayerMovement(this.nivia, this.niviaControls);
             this.handlePlayerMovement(this.solenne, this.solenneControls);
         }
 
         this.handleCameraAndConstraints();
-        
-        if (this.exitPortal.visible) {
+
+        if (this.exitPortal && this.exitPortal.visible && this.exitPortal.body.enable) {
             this.checkLevelComplete();
         }
     }
@@ -947,35 +977,56 @@ export class GameScene extends Phaser.Scene {
     }
 
     checkLevelComplete() {
-        try {
-        // ✨ ENVIAR ESTADO DEL PORTAL EN MULTIJUGADOR
-            if (this.isMultiplayer && this.exitPortal.visible) {
-                // Verificar si el jugador local está en el portal
-                const localPlayerOnPortal = this.physics.overlap(this.localPlayer, this.exitPortal);
-                
-                // Enviar al servidor solo si cambió el estado
-                if (this.playerRole === 'nivia' && localPlayerOnPortal !== this.niviaOnPortal) {
-                    this.niviaOnPortal = localPlayerOnPortal;
-                    wsService.sendPortalTouch(localPlayerOnPortal);
-                } else if (this.playerRole === 'solenne' && localPlayerOnPortal !== this.solenneOnPortal) {
-                    this.solenneOnPortal = localPlayerOnPortal;
-                    wsService.sendPortalTouch(localPlayerOnPortal);
-                }
-            }
+    try {
+        // MODO LOCAL
+        if (!this.isMultiplayer) {
+            // Verificar overlap manualmente
+            const niviaOnPortal = this.physics.overlap(this.nivia, this.exitPortal);
+            const solenneOnPortal = this.physics.overlap(this.solenne, this.exitPortal);
 
-            // MODO LOCAL: Verificación tradicional
-            if (!this.isMultiplayer) {
-                if (this.niviaOnPortal && this.solenneOnPortal && 
-                    this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
-                    console.log('¡NIVEL COMPLETADO!');
-                    this.scene.launch('VictoryScene', { originalScene: this.scene.key });
-                }
+            if (niviaOnPortal && solenneOnPortal && 
+                this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+                console.log('¡NIVEL COMPLETADO!');
+                this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+                this.scene.pause();
             }
-        // En multijugador, el servidor enviará el mensaje 'victory'
-        } catch (error) {
-            console.error('Error en checkLevelComplete:', error);
+            return;
         }
+
+        // MODO MULTIJUGADOR
+        if (!this.exitPortal || !this.exitPortal.visible || !this.localPlayer) {
+            return;
+        }
+
+        // Verificar overlap del jugador local con el portal
+        const isOverlapping = this.physics.overlap(this.localPlayer, this.exitPortal);
+
+        // Determinar el estado anterior según el rol
+        let previousState = false;
+        if (this.playerRole === 'nivia') {
+            previousState = this.niviaOnPortal;
+        } else if (this.playerRole === 'solenne') {
+            previousState = this.solenneOnPortal;
+        }
+
+        // Actualizar estado local siempre
+        if (this.playerRole === 'nivia') {
+            this.niviaOnPortal = isOverlapping;
+        } else if (this.playerRole === 'solenne') {
+            this.solenneOnPortal = isOverlapping;
+        }
+
+        // Enviar estado al servidor cada frame (para asegurar sincronización)
+        if (wsService.isConnected()) {
+            wsService.sendPortalTouch(isOverlapping);
+        }
+
+        console.log(`🚪 ${this.playerRole} en portal: ${isOverlapping}`);
+
+    } catch (error) {
+        console.error('Error en checkLevelComplete:', error);
     }
+}
 
     endgame() {
         console.log("Juego Terminado");

@@ -38,4 +38,7 @@ const config = {
     backgroundColor: '#021410ff',
 }    
 
-const game = new Phaser.Game(config);
+document.fonts.ready.then(() => {
+  const game = new Phaser.Game(config);
+});
+

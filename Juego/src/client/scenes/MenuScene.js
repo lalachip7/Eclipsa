@@ -207,13 +207,17 @@ export class MenuScene extends Phaser.Scene {
             this.scene.launch('SettingsScene');
         });
 
-    // Indicador de conexión al servidor  --  comprobado conexion 
-        this.connectionText = this.add.text(400, 500, 'Servidor: Comprobando...', {
-            fontSize: '18px',
-            color: '#ffff00',
-            backgroundColor: '#000000',
-            padding: { x: 8, y: 4 }
-        }).setOrigin(0).setDepth(1000);
+    // === Indicador de conexión ===
+    // Puntito de estado
+    this.connectionDot = this.add.circle(70, 50, 10, 0xff0000)
+        .setDepth(1000);
+
+    // Texto con número de usuarios
+    this.connectionCountText = this.add.text(85, 40, '0', {
+        fontSize: '18px',
+        fontFamily: '"Caudex", serif',
+        color: '#da8181ff'
+    }).setDepth(1000);
 
     // Listener para cambios de conexión  --  usuarios conectados
         this.connectionListener = (data) => {
@@ -223,17 +227,28 @@ export class MenuScene extends Phaser.Scene {
     }
 
     updateConnectionDisplay(data) {
-        // Solo actualizar si el texto existe (la escena está creada)
-        if (!this.connectionText || !this.scene || !this.scene.isActive('MenuScene')) {
+        if (
+            !this.connectionDot ||
+            !this.connectionCountText ||
+            !this.scene ||
+            !this.scene.isActive('MenuScene')
+        ) {
             return;
         }
+
         try {
             if (data.connected) {
-                this.connectionText.setText(`Servidor: ${data.count} usuario(s) conectado(s)`);
-                this.connectionText.setColor('#00ff00');
+                // Verde
+                const greenColor = 0xa1dba1;
+                this.connectionDot.setFillStyle(greenColor);
+                this.connectionCountText.setText(String(data.count));
+                this.connectionCountText.setColor('#a1dba1');
             } else {
-                this.connectionText.setText('Servidor: Desconectado');
-                this.connectionText.setColor('#ff0000');
+                // Rojo
+                const redColor = 0xda8181;
+                this.connectionDot.setFillStyle(redColor);
+                this.connectionCountText.setText('--');
+                this.connectionCountText.setColor(redColor);
             }
         } catch (error) {
             console.error('[MenuScene] Error updating connection display:', error);

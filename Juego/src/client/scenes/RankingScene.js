@@ -31,7 +31,7 @@ export class RankingScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(1);
 
-        // Título estilizado según el GDD (tipografía rúnica/clara)
+        // Título 
         this.add.image(700, 210, 'RankingText')
             .setOrigin(0.5)
             .setScale(1);
@@ -71,22 +71,24 @@ export class RankingScene extends Phaser.Scene {
 
     async fetchRanking() {
         try {
-            // Llamada al endpoint que crearemos en userRoutes.js
+            // Llamada al endpoint de userRoutes.js
             const response = await fetch('/api/users/ranking');
             const players = await response.json();
             const w = this.scale.width;
 
             players.forEach((player, index) => {
-                const yPos = 200 + (index * 50);
-                const color = index < 3 ? '#ffff00' : '#ffffff'; // Top 3 en dorado
+                const yPos = 270 + (index * 50);
+                const color = index < 3 ? '#ffc875ff' : '#ffffff'; // Top 3 en dorado
                 
                 this.add.text(w * 0.3, yPos, `${index + 1}. ${player.username}`, { 
-                    fontSize: '32px', fill: color 
+                    fontSize: '32px', fill: color, 
+                    fontFamily: 'Caudex'
                 });
                 
-                // Formatear el tiempo (suponiendo que guardas milisegundos o segundos)
+                // Formatear el tiempo
                 this.add.text(w * 0.7, yPos, `${player.bestTime}s`, { 
-                    fontSize: '32px', fill: color 
+                    fontSize: '32px', fill: color, 
+                    fontFamily: 'Caudex'
                 }).setOrigin(1, 0);
             });
         } catch (error) {

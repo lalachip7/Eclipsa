@@ -7,7 +7,15 @@ export default class LobbyScene extends Phaser.Scene {
     super('LobbyScene');
   }
 
- 
+  preload() {
+    // Botón de cancelar
+    this.load.image('CancelButton', 'assets/cancelar.png');
+    this.load.image('CancelButtonHover', 'assets/cancelarHover.png');
+
+    // Texto de multijugador
+    this.load.image('MultiplayerText', 'assets/texto_multijugador.png');
+  }
+
   create() {
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
@@ -16,28 +24,29 @@ export default class LobbyScene extends Phaser.Scene {
     this.background = this.add.rectangle(0, 0, width, height, 0x070722, 0.9).setOrigin(0);
 
     // Título
-    this.add.text(width / 2, 100, 'MULTIJUGADOR ONLINE', {
-      fontSize: '48px',
-      color: '#ffffff',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    this.add.image(700, 110, 'MultiplayerText')
+      .setOrigin(0.5)
+      .setScale(1);
 
     // Subtítulo
-    this.add.text(width / 2, 160, 'Fireboy & Watergirl Style', {
+    this.add.text(width / 2, 200, 'Fireboy & Watergirl Style', {
       fontSize: '24px',
-      color: '#888888'
+      color: '#888888',
+      fontFamily: 'Caudex'
     }).setOrigin(0.5);
 
     // Estado de conexión
     this.statusText = this.add.text(width / 2, height / 2 - 50, 'Conectando al servidor...', {
       fontSize: '28px',
-      color: '#ffff00'
+      color: '#ffff00',
+      fontFamily: 'Caudex'
     }).setOrigin(0.5);
 
     // Contador de jugadores
     this.playerCountText = this.add.text(width / 2, height / 2 + 20, '', {
       fontSize: '22px',
-      color: '#00ff00'
+      color: '#00ff00',
+      fontFamily: 'Caudex'
     }).setOrigin(0.5);
 
     // Indicador de carga (puntos animados)
@@ -56,22 +65,28 @@ export default class LobbyScene extends Phaser.Scene {
     });
 
     // Botón de cancelar
-    const cancelButton = this.add.text(width / 2, height - 100, '❌ Cancelar', {
-      fontSize: '24px',
-      color: '#ff6666',
-      backgroundColor: '#333333',
-      padding: { x: 20, y: 10 }
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    const CancelBtn = this.add.image(width / 2, height - 100, 'CancelButton')
+      .setOrigin(0.5)
+      .setScale(0.7)
+      .setInteractive({ useHandCursor: true });
 
-    cancelButton.on('pointerover', () => {
-      cancelButton.setStyle({ backgroundColor: '#555555', color: '#ff0000' });
+    CancelBtn.on('pointerover', () => {
+      if (!hoverImg) {
+        hoverImg = this.add.image(1068, 170, 'CancelButtonHover')
+          .setOrigin(0.5)
+          .setScale(0.7)
+          .setDepth(CancelBtn.depth + 1);
+      }
     });
 
-    cancelButton.on('pointerout', () => {
-      cancelButton.setStyle({ backgroundColor: '#333333', color: '#ff6666' });
+    CancelBtn.on('pointerout', () => {
+      if (hoverImg) {
+        hoverImg.destroy();
+        hoverImg = null;
+      }
     });
 
-    cancelButton.on('pointerdown', () => {
+    CancelBtn.on('pointerdown', () => {
       this.leaveQueue();
     });
 
@@ -83,9 +98,10 @@ export default class LobbyScene extends Phaser.Scene {
     try {
       // Conectar al WebSocket
       await wsService.connect();
-      
+
       this.statusText.setText('Esperando oponente');
       this.statusText.setColor('#00ff00');
+      this.statusText.setFontFamily('Caudex');
 
       // Registrar handlers de mensajes
       this.queueStatusHandler = this.handleQueueStatus.bind(this);
@@ -103,9 +119,10 @@ export default class LobbyScene extends Phaser.Scene {
       console.error('❌ Error conectando al servidor:', error);
       this.statusText.setText('Error de conexión');
       this.statusText.setColor('#ff0000');
-      
+      this.statusText.setFontFamily('Caudex');
+
       // Botón de reintentar
-      const retryButton = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 100, 
+      const retryButton = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 100,
         '🔄 Reintentar', {
         fontSize: '24px',
         color: '#ffffff',
@@ -126,18 +143,20 @@ export default class LobbyScene extends Phaser.Scene {
 
   handleGameStart(data) {
     console.log('🎮 ¡Partida encontrada!', data);
-    
+
     // Guardar el rol del jugador
     wsService.setPlayerRole(data.role);
-    
+
     this.statusText.setText('¡Partida encontrada!');
     this.statusText.setColor('#00ff00');
     this.playerCountText.setText('Iniciando juego...');
+    this.statusText.setFontFamily('Caudex');
+    this.playerCountText.setFontFamily('Caudex');
 
     // Transición a la escena de juego después de 1 segundo
     this.time.delayedCall(1000, () => {
       // Pasar el rol al GameScene
-      this.scene.start('GameScene', { 
+      this.scene.start('GameScene', {
         isMultiplayer: true,
         playerRole: data.role,
         roomId: data.roomId
@@ -150,6 +169,8 @@ export default class LobbyScene extends Phaser.Scene {
     this.statusText.setText('Conexión perdida');
     this.statusText.setColor('#ff0000');
     this.playerCountText.setText('');
+    this.statusText.setFontFamily('Caudex');
+    this.playerCountText.setFontFamily('Caudex');
 
     // Volver al menú después de 2 segundos
     this.time.delayedCall(2000, () => {

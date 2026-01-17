@@ -21,6 +21,9 @@ export class GameModeScene extends Phaser.Scene {
         // Botón de jugar en online
         this.load.image('OnlineButton', 'assets/jugarOnline.png');
         this.load.image('OnlineButtonHover', 'assets/jugarOnlineHover.png');
+
+         // Texto de modo de juego
+        this.load.image('GameModeText', 'assets/texto_modoDeJuego.png');
     }
     create(){
         // dimensiones de la pantalla
@@ -38,14 +41,14 @@ export class GameModeScene extends Phaser.Scene {
             .setScale(1);
 
         // Botón de salir (x)
-        const exitBtn = this.add.image(700, 670, 'ExitButton')
+        const exitBtn = this.add.image(700, 570, 'ExitButton')
             .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
         exitBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(700, 670, 'ExitButtonHover')
+                hoverImg = this.add.image(700, 570, 'ExitButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(exitBtn.depth + 1);
@@ -64,19 +67,21 @@ export class GameModeScene extends Phaser.Scene {
             this.scene.start('MenuScene');
         });
         
-        this.add.text(700, 180, 'Modo de juego',{ 
-            fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
+        // Título 
+        this.add.image(700, 210, 'GameModeText')
+            .setOrigin(0.5)
+            .setScale(1);
 
             
        // Botón de juego local
-        const localBtn = this.add.image(305, 340, 'LocalButton')
+        const localBtn = this.add.image(500, 340, 'LocalButton')
             .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
         localBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(305, 340, 'LocalButtonHover')
+                hoverImg = this.add.image(500, 340, 'LocalButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(localBtn.depth + 1);
@@ -96,14 +101,14 @@ export class GameModeScene extends Phaser.Scene {
         });
         
         // Botón de Juego Online
-        const onlineBtn = this.add.image(1095, 340, 'OnlineButton')
+        const onlineBtn = this.add.image(900, 340, 'OnlineButton')
             .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true });
 
         onlineBtn.on('pointerover', () => {
             if (!hoverImg) {
-                hoverImg = this.add.image(1095, 340, 'OnlineButtonHover')
+                hoverImg = this.add.image(900, 340, 'OnlineButtonHover')
                     .setOrigin(0.5)
                     .setScale(0.75)
                     .setDepth(onlineBtn.depth + 1);

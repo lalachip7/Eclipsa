@@ -28,12 +28,16 @@ export default class LobbyScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setScale(1);
 
-    // Subtítulo
-    this.add.text(width / 2, 200, 'Fireboy & Watergirl Style', {
-      fontSize: '24px',
-      color: '#888888',
-      fontFamily: 'Caudex'
-    }).setOrigin(0.5);
+    // Mostrar usuario logueado
+    const username = localStorage.getItem('username');
+    if (username) {
+        this.add.text(width / 2, 250, `Jugador: ${username}`, {
+            fontSize: '20px',
+            color: '#a1dba1',
+            fontFamily: 'Caudex',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+    }
 
     // Estado de conexión
     this.statusText = this.add.text(width / 2, height / 2 - 50, 'Conectando al servidor...', {

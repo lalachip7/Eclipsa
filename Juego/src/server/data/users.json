@@ -12,5 +12,19 @@
     "password": "$2b$10$lfMvAGkxxCTYg4WnjF595uYRiZFv7mTlluOr0IguIE0VygbT2AniS",
     "bestTime": 30,
     "createdAt": "2026-01-13T16:29:07.954Z"
+  },
+  {
+    "id": "5",
+    "username": "Marianna",
+    "password": "$2b$10$WG3AC/19Z3J5LA1jPLS6oeJrC7iOwEky94W69qcoIA7W6Pqg33n4O",
+    "bestTime": null,
+    "createdAt": "2026-01-17T23:49:40.434Z"
+  },
+  {
+    "id": "6",
+    "username": "ladeynn",
+    "password": "$2b$10$NX2ShAHcK07bEhDPIXnW6O9oDtfb4MlMLTZctOkM7cRuW6oRnvRYq",
+    "bestTime": null,
+    "createdAt": "2026-01-17T23:50:31.241Z"
   }
 ]

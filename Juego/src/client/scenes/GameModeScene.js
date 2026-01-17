@@ -123,7 +123,8 @@ export class GameModeScene extends Phaser.Scene {
         });
 
         onlineBtn.on('pointerdown', () => {
-            this.scene.start('LobbyScene'); 
+            // Ir a AuthScene con destino a LobbyScene después de login
+            this.scene.start('AuthScene', { destination: 'LobbyScene' }); 
         });
     }
 }

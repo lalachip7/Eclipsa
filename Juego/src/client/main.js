@@ -17,7 +17,9 @@ import  LobbyScene  from "./scenes/LobbyScene.js";
 import { RankingScene } from "./scenes/RankingScene.js";
 import { GameLocalScene } from "./scenes/GameLocalScene.js";
 import { Level2SceneLocal } from "./scenes/Level2SceneLocal.js";
+import { AuthScene } from "./scenes/AuthScene.js";
 
+// Servicios de red
 import './services/ConnectionManager.js';
 import './services/WebSocketService.js';
 
@@ -34,7 +36,7 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, LobbyScene, ConnectionLostScene, GameModeScene, RankingScene],
+    scene: [ MenuScene, AuthScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, LobbyScene, ConnectionLostScene, GameModeScene, RankingScene],
     backgroundColor: '#021410ff',
 }    
 

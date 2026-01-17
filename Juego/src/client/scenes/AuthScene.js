@@ -11,6 +11,7 @@ export class AuthScene extends Phaser.Scene {
     }
 
     preload() {
+        // ✅ CORREGIDO: Usamos tu nombre de archivo 'logininform.html'
         this.load.html('form', 'assets/html/logininform.html');
         this.load.image('background_auth', 'assets/fondo_pantalla_inicio.png');
     }
@@ -18,66 +19,60 @@ export class AuthScene extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
-        // --- BACKGROUND ---
-        this.add.image(width / 2, height / 2, 'background_auth')
-            .setDisplaySize(width, height);
+    // 1. Fondo del MUNDO (El bosque, pantalla completa)
+        this.add.image(width / 2, height / 2, 'background_auth').setDisplaySize(width, height); 
+        // ESTÁ BIEN estirar este fondo porque es el paisaje, no la piedra UI.
 
-        // --- HTML FORM (DOM ELEMENT) ---
-        this.formElement = this.add.dom(width / 2, height / 2)
-            .createFromCache('form');
+    // 2. Formulario HTML (Que contiene la piedra "caja.png" y los botones)
+        this.formElement = this.add.dom(width / 2, height / 2).createFromCache('form');
 
         // --- FEEDBACK TEXT ---
         this.feedbackText = this.add.text(
             width / 2,
-            height / 2 + 220,
+            height / 2 + 260,
             '',
             {
                 fontSize: '22px',
                 color: '#ffffff',
                 stroke: '#000000',
-                strokeThickness: 4
+                strokeThickness: 4,
+                fontFamily: 'Cadex, Arial, sans-serif'
             }
         ).setOrigin(0.5);
-
-        // --- BACK BUTTON ---
-        const backBtn = this.add.text(
-            width / 2,
-            height - 90,
-            'Volver / Cancelar',
-            {
-                fontSize: '26px',
-                color: '#ff6666',
-                backgroundColor: '#000000',
-                padding: { x: 20, y: 10 }
-            }
-        )
-        .setOrigin(0.5)
-        .setInteractive({ useHandCursor: true });
-
-        backBtn.on('pointerdown', () => {
-            this.scene.start('GameModeScene');
-        });
 
         // --- FORM LOGIC ---
         this.formElement.addListener('click');
 
         this.formElement.on('click', (event) => {
-            if (!event.target.name) return;
+            const targetName = event.target.name;
+            if (!targetName) return;
 
-            const username = this.formElement.getChildByName('username')?.value;
-            const password = this.formElement.getChildByName('password')?.value;
-
-            if (!username || !password) {
-                this.showMessage('Introduce usuario y contraseña', 'red');
+            // 1. Lógica del botón VOLVER (HTML)
+            if (targetName === 'backButton') {
+                this.scene.start('GameModeScene');
                 return;
             }
 
-            if (event.target.name === 'loginButton') {
-                this.doLogin(username, password);
+            // Para Login y Registro necesitamos los inputs
+            const username = this.formElement.getChildByName('username')?.value;
+            const password = this.formElement.getChildByName('password')?.value;
+
+            // 2. Lógica de LOGIN
+            if (targetName === 'loginButton') {
+                if (!username || !password) {
+                    this.showMessage('Introduce usuario y contraseña', 'red');
+                } else {
+                    this.doLogin(username, password);
+                }
             }
 
-            if (event.target.name === 'registerButton') {
-                this.doRegister(username, password);
+            // 3. Lógica de REGISTRO
+            if (targetName === 'registerButton') {
+                if (!username || !password) {
+                    this.showMessage('Introduce usuario y contraseña', 'red');
+                } else {
+                    this.doRegister(username, password);
+                }
             }
         });
     }
@@ -131,7 +126,12 @@ export class AuthScene extends Phaser.Scene {
                 throw new Error(data.error || 'Error al registrar');
             }
 
-            this.showMessage('Cuenta creada. Pulsa ENTRAR.', 'green');
+            this.showMessage('Cuenta creada. Iniciando sesión...', 'green');
+            
+            // ✅ AUTO-LOGIN después del registro
+            this.time.delayedCall(500, () => {
+                this.doLogin(username, password);
+            });
 
         } catch (err) {
             console.error(err);
@@ -152,7 +152,6 @@ export class AuthScene extends Phaser.Scene {
     }
 
     shutdown() {
-        // Clean DOM when leaving scene (important)
         if (this.formElement) {
             this.formElement.removeListener('click');
             this.formElement.destroy();

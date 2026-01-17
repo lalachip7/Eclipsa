@@ -39,6 +39,7 @@ export class MenuScene extends Phaser.Scene {
         this.load.image('RankingButtonHover', 'assets/rankingHover.png');
     }
     create() {
+        
         // Detener la música del juego si está sonando
         this.sound.stopByKey('GameMusic');
 

@@ -1,23 +1,139 @@
-<div style="background-color: rgba(0, 0, 0, 0.85); padding: 30px; border-radius: 15px; border: 2px solid #00ff00; text-align: center; color: white; width: 300px; font-family: Arial, sans-serif;">
+<style>
+    /* --- 1. LA CAJA DE PIEDRA (XXL) --- */
+    .login-container {
+        background-image: url('/assets/caja.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        border: none;
+
+        /* == TAMAÑO GIGANTE == */
+        width: 1100px;   /* Muy ancho */
+        height: 650px;   /* Muy alto */
+        
+        /* Centrado */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        text-align: center;
+        color: white;
+        font-family: 'candex', sans-serif;
+        
+        /* Padding superior para bajar el contenido */
+        padding-top: 80px; 
+        box-sizing: border-box;
+    }
+
+    /* Título */
+    .login-title {
+        color: #d3d3d3;
+        margin-top: 0;
+        margin-bottom: 40px;
+        font-size: 48px; /* Título muy grande */
+        font-weight: bold;
+        text-shadow: 4px 4px 0px #000000;
+        letter-spacing: 3px;
+    }
+
+    /* Inputs */
+    .login-input {
+        display: block;
+        width: 75%;  /* Ocupan casi toda la piedra */
+        margin: 0 auto 25px auto; /* Más separación vertical */
+        padding: 20px; /* Inputs más "gordos" */
+        border-radius: 10px;
+        border: none;
+        
+        background: rgba(30, 30, 30, 0.9); 
+        color: #eeeeee;
+        
+        font-size: 24px; /* Letra grande al escribir */
+        outline: none;
+        font-family: sans-serif;
+    }
+
+    .login-input:focus {
+        background: rgba(10, 10, 10, 1);
+        border: 2px solid #00ff00;
+    }
+
+    /* --- 2. FILA DE BOTONES --- */
+    .button-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;        /* Espacio grande entre botones */
+        margin-top: 60px; /* Separación generosa de los inputs */
+    }
+
+    /* --- 3. BOTONES (TAMAÑO MASIVO) --- */
+    .img-btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        
+        /* == AQUÍ ESTÁ EL CAMBIO PRINCIPAL == */
+        width: 380px;   /* Casi 400px de ancho cada uno */
+        height: 110px;  /* Alto proporcional */
+        
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        
+        text-indent: -9999px;
+        transition: transform 0.1s;
+    }
+
+    .img-btn:hover {
+        transform: scale(1.05); 
+    }
+
+    /* Imágenes */
+    .btn-login { background-image: url('/assets/jugar.png'); }
+    .btn-login:hover { background-image: url('/assets/jugarHover.png'); }
+
+    .btn-register { background-image: url('/assets/reiniciar.PNG'); }
+    .btn-register:hover { background-image: url('/assets/reiniciarHover.PNG'); }
+
+    /* --- 4. BOTÓN CERRAR (X) - También más grande --- */
+    .btn-close-absolute {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        
+        width: 60px;  /* X grande */
+        height: 60px;
+        
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        background-size: contain;
+        background-repeat: no-repeat;
+        text-indent: -9999px;
+        background-image: url('/assets/cerrar.PNG'); 
+        opacity: 0.9;
+    }
+    .btn-close-absolute:hover {
+        background-image: url('/assets/cerrarHover.PNG');
+        transform: scale(1.1);
+        opacity: 1;
+    }
+</style>
+
+<div class="login-container">
     
-    <h2 style="color: #00ff00; margin-bottom: 20px; font-size: 24px;">ACCESO AL BOSQUE</h2>
+    <button name="backButton" class="btn-close-absolute">CERRAR</button>
 
-    <input type="text" name="username" placeholder="Nombre de Usuario" 
-           style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: none; background: #333; color: white;">
+    <h2 class="login-title">ACCESO AL BOSQUE</h2>
 
-    <input type="password" name="password" placeholder="Contraseña" 
-           style="width: 90%; padding: 10px; margin-bottom: 25px; border-radius: 5px; border: none; background: #333; color: white;">
+    <input type="text" name="username" placeholder="Nombre de Usuario" class="login-input">
+    <input type="password" name="password" placeholder="Contraseña" class="login-input">
 
-    <div style="display: flex; justify-content: space-between;">
-        <button name="loginButton" 
-                style="background: #00cc00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 48%;">
-            ENTRAR
-        </button>
-
-        <button name="registerButton" 
-                style="background: #0066cc; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 48%;">
-            REGISTRO
-        </button>
+    <div class="button-row">
+        <button name="loginButton" class="img-btn btn-login">ENTRAR</button>
+        <button name="registerButton" class="img-btn btn-register">REGISTRO</button>
     </div>
 
 </div>

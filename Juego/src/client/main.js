@@ -38,7 +38,7 @@ const config = {
         }
     },
 
-    scene: [  MenuScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, GameModeScene, AuthScene, LobbyScene, ConnectionLostScene, RankingScene],
+    scene: [  MenuScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene, PauseScene, SettingsScene, LevelSelectScene, PlaceHolderScene, VictoryScene, GameOverScene, GameModeScene, AuthScene, LobbyScene, ConnectionLostScene, RankingScene],
     backgroundColor: '#021410ff',
 }    
 

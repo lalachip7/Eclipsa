@@ -71,25 +71,28 @@ Las físicas del entorno son realistas: hay una gravedad constante, los ítems y
 
 ## 3.4.1. Modo local
 Los jugadores controlan a sus personajes con el teclado, con un esquema diferente para cada uno:
-* Uno utiliza WASD para moverse y E para interactuar. El jugador salta con la tecla W.
-* Uno utiliza las flechas para moverse, y espacio para interactuar. El jugador salta con la tecla flecha arriba.
+* Uno utiliza WASD para moverse. El jugador salta con la tecla W.
+* Uno utiliza las flechas para moverse. El jugador salta con la tecla flecha arriba.
 
 ## 3.4.2. Modo en línea
 Los jugadores controlan a sus personajes con el teclado, ambos con las mismas teclas en su dispositivo:
-* Se utiliza WASD para moverse y E para interactuar. El jugador salta con la tecla W.
+* Uno utiliza WASD para moverse. El jugador salta con la tecla W.
+* Uno utiliza las flechas para moverse. El jugador salta con la tecla flecha arriba.
 
 
 ## 3.5. Niveles
-EL juego constará de aproximadamente 6 niveles, que escalan en dificultad. Los primeros 2 serán para que los jugadores conozcan y se familiaricen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 2 complican las mecánicas e introducen el resto, en un ambiente tenso en el bosque con más elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
+EL juego consta de 2 niveles, que escalan en dificultad, aunque en el futuro se preveen implementar 4 niveles más. Los primeros 2 serán para que los jugadores conozcan y se familiaricen con las mecánicas, en un entorno relajado en la entrada del bosque. Los siguientes 2 complican las mecánicas e introducen el resto, en un ambiente tenso en el bosque con más elementos mágicos. Los últimos niveles representan un desafío para los jugadores, donde deberán explorar las mecánicas más a fondo para completar el objetivo, en una parte del bosque donde los elementos de la luz y la oscuridad dominan todo. 
 
 Todos los niveles serán construidos bajo la estructura mencionada; ambos jugadores deben encontrar el cristal de su símbolo, y reencontrarse el uno con el otro en el portal meta para pasar el nivel. En algunos casos, los niveles serán conformados por varias pantallas para que sean más largos y complejos. 
 
 ## 3.6. Objetos, armas y power ups
 Aunque los personajes no tengan movimientos ni habilidades complejas, existen varios ítems entre los niveles que les permite interactuar con el mundo. 
-* Switches para abrir y cerrar puertas.
 * Los cristales simbólicos de cada personaje les permite "iluminar" algunos elementos.
-* Cajas empujables para permitir a los jugadores acceder a lugares más altos.
 * Puertas de Luz y Oscuridad. 
+
+En el futuro se implementarán:
+* Switches para abrir y cerrar puertas.
+* Cajas empujables para permitir a los jugadores acceder a lugares más altos.
 
 Como las habilidades de los personajes no cambian entre niveles y no existe progresión para los personajes fuera de estos, no existen power-ups que les brinden diferentes habilidades, con el propósito de mantener las mecánicas simples y fáciles de entender. 
 
@@ -188,6 +191,9 @@ El tutorial se muestra como un guía rápida y visual de las reglas fundamentale
 Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
 
 ![Pantalla de tutorial](./Recursos/pantallaTutorial.png)
+![Pantalla de tutorial 2](./Recursos/pantallaTutorial2.mp4)
+![Pantalla de tutorial 3](./Recursos/pantallaTutorial3.mp4)
+![Pantalla de tutorial 4](./Recursos/pantallaTutorial4.png)
 
 ### 6.1.4. Pantalla de créditos 
 Se muestran los nombres de los desarrolladores del videojuego dispuestos en diferentes runas.
@@ -226,6 +232,19 @@ El diseño es simple, utilizando los mismos elementos rúnicos y de luz concentr
 ![Boceto pantalla de opciones](./Recursos/Pantalla_ajustes.PNG)
 ![Pantalla de opciones](./Recursos/pantallaAjustes.png)
 ![Pantalla de pausa](./Recursos/pantallaPausa.png)
+
+### 6.1.8. Pantalla de Modo de juego
+![Pantalla de modo de juego](./Recursos/pantallaModoJuego.png)
+
+### 6.1.9. Pantalla de Login
+![Pantalla de login](./Recursos/pantallaLogin.png)
+
+### 6.1.10. Pantalla de Ranking
+![Pantalla de ranking](./Recursos/pantallaRanking.png)
+
+### 6.1.10. Pantalla de Abandono y desconexión
+![Pantalla de abandono](./Recursos/pantallaAbandono.png)
+![Pantalla de desconexión](./Recursos/pantallaDesconexion.png)
 
 ## 6.2. Diagrama de flujo 
 El diagrama de flujo que se muestra a continuación ilustra la secuencia lógica de pantallas y la navegación del jugador desde el inicio del juego hasta la finalización de un nivel.

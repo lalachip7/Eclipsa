@@ -31,11 +31,11 @@ export class TutorialScene extends Phaser.Scene {
 
         // Boton siguiente pagina
         this.load.image('NextPageButton', 'assets/flechaDerecha.png');
-        this.load.image('NextPageButtonOff', 'assets/flechaDerechaOscura.png');
+        this.load.image('nextPageBtnOff', 'assets/flechaDerechaOscura.png');
 
         // Boton pagina anterior
         this.load.image('PrevPageButton', 'assets/flechaIzquierda.png');
-        this.load.image('PrevPageButtonOff', 'assets/flechaIzquierdaOscura.png');
+        this.load.image('prevPageBtnOff', 'assets/flechaIzquierdaOscura.png');
 
         // Imagen tutorial
         this.load.image('imageTutorial', 'assets/pantalla_tutorial.png');
@@ -79,8 +79,8 @@ export class TutorialScene extends Phaser.Scene {
             .setScale(1);
 
         // Botones de paginas desactivados
-        this.prevPageButtonOff = this.add.image(650, 625, 'PrevPageButtonOff').setOrigin(0.5).setScale(0.7);
-        this.nextPageButtonOff = this.add.image(750, 625, 'NextPageButtonOff').setOrigin(0.5).setScale(0.7);
+        this.prevPageBtnOff = this.add.image(620, 625, 'prevPageBtnOff').setOrigin(0.5).setScale(0.7);
+        this.nextPageBtnOff = this.add.image(780, 625, 'nextPageBtnOff').setOrigin(0.5).setScale(0.7);
         
         
         // Botón de salir (x)
@@ -144,9 +144,10 @@ export class TutorialScene extends Phaser.Scene {
 
                 // Botón pagina siguiente
             {
-                this.nextPageBtn1 = this.add.image(750, 625, 'NextPageButton')
+                this.nextPageBtn1 = this.add.image(780, 625, 'NextPageButton')
                     .setOrigin(0.5)
                     .setScale(0.7)
+                    .setDepth(this.nextPageBtnOff.depth + 1)
                     .setInteractive({ useHandCursor: true });
 
                 this.nextPageBtn1.on('pointerdown', () => {
@@ -164,7 +165,7 @@ export class TutorialScene extends Phaser.Scene {
 
                 this.nextPageBtn1.on('pointerover', () => {
                 if (!this.hoverImg) {
-                    this.hoverImg = this.add.image(750, 625, 'NextPageButton')
+                    this.hoverImg = this.add.image(780, 625, 'NextPageButton')
                         .setOrigin(0.5)
                         .setScale(0.75)
                         .setDepth(this.nextPageBtn1.depth + 1);
@@ -206,9 +207,10 @@ export class TutorialScene extends Phaser.Scene {
 
                 // Botón pagina siguiente
                 {
-                this.nextPageBtn2 = this.add.image(750, 625, 'NextPageButton')
+                this.nextPageBtn2 = this.add.image(780, 625, 'NextPageButton')
                     .setOrigin(0.5)
                     .setScale(0.7)
+                    .setDepth(this.nextPageBtnOff.depth + 1)
                     .setInteractive({ useHandCursor: true });
 
                 this.nextPageBtn2.on('pointerdown', () => {
@@ -219,11 +221,10 @@ export class TutorialScene extends Phaser.Scene {
                     if (this.sunCrystal){this.sunCrystal.destroy();}
                     if (this.niviaImg){this.niviaImg.destroy();}
                     if (this.solenneImg){this.solenneImg.destroy();}
+                    if (this.puertaFinal){this.puertaFinal.destroy();}
                     this.prevPageBtn2.destroy();
                     this.nextPageBtn2.destroy();
                     this.hoverImg.destroy();
-                    this.prevPageButtonOff.destroy();
-                    this.nextPageButtonOff.destroy();
                     
             
                     // actualizar pagina
@@ -233,7 +234,7 @@ export class TutorialScene extends Phaser.Scene {
 
                 this.nextPageBtn2.on('pointerover', () => {
                     if (!this.hoverImg) {
-                        this.hoverImg = this.add.image(750, 625, 'NextPageButton')
+                        this.hoverImg = this.add.image(780, 625, 'NextPageButton')
                             .setOrigin(0.5)
                             .setScale(0.75)
                             .setDepth(this.nextPageBtn2.depth + 1);
@@ -249,9 +250,10 @@ export class TutorialScene extends Phaser.Scene {
                 }
                 // Botón pagina anterior
                 {
-                this.prevPageBtn2 = this.add.image(650, 625, 'PrevPageButton')
+                this.prevPageBtn2 = this.add.image(620, 625, 'PrevPageButton')
                     .setOrigin(0.5)
                     .setScale(0.7)
+                    .setDepth(this.prevPageBtnOff.depth + 1)
                     .setInteractive({ useHandCursor: true });
 
                 this.prevPageBtn2.on('pointerdown', () => {
@@ -262,6 +264,7 @@ export class TutorialScene extends Phaser.Scene {
                     if (this.sunCrystal){this.sunCrystal.destroy();}
                     if (this.niviaImg){this.niviaImg.destroy();}
                     if (this.solenneImg){this.solenneImg.destroy();}
+                    if (this.puertaFinal){this.puertaFinal.destroy();}
                     this.prevPageBtn2.destroy();
                     this.nextPageBtn2.destroy();
                     this.hoverImg.destroy();
@@ -273,7 +276,7 @@ export class TutorialScene extends Phaser.Scene {
 
                 this.prevPageBtn2.on('pointerover', () => {
                     if (!this.hoverImg) {
-                        this.hoverImg = this.add.image(650, 625, 'PrevPageButton')
+                        this.hoverImg = this.add.image(620, 625, 'PrevPageButton')
                             .setOrigin(0.5)
                             .setScale(0.75)
                             .setDepth(this.prevPageBtn2.depth + 1);
@@ -389,9 +392,10 @@ export class TutorialScene extends Phaser.Scene {
 
                 // Botón pagina anterior
                 {
-                this.prevPageBtn3 = this.add.image(650, 625, 'PrevPageButton')
+                this.prevPageBtn3 = this.add.image(620, 625, 'PrevPageButton')
                     .setOrigin(0.5)
                     .setScale(0.7)
+                    .setDepth(this.prevPageBtnOff.depth + 1)
                     .setInteractive({ useHandCursor: true });
 
                 this.prevPageBtn3.on('pointerdown', () => {
@@ -411,7 +415,7 @@ export class TutorialScene extends Phaser.Scene {
 
                 this.prevPageBtn3.on('pointerover', () => {
                     if (!this.hoverImg) {
-                        this.hoverImg = this.add.image(650, 625, 'PrevPageButton')
+                        this.hoverImg = this.add.image(620, 625, 'PrevPageButton')
                             .setOrigin(0.5)
                             .setScale(0.75)
                             .setDepth(this.prevPageBtn3.depth + 1);
@@ -428,18 +432,18 @@ export class TutorialScene extends Phaser.Scene {
 
                 // Botón pagina siguiente
                 {
-                this.nextPageBtn3 = this.add.image(750, 625, 'NextPageButton')
+                this.nextPageBtn3 = this.add.image(780, 625, 'NextPageButton')
                     .setOrigin(0.5)
                     .setScale(0.7)
+                    .setDepth(this.nextPageBtnOff.depth + 1)
                     .setInteractive({ useHandCursor: true });
 
                 this.nextPageBtn3.on('pointerdown', () => {
-                    // eliminar assets pagina 2
+                    // eliminar assets pagina 3
                     this.trampaImg1.destroy();
                     this.trampaImg2.destroy();
                     this.niviaImg.destroy();
                     this.solenneImg.destroy();
-                    this.prevPageBtn3.destroy();
                     this.hoverImg.destroy();
                     this.prevPageBtn3.destroy();
                     this.nextPageBtn3.destroy();
@@ -453,7 +457,7 @@ export class TutorialScene extends Phaser.Scene {
 
                 this.nextPageBtn3.on('pointerover', () => {
                     if (!this.hoverImg) {
-                        this.hoverImg = this.add.image(750, 625, 'NextPageButton')
+                        this.hoverImg = this.add.image(780, 625, 'NextPageButton')
                             .setOrigin(0.5)
                             .setScale(0.75)
                             .setDepth(this.nextPageBtn3.depth + 1);
@@ -540,13 +544,55 @@ export class TutorialScene extends Phaser.Scene {
             }
 
             }
-            
+        // #region Pagina Tutorial 4  
         } else if (this.currentPage == 4) {
             if(this.newPage == true) {
-                this.imageTutorial = this.add.image(700, 400, 'imageTutorial')
+                // assets pagina 4
+                this.imageTutorial = this.add.image(690, 400, 'imageTutorial')
                     .setOrigin(0.5)
                     .setScale(0.7)
                 this.ExitBtn.setDepth(this.imageTutorial.depth + 1);
+                this.prevPageBtnOff.setDepth(this.imageTutorial.depth + 1);
+                this.nextPageBtnOff.setDepth(this.imageTutorial.depth + 1);
+
+                // Botón pagina anterior
+                
+                {
+                this.prevPageBtn4 = this.add.image(620, 625, 'PrevPageButton')
+                    .setOrigin(0.5)
+                    .setScale(0.7)
+                    .setDepth(this.prevPageBtnOff.depth + 1)
+                    .setInteractive({ useHandCursor: true });
+
+                this.prevPageBtn4.on('pointerdown', () => {
+                    // eliminar assets pagina 4
+                    this.imageTutorial.destroy();
+                    this.prevPageBtn4.destroy();
+                    this.hoverImg.destroy();
+                    
+                    
+                    // actualizar pagina
+                    this.currentPage -= 1;
+                    this.newPage = true;
+                });
+
+                this.prevPageBtn4.on('pointerover', () => {
+                    if (!this.hoverImg) {
+                        this.hoverImg = this.add.image(620, 625, 'PrevPageButton')
+                            .setOrigin(0.5)
+                            .setScale(0.75)
+                            .setDepth(this.prevPageBtn4.depth + 1);
+                    }
+                });
+
+                this.prevPageBtn4.on('pointerout', () => {
+                    if (this.hoverImg) {
+                        this.hoverImg.destroy();
+                        this.hoverImg = null;
+                    }
+                });
+                }
+                this.newPage = false;
             }
         }
         

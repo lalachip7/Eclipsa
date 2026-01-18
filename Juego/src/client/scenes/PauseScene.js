@@ -5,7 +5,7 @@ export class PauseScene extends Phaser.Scene {
         super('PauseScene');
     }
 
-    preload() {
+        preload() {
         // Caja de fondo
         this.load.image('CreditsBox', 'assets/caja.png');
 
@@ -28,7 +28,11 @@ export class PauseScene extends Phaser.Scene {
         this.load.image('RetMenuButton', 'assets/menu.PNG');
         this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
 
+        // Botón de abandonar partida
+        this.load.image('AbandonarButton', 'assets/abandonar.png');
+        this.load.image('AbandonarButtonHover', 'assets/abandonarHover.png');
     }
+    
     create(){
         // dimensiones de la pantalla
         const w = this.scale.width;
@@ -74,10 +78,9 @@ export class PauseScene extends Phaser.Scene {
         // Regresar a la escena original
         ExitBtn.on('pointerdown', () => {
             const original = this.scene.settings.data.originalScene;
-            if (original) this.scene.resume(original); // reanuda primero la escena original
-            this.scene.stop(); // luego detiene PauseScene
+            if (original) this.scene.resume(original);
+            this.scene.stop();
         });
-
 
         // Tutorial 
         const tutorialbtn = this.add.image(700, 320, 'TutorialButton')
@@ -101,9 +104,7 @@ export class PauseScene extends Phaser.Scene {
             }
         });
 
-        // Ir a la escena de tutorial
         tutorialbtn.on('pointerdown', () => {
-            // lanzar TutorialScene y pausar PauseScene para poder reanudarla después
             this.scene.launch('TutorialScene', { originalScene: 'PauseScene' });
             this.scene.pause();
         });
@@ -136,6 +137,43 @@ export class PauseScene extends Phaser.Scene {
             this.scene.start(originalSceneKey);
         });
 
+        // Botón ABANDONAR PARTIDA
+        const abandonarbtn = this.add.image(700, 610, 'AbandonarButton')
+            .setOrigin(0.5)
+            .setScale(0.7)
+            .setInteractive({ useHandCursor: true });
+
+        abandonarbtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(700, 610, 'AbandonarButtonHover')
+                    .setOrigin(0.5)
+                    .setScale(0.7)
+                    .setDepth(abandonarbtn.depth + 1);
+            }
+        });
+
+        abandonarbtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
+        abandonarbtn.on('pointerdown', () => {
+            // Obtener la escena original (GameScene)
+            const originalScene = this.scene.settings.data.originalScene;
+            
+            // Llamar al método showLeaveConfirmation de GameScene
+            const gameScene = this.scene.get(originalScene);
+            if (gameScene && gameScene.showLeaveConfirmation) {
+                gameScene.showLeaveConfirmation();
+            }
+            
+            // Reanudar la escena original y pausar PauseScene
+            if (originalScene) this.scene.resume(originalScene);
+            this.scene.stop();
+        });
+
         // Volver al menú principal
         const menubtn = this.add.image(700, 515, 'RetMenuButton')
             .setOrigin(0.5)
@@ -159,9 +197,7 @@ export class PauseScene extends Phaser.Scene {
         });
         
         menubtn.on('pointerdown', () => {
-            // Get all scenes
             const scenes = this.game.scene.keys;
-
             for (let key in scenes) {
                 if (key !== 'MenuScene') {
                     this.scene.stop(key);
@@ -169,7 +205,6 @@ export class PauseScene extends Phaser.Scene {
             }
             this.scene.stop();
             this.scene.start('MenuScene');
-
         });
     }
 }

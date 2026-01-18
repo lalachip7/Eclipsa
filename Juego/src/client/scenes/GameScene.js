@@ -22,7 +22,7 @@ export class GameScene extends Phaser.Scene {
         // Control de desconexión para evitar loops
         this.isHandlingDisconnection = false;
         this.lastDisconnectionTime = 0;
-        this.disconnectionCooldown = 1000; // 1 segundo de espera entre detecciones
+        this.disconnectionCooldown = 1000;
 
         // Datos multijugador
         this.isMultiplayer = data.isMultiplayer || false;
@@ -30,15 +30,15 @@ export class GameScene extends Phaser.Scene {
         this.roomId = data.roomId || null;
 
         // Control de personajes en multijugador
-        this.localPlayer = null;  // El que controlas tú
-        this.remotePlayer = null; // El que controla el otro jugador
+        this.localPlayer = null;
+        this.remotePlayer = null;
 
         // Sincronización de red
         this.lastSyncTime = 0;
-        this.syncInterval = 50; // Enviar posición cada 50ms
+        this.syncInterval = 50;
 
         // Tiempo
-        this.startTime = this.time.now; // Guardamos cuando empieza el nivel
+        this.startTime = this.time.now;
 
         console.log(` GameScene iniciado`);
         if (this.isMultiplayer) {
@@ -72,31 +72,6 @@ export class GameScene extends Phaser.Scene {
                 onComplete: () => {
                     announcementText.destroy();
                 }
-            });
-        }
-
-        if (this.isMultiplayer) {
-            const leaveButton = this.add.text(this.cameras.main.width / 2, 40, 'Abandonar', {
-                fontSize: '18px',
-                color: '#ff6666',
-                backgroundColor: '#000000',
-                padding: { x: 10, y: 5 }
-            })
-                .setOrigin(0.5)
-                .setScrollFactor(0)
-                .setInteractive({ useHandCursor: true })
-                .setDepth(100);
-
-            leaveButton.on('pointerover', () => {
-                leaveButton.setStyle({ backgroundColor: '#333333', color: '#ff0000' });
-            });
-
-            leaveButton.on('pointerout', () => {
-                leaveButton.setStyle({ backgroundColor: '#000000', color: '#ff6666' });
-            });
-
-            leaveButton.on('pointerdown', () => {
-                this.showLeaveConfirmation();
             });
         }
     }
@@ -264,6 +239,16 @@ export class GameScene extends Phaser.Scene {
         this.load.image('siSalirHover', 'assets/siSalirHover.png');
         this.load.image('cancelar', 'assets/cancelar.png');
         this.load.image('cancelarHover', 'assets/cancelarHover.png');
+
+        // Botones abandono partida:
+        this.load.image('tutorialBox', 'assets/caja.png');
+        this.load.image('texto_abandonarPartida', 'assets/texto_abandonarPartida.png');
+        this.load.image('siSalir', 'assets/siSalir.png');
+        this.load.image('siSalirHover', 'assets/siSalirHover.png');
+        this.load.image('cancelar', 'assets/cancelar.png');
+        this.load.image('cancelarHover', 'assets/cancelarHover.png');
+        this.load.image('abandonar', 'assets/abandonar.png');
+        this.load.image('abandonarHover', 'assets/abandonarHover.png');
 
         //Daño
         this.load.image('damage', 'assets/trampas/lianas_plataformas.png')

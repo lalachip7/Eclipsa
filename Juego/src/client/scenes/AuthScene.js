@@ -14,6 +14,8 @@ export class AuthScene extends Phaser.Scene {
     preload() {
         // Caja de fondo
         this.load.image('tutorialBox', 'assets/caja.png');
+        // Texto Iniciar Sesion
+        this.load.image('LogInText', 'assets/textp_iniciarSesion.png');
 
         // Botón de salir (x)
         this.load.image('ExitButton', 'assets/cancelar.png');
@@ -26,6 +28,8 @@ export class AuthScene extends Phaser.Scene {
         // Botón de register
         this.load.image('RegisterButton', 'assets/registro.png');
         this.load.image('RegisterButtonHover', 'assets/registroHover.png');
+
+        
     }
 
     create() {
@@ -40,38 +44,35 @@ export class AuthScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(1);
 
-        // Título
-        this.add.text(700, 180, 'INICIAR SESIÓN', {
-            fontSize: '42px',
-            color: '#ffffff',
-            fontFamily: 'Caudex',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
+        // Imagen de LogIn
+        this.add.image(700, 180, 'LogInText')
+            .setOrigin(0.5)
+            .setScale(1);
 
         // === CAMPOS DE TEXTO ===
 
-        // Label Username - ✅ MÁS A LA IZQUIERDA Y MÁS ARRIBA
-        this.add.text(400, 250, 'Usuario:', {
+        // Label Username -  MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        this.add.text(400, 290, 'Usuario:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
-        // Input Username (HTML) - ✅ MÁS ARRIBA
-        this.usernameInput = this.createHTMLInput(550, 240, 300, 'text');
+        // Input Username (HTML) -  MÁS ARRIBA
+        this.usernameInput = this.createHTMLInput(550, 280, 300, 'text');
 
-        // Label Password - ✅ MÁS A LA IZQUIERDA Y MÁS ARRIBA
-        this.add.text(400, 315, 'Contraseña:', {
+        // Label Password -  MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        this.add.text(400, 355, 'Contraseña:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
         // Input Password (HTML) - ✅ MÁS ARRIBA
-        this.passwordInput = this.createHTMLInput(550, 305, 300, 'password');
+        this.passwordInput = this.createHTMLInput(550, 345, 300, 'password');
 
         // === MENSAJE DE ERROR/ÉXITO ===
-        this.messageText = this.add.text(700, 380, '', {
+        this.messageText = this.add.text(700, 420, '', {
             fontSize: '18px',
             color: '#ff0000',
             fontFamily: 'Caudex',

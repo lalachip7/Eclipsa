@@ -743,12 +743,18 @@ export class GameScene extends Phaser.Scene {
         this.physics.pause();
 
         // Lanzar escena de Game Over
-        this.scene.launch('GameOverScene', {
-            originalScene: this.scene.key,
-            isMultiplayer: true,
-            reason: data.reason
-        });
-        this.scene.pause();
+        if (data.reason === 'disconnect') {
+            this.scene.launch('PlayerDisconnectedScene');
+            this.scene.pause();
+        } else {
+            // Para trampas u otras razones, usar GameOverScene normal
+            this.scene.launch('GameOverScene', {
+                originalScene: this.scene.key,
+                isMultiplayer: true,
+                reason: data.reason
+            });
+            this.scene.pause();
+        }
     }
 
     /**

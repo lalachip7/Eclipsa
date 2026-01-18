@@ -40,12 +40,12 @@ export class GameScene extends Phaser.Scene {
         // Tiempo
         this.startTime = this.time.now; // Guardamos cuando empieza el nivel
 
-        console.log(`🎮 GameScene iniciado`);
+        console.log(` GameScene iniciado`);
         if (this.isMultiplayer) {
-            console.log(`👤 Rol: ${this.playerRole} | 🚪 Sala: ${this.roomId}`);
+            console.log(`Rol: ${this.playerRole} | Sala: ${this.roomId}`);
 
             // Mostrar anuncio de qué personaje es
-            const characterName = this.playerRole === 'nivia' ? '🌙 NIVIA (Luna)' : '☀️ SOLENNE (Sol)';
+            const characterName = this.playerRole === 'nivia' ? '🌙 NIVIA' : '☀️ SOLENNE';
             const announcementText = this.add.text(
                 this.cameras.main.width / 2,
                 this.cameras.main.height / 2,
@@ -76,7 +76,7 @@ export class GameScene extends Phaser.Scene {
         }
 
         if (this.isMultiplayer) {
-            const leaveButton = this.add.text(this.cameras.main.width / 2, 40, '🚪 Abandonar', {
+            const leaveButton = this.add.text(this.cameras.main.width / 2, 40, 'Abandonar', {
                 fontSize: '18px',
                 color: '#ff6666',
                 backgroundColor: '#000000',
@@ -107,25 +107,29 @@ export class GameScene extends Phaser.Scene {
 
         this.physics.pause();
 
-        const bg = this.add.rectangle(0, 0, w, h, 0x000000, 0.85)
+        // Fondo oscuro
+        const bg = this.add.rectangle(0, 0, w, h, 0x070722, 0.9)
             .setOrigin(0)
             .setScrollFactor(0)
             .setDepth(3000)
             .setInteractive();
 
-        const box = this.add.rectangle(w / 2, h / 2, 500, 300, 0x1a1a2e)
-            .setStrokeStyle(4, 0xff6666)
+        // Caja de piedra
+        const box = this.add.image(w/2, h/2, 'tutorialBox')
+            .setOrigin(0.5)
+            .setScale(1)
             .setScrollFactor(0)
             .setDepth(3001);
 
-        const title = this.add.text(w / 2, h / 2 - 80, '⚠️ ABANDONAR PARTIDA', {
-            fontSize: '32px',
-            color: '#ff6666',
-            fontStyle: 'bold',
-            fontFamily: 'Caudex'
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
+        // Imagen del título 
+        const titleImage = this.add.image(w/2, h/2 - 120, 'texto_abandonarPartida')
+            .setOrigin(0.5)
+            .setScale(1)
+            .setScrollFactor(0)
+            .setDepth(3002);
 
-        const msg = this.add.text(w / 2, h / 2 - 20,
+        // Mensaje 
+        const msg = this.add.text(w/2, h/2 - 10, 
             '¿Seguro que quieres abandonar?\n\nEl otro jugador será notificado', {
             fontSize: '18px',
             color: '#ffffff',
@@ -133,16 +137,33 @@ export class GameScene extends Phaser.Scene {
             fontFamily: 'Caudex'
         }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
 
-        const confirmBtn = this.add.text(w / 2 - 80, h / 2 + 80, 'SÍ, SALIR', {
-            fontSize: '20px',
-            color: '#ffffff',
-            backgroundColor: '#cc0000',
-            padding: { x: 20, y: 10 },
-            fontFamily: 'Caudex'
-        }).setOrigin(0.5).setScrollFactor(0).setInteractive({ useHandCursor: true }).setDepth(3002);
+        let hoverImg = null;
 
-        confirmBtn.on('pointerover', () => confirmBtn.setStyle({ backgroundColor: '#ff0000' }));
-        confirmBtn.on('pointerout', () => confirmBtn.setStyle({ backgroundColor: '#cc0000' }));
+        // Botón SÍ, SALIR (izquierda)
+        const confirmBtn = this.add.image(w/2 - 160, h/2 + 120, 'siSalir')
+            .setOrigin(0.5)
+            .setScale(0.6)
+            .setScrollFactor(0)
+            .setInteractive({ useHandCursor: true })
+            .setDepth(3002);
+
+        confirmBtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(w/2 - 160, h/2 + 120, 'siSalirHover')
+                    .setOrigin(0.5)
+                    .setScale(0.6)
+                    .setScrollFactor(0)
+                    .setDepth(3004);
+            }
+        });
+
+        confirmBtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
         confirmBtn.on('pointerdown', () => {
             wsService.sendGameOver('disconnect');
             wsService.disconnect();
@@ -151,23 +172,39 @@ export class GameScene extends Phaser.Scene {
             this.scene.start('MenuScene');
         });
 
-        const cancelBtn = this.add.text(w / 2 + 80, h / 2 + 80, 'CANCELAR', {
-            fontSize: '20px',
-            color: '#ffffff',
-            backgroundColor: '#444444',
-            padding: { x: 20, y: 10 },
-            fontFamily: 'Caudex'
-        }).setOrigin(0.5).setScrollFactor(0).setInteractive({ useHandCursor: true }).setDepth(3002);
+        // Botón CANCELAR (derecha)
+        const cancelBtn = this.add.image(w/2 + 160, h/2 + 120, 'cancelar')
+            .setOrigin(0.5)
+            .setScale(0.6)
+            .setScrollFactor(0)
+            .setInteractive({ useHandCursor: true })
+            .setDepth(3002);
 
-        cancelBtn.on('pointerover', () => cancelBtn.setStyle({ backgroundColor: '#666666' }));
-        cancelBtn.on('pointerout', () => cancelBtn.setStyle({ backgroundColor: '#444444' }));
+        cancelBtn.on('pointerover', () => {
+            if (!hoverImg) {
+                hoverImg = this.add.image(w/2 + 160, h/2 + 120, 'cancelarHover')
+                    .setOrigin(0.5)
+                    .setScale(0.6)
+                    .setScrollFactor(0)
+                    .setDepth(3004);
+            }
+        });
+
+        cancelBtn.on('pointerout', () => {
+            if (hoverImg) {
+                hoverImg.destroy();
+                hoverImg = null;
+            }
+        });
+
         cancelBtn.on('pointerdown', () => {
             bg.destroy();
             box.destroy();
-            title.destroy();
+            titleImage.destroy();
             msg.destroy();
             confirmBtn.destroy();
             cancelBtn.destroy();
+            if (hoverImg) hoverImg.destroy();
             this.physics.resume();
         });
     }
@@ -220,6 +257,14 @@ export class GameScene extends Phaser.Scene {
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
 
+        // Botones abandono partida:
+        this.load.image('tutorialBox', 'assets/caja.png');
+        this.load.image('texto_abandonarPartida', 'assets/texto_abandonarPartida.png');
+        this.load.image('siSalir', 'assets/siSalir.png');
+        this.load.image('siSalirHover', 'assets/siSalirHover.png');
+        this.load.image('cancelar', 'assets/cancelar.png');
+        this.load.image('cancelarHover', 'assets/cancelarHover.png');
+
         //Daño
         this.load.image('damage', 'assets/trampas/lianas_plataformas.png')
 
@@ -229,7 +274,7 @@ export class GameScene extends Phaser.Scene {
         this.load.audio('collectMoonCrystalSound', 'assets/sonido/cristalOscuro.mp3');
 
         // MÚSICA ESPECÍFICA DEL JUEGO
-        this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); // ajusta ruta si hace falta
+        this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); 
     }
 
     create() {
@@ -659,7 +704,7 @@ export class GameScene extends Phaser.Scene {
      * Manejar victoria
      */
     handleRemoteVictory(data) {
-        console.log('🎉 ¡VICTORIA MULTIJUGADOR recibida!');
+        console.log('¡VICTORIA MULTIJUGADOR recibida!');
 
         // 1. El servidor suele enviar el tiempo en el mensaje (data.time)
         // Si no viene, lo calculamos localmente como backup
@@ -692,7 +737,7 @@ export class GameScene extends Phaser.Scene {
      * Manejar game over sincronizado
      */
     handleRemoteGameOver(data) {
-        console.log('💀 Game Over recibido del servidor:', data.reason);
+        console.log('Game Over recibido del servidor:', data.reason);
 
         // Pausar física
         this.physics.pause();
@@ -1045,7 +1090,7 @@ export class GameScene extends Phaser.Scene {
                 wsService.sendPortalTouch(isOverlapping);
             }
 
-            console.log(`🚪 ${this.playerRole} en portal: ${isOverlapping}`);
+            console.log(`${this.playerRole} en portal: ${isOverlapping}`);
 
         } catch (error) {
             console.error('Error en checkLevelComplete:', error);

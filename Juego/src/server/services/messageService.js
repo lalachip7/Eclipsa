@@ -25,7 +25,6 @@ export function createMessageService(userService) {
    * @throws {Error} Si el email no existe
    */
   function createMessage(email, message) {
-    // TODO: Implementar
     // 1. Verificar que el usuario existe (userService.getUserByEmail)
     // 2. Si no existe, lanzar error
     // 3. Crear objeto mensaje con id, email, message, timestamp
@@ -40,7 +39,6 @@ export function createMessageService(userService) {
    * @returns {Array} Array de mensajes
    */
   function getRecentMessages(limit = 50) {
-    // TODO: Implementar
     // Retornar los últimos 'limit' mensajes, ordenados por timestamp
     throw new Error('getRecentMessages() no implementado - TODO para estudiantes');
   }
@@ -51,7 +49,6 @@ export function createMessageService(userService) {
    * @returns {Array} Mensajes nuevos desde ese timestamp
    */
   function getMessagesSince(since) {
-    // TODO: Implementar
     // Filtrar mensajes cuyo timestamp sea mayor que 'since'
     throw new Error('getMessagesSince() no implementado - TODO para estudiantes');
   }

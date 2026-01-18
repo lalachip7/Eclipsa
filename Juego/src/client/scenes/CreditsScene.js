@@ -25,7 +25,7 @@ export class CreditsScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);

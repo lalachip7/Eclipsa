@@ -48,7 +48,7 @@ export class GameOverDisconnectScene extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5);
 
-        // Botón VOLVER AL LOBBY
+        // Botón volver al Lobby
         const lobbybtn = this.add.image(705, 415, 'LobbyButton')
             .setOrigin(0.5)
             .setScale(0.6)
@@ -84,7 +84,7 @@ export class GameOverDisconnectScene extends Phaser.Scene {
             this.scene.start('LobbyScene');
         });
 
-        // Botón MENÚ PRINCIPAL
+        // Botón volver al Menú Principal
         const menubtn = this.add.image(700, 515, 'RetMenuButton')
             .setOrigin(0.5)
             .setScale(0.7)

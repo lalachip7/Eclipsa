@@ -50,8 +50,7 @@ export default {
   ],
   resolve: {
     extensions: ['.js'],
-    alias: { // Si quieres usar '@client/services/ConnectionManager'
-      // en lugar de '../../../services/ConnectionManager';
+    alias: { 
       '@client': path.resolve(__dirname, 'src/client'),
     }
   }

@@ -43,7 +43,6 @@ export function createUserController(userService) {
    */
   async function getAll(req, res, next) {
     try {
-      // TODO: Implementar
       // 1. Llamar a userService.getAllUsers()
       const users = userService.getAllUsers();
 
@@ -84,7 +83,6 @@ export function createUserController(userService) {
    */
   async function update(req, res, next) {
     try {
-      // TODO: Implementar
       // 1. Extraer el id de req.params
       const { id } = req.params;
 

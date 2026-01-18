@@ -120,7 +120,7 @@ export default class LobbyScene extends Phaser.Scene {
       wsService.joinQueue();
 
     } catch (error) {
-      console.error('❌ Error conectando al servidor:', error);
+      console.error('Error conectando al servidor:', error);
       this.statusText.setText('Error de conexión');
       this.statusText.setColor('#ff0000');
       this.statusText.setFontFamily('Caudex');
@@ -146,7 +146,7 @@ export default class LobbyScene extends Phaser.Scene {
   }
 
   handleGameStart(data) {
-    console.log('🎮 ¡Partida encontrada!', data);
+    console.log('¡Partida encontrada!', data);
 
     // Guardar el rol del jugador
     wsService.setPlayerRole(data.role);
@@ -169,7 +169,7 @@ export default class LobbyScene extends Phaser.Scene {
   }
 
   handleConnectionLost() {
-    console.log('❌ Conexión perdida en Lobby');
+    console.log('Conexión perdida en Lobby');
     this.statusText.setText('Conexión perdida');
     this.statusText.setColor('#ff0000');
     this.playerCountText.setText('');

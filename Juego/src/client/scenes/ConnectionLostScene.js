@@ -18,11 +18,7 @@ export class ConnectionLostScene extends Phaser.Scene {
         this.previousScene = data?.previousScene;
     }
 
-    create() {
-        // No pausar la escena anterior nuevamente, ya está pausada
-        // Solo mostrar la escena de conexión perdida
-
-        // Fondo semi-transparente
+    create() {// Fondo semi-transparente
         this.add.rectangle(400, 300, 800, 600, 0x000000, 0.8);
 
         // Título

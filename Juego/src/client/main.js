@@ -13,7 +13,7 @@ import { GameOverScene } from "./scenes/GameOverScene.js";
 import { Level2Scene } from "./scenes/Level2Scene.js";
 import { ConnectionLostScene } from "./scenes/ConnectionLostScene.js";
 import { GameModeScene } from "./scenes/GameModeScene.js";
-import  LobbyScene  from "./scenes/LobbyScene.js";
+import LobbyScene from "./scenes/LobbyScene.js";
 import { RankingScene } from "./scenes/RankingScene.js";
 import { GameLocalScene } from "./scenes/GameLocalScene.js";
 import { Level2SceneLocal } from "./scenes/Level2SceneLocal.js";
@@ -38,11 +38,11 @@ const config = {
         }
     },
 
-    scene: [ MenuScene, AuthScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene,  PauseScene, SettingsScene, LevelSelectScene, PlayerDisconnectedScene, PlaceHolderScene, VictoryScene, GameOverScene, GameOverDisconnectScene, LobbyScene, ConnectionLostScene, GameModeScene, RankingScene],
+    scene: [MenuScene, AuthScene, GameScene, GameLocalScene, Level2Scene, Level2SceneLocal, TutorialScene, CreditsScene, PauseScene, SettingsScene, LevelSelectScene, PlayerDisconnectedScene, PlaceHolderScene, VictoryScene, GameOverScene, GameOverDisconnectScene, LobbyScene, ConnectionLostScene, GameModeScene, RankingScene],
     backgroundColor: '#021410ff',
-}    
+}
 
 document.fonts.ready.then(() => {
-  const game = new Phaser.Game(config);
+    const game = new Phaser.Game(config);
 });
 

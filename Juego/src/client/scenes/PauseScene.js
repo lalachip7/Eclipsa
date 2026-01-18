@@ -5,7 +5,7 @@ export class PauseScene extends Phaser.Scene {
         super('PauseScene');
     }
 
-        preload() {
+    preload() {
         // Caja de fondo
         this.load.image('CreditsBox', 'assets/caja.png');
 
@@ -23,7 +23,7 @@ export class PauseScene extends Phaser.Scene {
         // Botón de reiniciar nivel
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
-        
+
         // Botón de volver al menú principal
         this.load.image('RetMenuButton', 'assets/menu.PNG');
         this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
@@ -32,13 +32,13 @@ export class PauseScene extends Phaser.Scene {
         this.load.image('AbandonarButton', 'assets/abandonar.png');
         this.load.image('AbandonarButtonHover', 'assets/abandonarHover.png');
     }
-    
-    create(){
+
+    create() {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //referencia para la imagen hover
+        let hoverImg = null;
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -137,7 +137,7 @@ export class PauseScene extends Phaser.Scene {
             this.scene.start(originalSceneKey);
         });
 
-        // Botón ABANDONAR PARTIDA
+        // Abandonar partida
         const abandonarbtn = this.add.image(700, 610, 'AbandonarButton')
             .setOrigin(0.5)
             .setScale(0.7)
@@ -162,13 +162,13 @@ export class PauseScene extends Phaser.Scene {
         abandonarbtn.on('pointerdown', () => {
             // Obtener la escena original (GameScene)
             const originalScene = this.scene.settings.data.originalScene;
-            
+
             // Llamar al método showLeaveConfirmation de GameScene
             const gameScene = this.scene.get(originalScene);
             if (gameScene && gameScene.showLeaveConfirmation) {
                 gameScene.showLeaveConfirmation();
             }
-            
+
             // Reanudar la escena original y pausar PauseScene
             if (originalScene) this.scene.resume(originalScene);
             this.scene.stop();
@@ -195,7 +195,7 @@ export class PauseScene extends Phaser.Scene {
                 hoverImg = null;
             }
         });
-        
+
         menubtn.on('pointerdown', () => {
             const scenes = this.game.scene.keys;
             for (let key in scenes) {

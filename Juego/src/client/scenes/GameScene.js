@@ -53,6 +53,7 @@ export class GameScene extends Phaser.Scene {
                 {
                     fontSize: '48px',
                     fontStyle: 'bold',
+                    fontFamily: 'Caudex',
                     color: this.playerRole === 'nivia' ? '#87CEEB' : '#FFD700',
                     align: 'center',
                     backgroundColor: '#000000',
@@ -63,7 +64,7 @@ export class GameScene extends Phaser.Scene {
                 .setScrollFactor(0)
                 .setDepth(1000);
 
-            // Animar el texto y luego desaparecerlo
+            // Animación de desvanecimiento y destrucción
             this.tweens.add({
                 targets: announcementText,
                 alpha: 0,
@@ -258,7 +259,7 @@ export class GameScene extends Phaser.Scene {
         this.load.audio('collectSunCrystalSound', 'assets/sonido/cristalClaro.mp3');
         this.load.audio('collectMoonCrystalSound', 'assets/sonido/cristalOscuro.mp3');
 
-        // MÚSICA ESPECÍFICA DEL JUEGO
+        // Música de fondo
         this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); 
     }
 
@@ -309,10 +310,6 @@ export class GameScene extends Phaser.Scene {
             this.sound.play('GameMusic', { loop: true, volume: 0.1 });
         }
 
-        // Agregar fondo
-        //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
-        //bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
-
         const bg = this.physics.add.staticSprite(0, 0, 'fondo').setOrigin(0, 0);
         bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
@@ -325,8 +322,7 @@ export class GameScene extends Phaser.Scene {
         // Creación de los personajes
         this.setUpPlayers();
 
-
-        // TEMPORAL: Crear un suelo simple para que puedan saltar y caer
+        // Suelo simple para que puedan saltar y caer
         this.ground = this.add.rectangle(0, mapHeightInPixels, mapWidthInPixels, 10, 0x00FF00, 0).setOrigin(0, 0);
         this.physics.add.existing(this.ground, true); // true = estático
 
@@ -391,14 +387,11 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.nivia, this.pared2);
         this.physics.add.collider(this.solenne, this.pared2);
         this.physics.add.collider(this.nivia, this.lightDoor1Hitbox);
-        //this.physics.add.collider(this.solenne, this.lightDoor1Hitbox);
-        //this.physics.add.collider(this.nivia, this.darkDoor1Hitbox);
         this.physics.add.collider(this.solenne, this.darkDoor1Hitbox);
 
         this.createAnimations('nivia');
         this.createAnimations('solenne');
 
-        // Iniciar la animación 'run' para probar (se corregirá en update)
         this.nivia.play('nivia_idle');
         this.solenne.play('solenne_idle');
 
@@ -406,11 +399,6 @@ export class GameScene extends Phaser.Scene {
         this.crystals = this.physics.add.group({ allowGravity: false, immovable: true });
         this.moonCrystal = this.crystals.create(1100, 400, 'moondrop_sheet').setBodySize(32, 32).setScale(0.5);
         this.sunCrystal = this.crystals.create(100, 100, 'sundrop_sheet').setBodySize(32, 32).setScale(0.5);
-        //this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal').setBodySize(32, 32).setImmovable(true);
-
-        //this.metaPortal = this.physics.add.sprite(mapWidthInPixels / 2, 50, 'metaPortal').setImmovable(true).setBodySize(64, 64);
-
-
 
         // Animaciones de los objetos
         this.anims.create({
@@ -449,7 +437,7 @@ export class GameScene extends Phaser.Scene {
         // Indicador de Luna (Nivia) - Izquierda
         this.moonHUD = this.add.sprite(this.cameras.main.centerX - 20, 40, 'moon_sheet')
             .setScrollFactor(0)
-            .setScale(0.15) // Escala MUY reducida, ya que los spritesheets son grandes (347x329)
+            .setScale(0.15)
             .setVisible(false)
             .setDepth(100)
             .play('moon_hud_anim'); // Inicia la animación
@@ -457,7 +445,7 @@ export class GameScene extends Phaser.Scene {
         // Indicador de Sol (Solenne) - Derecha
         this.sunHUD = this.add.sprite(this.cameras.main.centerX + 20, 40, 'sun_sheet')
             .setScrollFactor(0)
-            .setScale(0.15) // Escala MUY reducida
+            .setScale(0.15) 
             .setVisible(false)
             .setDepth(100)
             .play('sun_hud_anim'); // Inicia la animación
@@ -465,14 +453,6 @@ export class GameScene extends Phaser.Scene {
         // Lógica de la recolección de cristales
         this.physics.add.overlap(this.nivia, this.moonCrystal, this.collectMoonCrystal, null, this);
         this.physics.add.overlap(this.solenne, this.sunCrystal, this.collectSunCrystal, null, this);
-
-        // Lógica de fin de nivel (Overlap del portal)
-        //this.physics.add.overlap(this.nivia, this.metaPortal, this.checkLevelComplete, null, this);
-        //this.physics.add.overlap(this.solenne, this.metaPortal, this.checkLevelComplete, null, this);
-
-        // Colisiones entre personajes y el nivel
-        //this.physics.add.collider(this.nivia, geometryLayer);
-        //this.physics.add.collider(this.solenne, geometryLayer);
 
         // Configuración de la cámara
         this.cameras.main.setBounds(0, 0, mapWidthInPixels, mapHeightInPixels);
@@ -648,7 +628,7 @@ export class GameScene extends Phaser.Scene {
      * Manejar recolección de cristal por el otro jugador
      */
     handleRemoteCrystalCollected(data) {
-        console.log(`💎 Cristal ${data.crystalType} recogido por el otro jugador`);
+        console.log(`Cristal ${data.crystalType} recogido por el otro jugador`);
 
         if (data.crystalType === 'moon') {
             // Desactivar cristal de luna
@@ -677,7 +657,7 @@ export class GameScene extends Phaser.Scene {
      * Manejar aparición del portal
      */
     handleRemotePortalSpawned(data) {
-        console.log('🚪 Portal activado por el servidor');
+        console.log('Portal activado por el servidor');
 
         if (!this.exitPortal.visible) {
             this.exitPortal.setVisible(true);
@@ -691,12 +671,8 @@ export class GameScene extends Phaser.Scene {
     handleRemoteVictory(data) {
         console.log('¡VICTORIA MULTIJUGADOR recibida!');
 
-        // 1. El servidor suele enviar el tiempo en el mensaje (data.time)
-        // Si no viene, lo calculamos localmente como backup
         const finalTime = data.time || Math.floor((this.time.now - this.startTime) / 1000);
 
-        // 2. IMPORTANTE: Aunque sea remoto, este jugador TAMBIÉN debe 
-        // intentar guardar su mejor tiempo en el servidor.
         const userId = localStorage.getItem('userId');
         if (userId && userId !== "undefined") {
             fetch(`/api/users/${userId}/score`, {
@@ -708,11 +684,11 @@ export class GameScene extends Phaser.Scene {
                 .catch(err => console.error("Error al guardar tiempo remoto:", err));
         }
 
-        // 3. Lanzar la escena de victoria con el tiempo recibido
+        // Lanzar la escena de victoria con el tiempo recibido
         this.scene.launch('VictoryScene', {
             originalScene: this.scene.key,
             isMultiplayer: true,
-            finalTime: finalTime // Este es el "data" que leerá VictoryScene
+            finalTime: finalTime
         });
 
         this.scene.pause();
@@ -732,7 +708,6 @@ export class GameScene extends Phaser.Scene {
             this.scene.launch('PlayerDisconnectedScene');
             this.scene.pause();
         } else {
-            // Para trampas u otras razones, usar GameOverScene normal
             this.scene.launch('GameOverScene', {
                 originalScene: this.scene.key,
                 isMultiplayer: true,
@@ -754,7 +729,6 @@ export class GameScene extends Phaser.Scene {
 
     onConnectionLost() {
         this.isPaused = true;
-        // Remover listener para evitar que se dispare mientras ConnectionLostScene está activa
         if (this.connectionListener) {
             connectionManager.removeListener(this.connectionListener);
         }
@@ -784,7 +758,7 @@ export class GameScene extends Phaser.Scene {
             left: 'A',
             right: 'D',
             up: 'W',    // salto
-            interact: 'E'
+            //interact: 'E'
         });
 
         // Controles de Solenne (Flechas)
@@ -792,7 +766,7 @@ export class GameScene extends Phaser.Scene {
             left: 'LEFT',
             right: 'RIGHT',
             up: 'UP',   // salto
-            interact: 'SPACE'
+            //interact: 'SPACE'
         });
     }
 
@@ -843,7 +817,6 @@ export class GameScene extends Phaser.Scene {
 
     toggleSettings() {
         this.scene.launch('SettingsScene');
-        //this.scene.pause();
     }
 
 
@@ -854,7 +827,6 @@ export class GameScene extends Phaser.Scene {
         }
 
         if (this.isMultiplayer) {
-            // Solo controlas TU personaje
             if (this.playerRole === 'nivia') {
                 this.handlePlayerMovement(this.nivia, this.niviaControls);
                 this.syncLocalPlayerPosition();
@@ -978,10 +950,10 @@ export class GameScene extends Phaser.Scene {
         }
 
         // Lógica de interacción
-        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
+        /*if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
             // Aquí va la lógica de interacción (por ejemplo, abrir puertas, recoger objetos, etc.)
             console.log('Interacción realizada');
-        }
+        }*/
     }
 
     collectMoonCrystal(player, crystal) {
@@ -1090,7 +1062,7 @@ export class GameScene extends Phaser.Scene {
 
     endgame() {
         console.log("Juego Terminado");
-        let hoverImg = null;    //referencia para la imagen hover
+        let hoverImg = null; 
 
         this.physics.pause();
         this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 100, "¡Nivel Completado!", {

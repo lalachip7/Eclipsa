@@ -26,15 +26,14 @@ export class SettingsScene extends Phaser.Scene {
         // Texto Ajustes
         this.load.image('SettingsText', 'assets/texto_ajustes.png');
     }
-    create(){
+    create() {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
 
         // Volumen
-        let volume = this.sound.volume * 100; // Convertir de 0-1 a 0-100
-
-        let hoverImg = null;    //refrencia para la imagen hover
+        let volume = this.sound.volume * 100;
+        let hoverImg = null;
         let volumeBar1, volumeBar2, volumeBar3, volumeBar4, volumeBar5;
 
         // Rectángulo que cubre toda la pantalla
@@ -83,67 +82,67 @@ export class SettingsScene extends Phaser.Scene {
         volumeBar5 = this.add.image(966, 500, 'VolumeBarOn')
             .setOrigin(0.5)
             .setScale(1);
-    
+
         // Actualizar barras de volumen 
         volumeBar1.destroy();
         volumeBar2.destroy();
         volumeBar3.destroy();
         volumeBar4.destroy();
         volumeBar5.destroy();
-        if(volume == 0 && volumeBar1 != null){
+        if (volume == 0 && volumeBar1 != null) {
             volumeBar1.destroy();
-        }else if(volume <= 20){
+        } else if (volume <= 20) {
             volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
-        }else if(volume <= 40){
+                .setOrigin(0.5)
+                .setScale(1);
+        } else if (volume <= 40) {
             volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
-        }else if(volume <= 60){
+                .setOrigin(0.5)
+                .setScale(1);
+        } else if (volume <= 60) {
             volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
-        }else if(volume <= 80){
+                .setOrigin(0.5)
+                .setScale(1);
+        } else if (volume <= 80) {
             volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
-        }else if(volume == 100){
+                .setOrigin(0.5)
+                .setScale(1);
+        } else if (volume == 100) {
             volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
             volumeBar5 = this.add.image(966, 500, 'VolumeBarOn')
-            .setOrigin(0.5)
-            .setScale(1);
+                .setOrigin(0.5)
+                .setScale(1);
         }
-        
+
         // Boton volumen aumentado
         const plusVolumeBtn = this.add.image(1069, 500, 'PlusVolumeButton')
             .setOrigin(0.5)
@@ -158,78 +157,78 @@ export class SettingsScene extends Phaser.Scene {
                     .setDepth(plusVolumeBtn.depth + 1);
             }
         });
-        
+
         plusVolumeBtn.on('pointerout', () => {
             if (hoverImg) {
                 hoverImg.destroy();
                 hoverImg = null;
             }
         });
-        
+
         plusVolumeBtn.on('pointerdown', () => {
             volume += 20;
-            if(volume > 100) volume = 100;
-            else if(volume < 0) volume = 0;
+            if (volume > 100) volume = 100;
+            else if (volume < 0) volume = 0;
 
             this.sound.setVolume(volume / 100);
-            
+
             volumeBar1.destroy();
             volumeBar2.destroy();
             volumeBar3.destroy();
             volumeBar4.destroy();
             volumeBar5.destroy();
-            if(volume == 0 && volumeBar1 != null){
+            if (volume == 0 && volumeBar1 != null) {
                 volumeBar1.destroy();
-            }else if(volume <= 20){
+            } else if (volume <= 20) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 40){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 40) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 60){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 60) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 80){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 80) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume == 100){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume == 100) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar5 = this.add.image(966, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
             }
         });
 
@@ -238,7 +237,7 @@ export class SettingsScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(0.4)
             .setInteractive({ useHandCursor: true });
-        
+
         minusVolumeBtn.on('pointerover', () => {
             if (!hoverImg) {
                 hoverImg = this.add.image(335, 500, 'MinusVolumeButtonHover')
@@ -256,68 +255,68 @@ export class SettingsScene extends Phaser.Scene {
 
         minusVolumeBtn.on('pointerdown', () => {
             volume -= 20;
-            if(volume > 100) volume = 100;
-            else if(volume < 0) volume = 0;
+            if (volume > 100) volume = 100;
+            else if (volume < 0) volume = 0;
 
             this.sound.setVolume(volume / 100);
-            
+
             volumeBar1.destroy();
             volumeBar2.destroy();
             volumeBar3.destroy();
             volumeBar4.destroy();
             volumeBar5.destroy();
-            if(volume == 0 && volumeBar1 != null){
+            if (volume == 0 && volumeBar1 != null) {
                 volumeBar1.destroy();
-            }else if(volume <= 20){
+            } else if (volume <= 20) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 40){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 40) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 60){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 60) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume <= 80){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume <= 80) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
-            }else if(volume == 100){
+                    .setOrigin(0.5)
+                    .setScale(1);
+            } else if (volume == 100) {
                 volumeBar1 = this.add.image(433, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar2 = this.add.image(566, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar3 = this.add.image(700, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar4 = this.add.image(833, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
                 volumeBar5 = this.add.image(966, 500, 'VolumeBarOn')
-                .setOrigin(0.5)
-                .setScale(1);
+                    .setOrigin(0.5)
+                    .setScale(1);
             }
         });
 
@@ -350,6 +349,6 @@ export class SettingsScene extends Phaser.Scene {
             }
             this.scene.stop();
         });
-        
+
     }
 }

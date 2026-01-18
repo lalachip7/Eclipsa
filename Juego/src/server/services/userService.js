@@ -100,7 +100,6 @@ export function createUserService() {
    * @returns {Object|null} Usuario encontrado o null
    */
   //function getUserByEmail(email) {
-    // TODO: Implementar
     // Buscar y retornar el usuario por email, o null si no existe
     // IMPORTANTE: Esta función será usada por el chat para verificar emails
     //throw new Error('getUserByEmail() no implementado');

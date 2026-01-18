@@ -48,7 +48,7 @@ export function createGameRoomService() {
     player1Ws.roomId = roomId;
     player2Ws.roomId = roomId;
 
-    console.log(`✅ Sala creada: ${roomId}`);
+    console.log(`Sala creada: ${roomId}`);
 
     return roomId;
   }
@@ -119,7 +119,7 @@ export function createGameRoomService() {
         opponent.send(JSON.stringify(msg));
       }
 
-      console.log(`🌙 Cristal de Luna recogido en ${roomId}`);
+      console.log(`Cristal de Luna recogido en ${roomId}`);
     } 
     else if (crystalType === 'sun' && !room.gameState.sunCrystalCollected) {
       room.gameState.sunCrystalCollected = true;
@@ -138,7 +138,7 @@ export function createGameRoomService() {
         opponent.send(JSON.stringify(msg));
       }
 
-      console.log(`☀️ Cristal de Sol recogido en ${roomId}`);
+      console.log(`Cristal de Sol recogido en ${roomId}`);
     }
 
     // Check if portal should appear
@@ -154,7 +154,7 @@ export function createGameRoomService() {
         opponent.send(JSON.stringify(portalMsg));
       }
 
-      console.log(`🚪 Portal activado en ${roomId}`);
+      console.log(`Portal activado en ${roomId}`);
     }
   }
 
@@ -173,23 +173,16 @@ export function createGameRoomService() {
     // Update player portal status
     if (room.player1.ws === ws) {
       room.player1.onPortal = onPortal;
-      console.log(`🚪 Player 1 (Nivia) en portal: ${onPortal}`);
+      console.log(`Player 1 (Nivia) en portal: ${onPortal}`);
     } else {
       room.player2.onPortal = onPortal;
-      console.log(`🚪 Player 2 (Solenne) en portal: ${onPortal}`);
+      console.log(`Player 2 (Solenne) en portal: ${onPortal}`);
     }
-
-    // Debug: Mostrar estado actual
-    console.log(`📊 Estado portal - P1: ${room.player1.onPortal}, P2: ${room.player2.onPortal}`);
-    console.log(`📊 Cristales - Moon: ${room.gameState.moonCrystalCollected}, Sun: ${room.gameState.sunCrystalCollected}`);
 
     // Check victory condition
     // Both players must be on portal AND both crystals must be collected
     const bothOnPortal = room.player1.onPortal && room.player2.onPortal;
     const bothCrystals = room.gameState.moonCrystalCollected && room.gameState.sunCrystalCollected;
-
-    console.log(`✅ Verificación de victoria - Portal P1: ${room.player1.onPortal}, Portal P2: ${room.player2.onPortal}, BothOnPortal: ${bothOnPortal}`);
-    console.log(`✅ Verificación de victoria - Moon: ${room.gameState.moonCrystalCollected}, Sun: ${room.gameState.sunCrystalCollected}, BothCrystals: ${bothCrystals}`);
 
     if (bothOnPortal && bothCrystals) {
       const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
@@ -198,7 +191,7 @@ export function createGameRoomService() {
         type: 'victory'
       };
 
-      console.log(`🎉 ¡VICTORIA! Enviando mensaje a ambos jugadores en ${roomId}`);
+      console.log(`¡VICTORIA! Enviando mensaje a ambos jugadores en ${roomId}`);
 
       ws.send(JSON.stringify(victoryMsg));
       if (opponent.readyState === 1) {
@@ -223,7 +216,7 @@ export function createGameRoomService() {
 
     const opponent = room.player1.ws === ws ? room.player2.ws : room.player1.ws;
 
-    console.log(`💀 Game Over en ${roomId} - Razón: ${reason}`);
+    console.log(`Game Over en ${roomId} - Razón: ${reason}`);
 
     // Notificar a AMBOS jugadores
     const gameOverMsg = {
@@ -251,7 +244,7 @@ export function createGameRoomService() {
     const room = rooms.get(roomId);
     if (!room) return;
 
-    console.log(`❌ Jugador desconectado en ${roomId}`);
+    console.log(`Jugador desconectado en ${roomId}`);
 
     // Only notify if game is still active
     if (room.active) {
@@ -262,14 +255,14 @@ export function createGameRoomService() {
           type: 'playerDisconnected'
         }));
         
-        console.log(`📢 Notificando desconexión al otro jugador`);
+        console.log(`Notificando desconexión al otro jugador`);
       }
     }
 
     // Clean up room
     room.active = false;
     rooms.delete(roomId);
-    console.log(`🗑️ Sala ${roomId} eliminada`);
+    console.log(`Sala ${roomId} eliminada`);
   }
 
   /**

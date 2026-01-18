@@ -26,12 +26,12 @@ export class LevelSelectScene extends Phaser.Scene {
         this.load.image('ExitMinButtonHover', 'assets/cerrarHover.png');
 
     }
-    create(){
+    create() {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -47,7 +47,7 @@ export class LevelSelectScene extends Phaser.Scene {
             .setScale(1);
 
         // Selección de Niveles
-            //Nivel 1
+        //Nivel 1
         const LvlUnoBtn = this.add.image(510, 500, 'Level1Button')
             .setOrigin(0.5)
             .setScale(1)
@@ -131,10 +131,10 @@ export class LevelSelectScene extends Phaser.Scene {
         ExitBtn.on('pointerdown', () => {
             const original = this.scene.settings.data.originalScene;
             if (original) {
-                this.scene.resume(original); 
+                this.scene.resume(original);
             }
-            this.scene.stop(); 
+            this.scene.stop();
         });
-        
+
     }
 }

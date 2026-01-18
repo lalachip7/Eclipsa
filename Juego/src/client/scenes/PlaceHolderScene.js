@@ -8,18 +8,18 @@ export class PlaceHolderScene extends Phaser.Scene {
     preload() {
         // Caja de fondo
         this.load.image('tutorialBox', 'assets/caja.png');
-        
+
         // Botón de salir (x)
         this.load.image('ExitButton', 'assets/salir.png');
         this.load.image('ExitButtonHover', 'assets/salirHover.png');
-  
+
     }
-    create(){
+    create() {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -55,10 +55,11 @@ export class PlaceHolderScene extends Phaser.Scene {
             // Cierra la ventana del navegador o pestaña
             this.scene.start('MenuScene');
         });
-        
-        this.add.text(700, 180, 'Nada que ver aqui',{ 
-            fontSize: '48px', fill: '#d4eaf1ff'}).setOrigin(0.5);
 
-        
+        this.add.text(700, 180, 'Nada que ver aqui', {
+            fontSize: '48px', fill: '#d4eaf1ff'
+        }).setOrigin(0.5);
+
+
     }
 }

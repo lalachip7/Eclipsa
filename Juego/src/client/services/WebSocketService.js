@@ -15,12 +15,12 @@ export class WebSocketService {
     return new Promise((resolve, reject) => {
       try {
         const wsUrl = `ws://${window.location.hostname}:3000`;
-        console.log('🔌 Conectando a WebSocket:', wsUrl);
-        
+        console.log('Conectando a WebSocket:', wsUrl);
+
         this.ws = new WebSocket(wsUrl);
 
         this.ws.onopen = () => {
-          console.log('✅ WebSocket conectado');
+          console.log('WebSocket conectado');
           this.connected = true;
           resolve();
         };
@@ -30,18 +30,18 @@ export class WebSocketService {
             const data = JSON.parse(event.data);
             this.handleMessage(data);
           } catch (error) {
-            console.error('❌ Error parseando mensaje:', error);
+            console.error('Error parseando mensaje:', error);
           }
         };
 
         this.ws.onerror = (error) => {
-          console.error('❌ Error en WebSocket:', error);
+          console.error('Error en WebSocket:', error);
           this.connected = false;
           reject(error);
         };
 
         this.ws.onclose = () => {
-          console.log('🔌 WebSocket desconectado');
+          console.log('WebSocket desconectado');
           this.connected = false;
           this.notifyHandler('connectionLost');
         };
@@ -57,7 +57,7 @@ export class WebSocketService {
    * @param {Object} data - Datos recibidos
    */
   handleMessage(data) {
-    console.log('📨 Mensaje recibido:', data.type);
+    console.log('Mensaje recibido:', data.type);
     this.notifyHandler(data.type, data);
   }
 
@@ -107,7 +107,7 @@ export class WebSocketService {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.send(JSON.stringify(message));
     } else {
-      console.error('❌ WebSocket no está conectado');
+      console.error('WebSocket no está conectado');
     }
   }
 
@@ -118,7 +118,7 @@ export class WebSocketService {
    */
   joinQueue() {
     this.send({ type: 'joinQueue' });
-    console.log('📥 Uniéndose a la cola...');
+    console.log('Uniéndose a la cola...');
   }
 
   /**
@@ -126,7 +126,7 @@ export class WebSocketService {
    */
   leaveQueue() {
     this.send({ type: 'leaveQueue' });
-    console.log('📤 Saliendo de la cola...');
+    console.log('Saliendo de la cola...');
   }
 
   /**
@@ -155,7 +155,7 @@ export class WebSocketService {
       type: 'crystalCollect',
       crystalType
     });
-    console.log(`💎 Cristal ${crystalType} recogido`);
+    console.log(`Cristal ${crystalType} recogido`);
   }
 
   /**
@@ -216,7 +216,7 @@ export class WebSocketService {
    */
   setPlayerRole(role) {
     this.playerRole = role;
-    console.log(`🎮 Rol asignado: ${role}`);
+    console.log(`Rol asignado: ${role}`);
   }
 }
 

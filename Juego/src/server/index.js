@@ -26,22 +26,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ==================== CONFIGURACIÓN DE DEPENDENCIAS ====================
-// Aquí se construye toda la cadena de dependencias de la aplicación
-// Esto facilita el testing al permitir inyectar mocks en cualquier nivel
 
-// 1. Crear servicios (capa de datos)
+// Servicios
 const userService = createUserService();
-const messageService = createMessageService(userService);  // messageService depende de userService
+const messageService = createMessageService(userService);  
 const connectionService = createConnectionService();
 const gameRoomService = createGameRoomService();
 const matchmakingService = createMatchmakingService(gameRoomService);
 
-// 2. Crear controladores inyectando servicios (capa de lógica)
+// Controladores
 const userController = createUserController(userService);
 const messageController = createMessageController(messageService);
 const connectionController = createConnectionController(connectionService);
 
-// 3. Crear routers inyectando controladores (capa de rutas)
+// Routers
 const userRoutes = createUserRoutes(userController);
 const messageRoutes = createMessageRoutes(messageController);
 const connectionRoutes = createConnectionRoutes(connectionController);
@@ -62,7 +60,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// CORS simple (permitir todas las peticiones)
+// CORS simple 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -92,13 +90,11 @@ app.get('/health', (req, res) => {
 });
 
 // SPA Fallback - Servir index.html para todas las rutas que no sean API
-// Esto debe ir DESPUÉS de las rutas de la API y ANTES del error handler
 app.use((req, res, next) => {
   // Si la petición es a /api/*, pasar al siguiente middleware (404 para APIs)
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ error: 'Endpoint no encontrado' });
   }
-
   // Para cualquier otra ruta, servir el index.html del juego
   res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
@@ -118,7 +114,7 @@ const server = createServer(app);
 const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
-  console.log('🔌 Cliente WebSocket conectado');
+  console.log('Cliente WebSocket conectado');
 
   ws.on('message', (message) => {
     try {
@@ -134,7 +130,6 @@ wss.on('connection', (ws) => {
           break;
 
         case 'playerMove':
-          // data: { x, y, flipX, animKey }
           gameRoomService.handlePlayerMove(ws, {
             x: data.x,
             y: data.y,
@@ -144,12 +139,10 @@ wss.on('connection', (ws) => {
           break;
 
         case 'crystalCollect':
-          // data: { crystalType: 'moon' | 'sun' }
           gameRoomService.handleCrystalCollect(ws, data.crystalType);
           break;
 
         case 'portalTouch':
-          // data: { onPortal: true/false }
           gameRoomService.handlePortalTouch(ws, data.onPortal);
           break;
 
@@ -158,21 +151,21 @@ wss.on('connection', (ws) => {
           break;
 
         default:
-          console.log('⚠️ Mensaje desconocido:', data.type);
+          console.log('Mensaje desconocido:', data.type);
       }
     } catch (error) {
-      console.error('❌ Error procesando mensaje:', error);
+      console.error('Error procesando mensaje:', error);
     }
   });
 
   ws.on('close', () => {
-    console.log('🔌 Cliente WebSocket desconectado');
+    console.log('Cliente WebSocket desconectado');
     matchmakingService.leaveQueue(ws);
     gameRoomService.handleDisconnect(ws);
   });
 
   ws.on('error', (error) => {
-    console.error('❌ Error en WebSocket:', error);
+    console.error('Error en WebSocket:', error);
   });
 });
 
@@ -185,8 +178,8 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`  Servidor corriendo en http://localhost:${PORT}`);
   console.log(`  WebSocket disponible en ws://0.0.0.0:${PORT}`);
   console.log(`  `);
-  console.log(`  🎮 Juego: http://localhost:${PORT}`);
-  console.log(`  🌐 Juego en Red: http://192.168.0.31:${PORT}`);
+  console.log(`  Juego: http://localhost:${PORT}`);
+  console.log(`  Juego en Red: http://192.168.0.31:${PORT}`);
   console.log(`  `);
   console.log(`  API Endpoints disponibles:`);
   console.log(`   - GET    /health`);

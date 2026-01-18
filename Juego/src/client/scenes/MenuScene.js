@@ -50,9 +50,9 @@ export class MenuScene extends Phaser.Scene {
         bg.setDisplaySize(this.scale.width, this.scale.height);
         bg.setDepth(-1);
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;
 
-       // Botón de juego local
+        // Botón de juego local
         const localBtn = this.add.image(305, 340, 'LocalPlayButton')
             .setOrigin(0.5)
             .setScale(0.75)
@@ -76,7 +76,6 @@ export class MenuScene extends Phaser.Scene {
 
         localBtn.on('pointerdown', () => {
             this.scene.launch('GameModeScene');
-            //this.scene.start('GameScene');
         });
 
         // Botón de tutorial
@@ -132,8 +131,8 @@ export class MenuScene extends Phaser.Scene {
         });
 
         // Botón de pantalla de ranking
-        const rankingBtn = this.add.image(1200, 75, 'RankingButton') 
-            .setOrigin(0.5)    
+        const rankingBtn = this.add.image(1200, 75, 'RankingButton')
+            .setOrigin(0.5)
             .setScale(0.75)
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.scene.launch('RankingScene'));
@@ -207,19 +206,19 @@ export class MenuScene extends Phaser.Scene {
             this.scene.launch('SettingsScene');
         });
 
-    // === Indicador de conexión ===
-    // Puntito de estado
-    this.connectionDot = this.add.circle(70, 50, 10, 0xff0000)
-        .setDepth(1000);
+        // === Indicador de conexión ===
+        // Puntito de estado
+        this.connectionDot = this.add.circle(70, 50, 10, 0xff0000)
+            .setDepth(1000);
 
-    // Texto con número de usuarios
-    this.connectionCountText = this.add.text(85, 40, '0', {
-        fontSize: '18px',
-        fontFamily: '"Caudex", serif',
-        color: '#da8181ff'
-    }).setDepth(1000);
+        // Texto con número de usuarios
+        this.connectionCountText = this.add.text(85, 40, '0', {
+            fontSize: '18px',
+            fontFamily: '"Caudex", serif',
+            color: '#da8181ff'
+        }).setDepth(1000);
 
-    // Listener para cambios de conexión  --  usuarios conectados
+        // Listener para cambios de conexión  --  usuarios conectados
         this.connectionListener = (data) => {
             this.updateConnectionDisplay(data);
         };

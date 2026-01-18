@@ -28,8 +28,6 @@ export class AuthScene extends Phaser.Scene {
         // Botón de register
         this.load.image('RegisterButton', 'assets/registro.png');
         this.load.image('RegisterButtonHover', 'assets/registroHover.png');
-
-        
     }
 
     create() {
@@ -49,29 +47,27 @@ export class AuthScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(1);
 
-        // === CAMPOS DE TEXTO ===
-
-        // Label Username -  MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        // Label Username
         this.add.text(400, 290, 'Usuario:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
-        // Input Username (HTML) -  MÁS ARRIBA
+        // Input Username (HTML)
         this.usernameInput = this.createHTMLInput(550, 280, 300, 'text');
 
-        // Label Password -  MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        // Label Password
         this.add.text(400, 355, 'Contraseña:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
-        // Input Password (HTML) - ✅ MÁS ARRIBA
+        // Input Password (HTML)
         this.passwordInput = this.createHTMLInput(550, 345, 300, 'password');
 
-        // === MENSAJE DE ERROR/ÉXITO ===
+        // Mensaje de error/éxito
         this.messageText = this.add.text(700, 420, '', {
             fontSize: '18px',
             color: '#ff0000',
@@ -79,8 +75,6 @@ export class AuthScene extends Phaser.Scene {
             align: 'center',
             wordWrap: { width: 400 }
         }).setOrigin(0.5);
-
-        // === BOTONES (SIN CAMBIOS EN HOVER) ===
 
         let hoverImg = null;
 
@@ -186,7 +180,7 @@ export class AuthScene extends Phaser.Scene {
         input.style.backgroundColor = '#1a1a2e';
         input.style.color = '#ffffff';
         input.style.outline = 'none';
-        input.style.zIndex = '1000'; // ✅ Asegurar que esté encima
+        input.style.zIndex = '1000'; 
 
         // Posicionar en el canvas
         const canvas = this.game.canvas;
@@ -227,7 +221,7 @@ export class AuthScene extends Phaser.Scene {
 
             if (response.ok) {
                 // Login exitoso
-                console.log('✅ Login exitoso:', data);
+                console.log('Login exitoso:', data);
 
                 // Guardar datos del usuario en localStorage
                 if (data.id) {
@@ -291,7 +285,7 @@ export class AuthScene extends Phaser.Scene {
 
             if (response.ok) {
                 // Registro exitoso
-                console.log('✅ Registro exitoso:', data);
+                console.log('Registro exitoso:', data);
 
                 // Guardar datos del usuario
                 localStorage.setItem('userId', data.id);

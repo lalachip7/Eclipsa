@@ -69,8 +69,8 @@ export class Level2Scene extends Phaser.Scene {
         this.load.audio('collectSunCrystalSound', 'assets/sonido/cristalClaro.mp3');
         this.load.audio('collectMoonCrystalSound', 'assets/sonido/cristalOscuro.mp3');
 
-        // MÚSICA ESPECÍFICA DEL JUEGO
-        this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); // ajusta ruta si hace falta
+        // Música de fondo
+        this.load.audio('GameMusic', 'assets/sonido/juego.mp3'); 
     }
 
     create() {
@@ -87,10 +87,6 @@ export class Level2Scene extends Phaser.Scene {
             this.sound.play('GameMusic', { loop: true, volume: 0.2});
         }
 
-        // Agregar fondo
-        //const bg = this.add.image(0, 0, 'fondo1').setOrigin(0, 0);
-        //bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
-
         const bg = this.physics.add.staticSprite(0, 0, 'fondo1').setOrigin(0, 0);
         bg.setDisplaySize(mapWidthInPixels, mapHeightInPixels);
 
@@ -104,9 +100,9 @@ export class Level2Scene extends Phaser.Scene {
         this.setUpPlayers();
 
 
-        // TEMPORAL: Crear un suelo simple para que puedan saltar y caer
+        // Suelo simple para que puedan saltar y caer
         this.ground = this.add.rectangle(0, mapHeightInPixels, mapWidthInPixels, 10, 0x00FF00, 0).setOrigin(0, 0);
-        this.physics.add.existing(this.ground, true); // true = estático
+        this.physics.add.existing(this.ground, true); 
 
         //Creación de las plataformas
         this.plataforma1 = this.add.rectangle(200, 575, 300, 20, 0x322b1d, 0).setOrigin(0.5, 0.5);
@@ -128,8 +124,6 @@ export class Level2Scene extends Phaser.Scene {
         this.pared1 = this.add.rectangle(715, 425, 80, 200, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.pared1, true);
 
-        //this.pared2 = this.add.rectangle(900, 700, 200, 300, 0x322b1d).setOrigin(0.5, 0.5);
-        //this.physics.add.existing(this.pared2, true);
         this.portalSprite = this.physics.add.staticSprite(mapWidthInPixels*0.5, mapHeightInPixels*0.5, 'portal1').setScale(0.75);
         this.portalSprite.setVisible(false);
 
@@ -222,21 +216,16 @@ export class Level2Scene extends Phaser.Scene {
         this.physics.add.collider(this.nivia, this.pared1);
         this.physics.add.collider(this.solenne, this.pared1);
 
-        //this.physics.add.collider(this.nivia, this.pared2);
-        //this.physics.add.collider(this.solenne, this.pared2);
         this.physics.add.collider(this.nivia, this.lightDoor1Hitbox);
         this.physics.add.collider(this.nivia, this.lightDoor2Hitbox);
         this.physics.add.collider(this.nivia, this.lightDoor3Hitbox);
 
-        //this.physics.add.collider(this.solenne, this.lightDoor1Hitbox);
-        //this.physics.add.collider(this.nivia, this.darkDoor1Hitbox);
         this.physics.add.collider(this.solenne, this.darkDoor1Hitbox);
         this.physics.add.collider(this.solenne, this.darkDoor2Hitbox);
 
         this.createAnimations('nivia');
         this.createAnimations('solenne');
 
-        // Iniciar la animación 'run' para probar (se corregirá en update)
         this.nivia.play('nivia_idle');
         this.solenne.play('solenne_idle');
 
@@ -251,12 +240,6 @@ export class Level2Scene extends Phaser.Scene {
         .setData('doorKey', 'lightDoor3');
         this.sunCrystal2 = this.crystals.create(200, 700, 'sundrop_sheet').setBodySize(32, 32).setScale(0.5)
         .setData('doorKey', 'lightDoor1');
-
-        //this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal').setBodySize(32, 32).setImmovable(true);
-
-        //this.metaPortal = this.physics.add.sprite(mapWidthInPixels / 2, 50, 'metaPortal').setImmovable(true).setBodySize(64, 64);
-
-
 
         // Animaciones de los objetos
         this.anims.create({
@@ -295,7 +278,7 @@ export class Level2Scene extends Phaser.Scene {
         // Indicador de Luna (Nivia) - Izquierda
         this.moonHUD = this.add.sprite(this.cameras.main.centerX - 20, 40, 'moon_sheet')
             .setScrollFactor(0)
-            .setScale(0.15) // Escala MUY reducida, ya que los spritesheets son grandes (347x329)
+            .setScale(0.15) 
             .setVisible(false) 
             .setDepth(100)
             .play('moon_hud_anim'); // Inicia la animación
@@ -303,7 +286,7 @@ export class Level2Scene extends Phaser.Scene {
         // Indicador de Sol (Solenne) - Derecha
         this.sunHUD = this.add.sprite(this.cameras.main.centerX + 20, 40, 'sun_sheet')
             .setScrollFactor(0)
-            .setScale(0.15) // Escala MUY reducida
+            .setScale(0.15) 
             .setVisible(false) 
             .setDepth(100)
             .play('sun_hud_anim'); // Inicia la animación
@@ -313,14 +296,6 @@ export class Level2Scene extends Phaser.Scene {
         this.physics.add.overlap(this.solenne, this.sunCrystal, this.collectSunCrystal, null, this);
         this.physics.add.overlap(this.nivia, this.moonCrystal2, this.collectMoonCrystal, null, this);
         this.physics.add.overlap(this.solenne, this.sunCrystal2, this.collectSunCrystal, null, this);
-
-        // Lógica de fin de nivel (Overlap del portal)
-        //this.physics.add.overlap(this.nivia, this.metaPortal, this.checkLevelComplete, null, this);
-        //this.physics.add.overlap(this.solenne, this.metaPortal, this.checkLevelComplete, null, this);
-
-        // Colisiones entre personajes y el nivel
-        //this.physics.add.collider(this.nivia, geometryLayer);
-        //this.physics.add.collider(this.solenne, geometryLayer);
 
         // Configuración de la cámara
         this.cameras.main.setBounds(0, 0, mapWidthInPixels, mapHeightInPixels);  
@@ -432,7 +407,7 @@ export class Level2Scene extends Phaser.Scene {
             left: 'A',
             right: 'D',
             up: 'W',    // salto
-            interact: 'E'
+            //interact: 'E'
         });
 
         // Controles de Solenne (Flechas)
@@ -440,7 +415,7 @@ export class Level2Scene extends Phaser.Scene {
             left: 'LEFT',
             right: 'RIGHT',
             up: 'UP',   // salto
-            interact: 'SPACE'
+            //interact: 'SPACE'
         });
     }
     
@@ -490,7 +465,6 @@ export class Level2Scene extends Phaser.Scene {
 
     toggleSettings() {
         this.scene.launch('SettingsScene'); 
-        //this.scene.pause();
     }
 
 
@@ -577,10 +551,10 @@ export class Level2Scene extends Phaser.Scene {
         }
 
         // Lógica de interacción
-        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
+        /*if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
             // Aquí va la lógica de interacción (por ejemplo, abrir puertas, recoger objetos, etc.)
             console.log('Interacción realizada');
-        }
+        }*/
     }
 
     collectMoonCrystal(player, crystal) {
@@ -630,12 +604,11 @@ export class Level2Scene extends Phaser.Scene {
 
     endgame() {
         console.log("Juego Terminado");
-        let hoverImg = null;    //referencia para la imagen hover
+        let hoverImg = null;   
 
         this.physics.pause();
         this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 100, "¡Nivel Completado!", { 
             fontSize: '48px', fill: '#FFFFFF' }).setOrigin(0.5);
-                // Reiniciar nivel
         const restartbtn = this.add.image(705, 415, 'RestartButton')
             .setOrigin(0.5)
             .setScale(0.7)

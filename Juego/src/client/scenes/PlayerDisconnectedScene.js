@@ -11,7 +11,7 @@ export class PlayerDisconnectedScene extends Phaser.Scene {
         this.load.image('tutorialBox', 'assets/caja.png');
         this.load.image('RetMenuButton', 'assets/menu.PNG');
         this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
-        
+
         // Imágenes específicas de esta escena
         this.load.image('texto_jugadorDesconectado', 'assets/texto_jugadorDesconectado.png');
         this.load.image('LobbyButton', 'assets/lobby.png');
@@ -41,7 +41,7 @@ export class PlayerDisconnectedScene extends Phaser.Scene {
             fontFamily: 'Caudex'
         }).setOrigin(0.5);
 
-        // Botón VOLVER AL LOBBY (con los botones correctos)
+        // Botón volver al lobby 
         const lobbyBtn = this.add.image(700, 420, 'LobbyButton')
             .setOrigin(0.5)
             .setScale(0.7)
@@ -66,7 +66,7 @@ export class PlayerDisconnectedScene extends Phaser.Scene {
         lobbyBtn.on('pointerdown', () => {
             wsService.disconnect();
             this.sound.stopAll();
-            
+
             const scenes = this.game.scene.keys;
             for (let key in scenes) {
                 if (key !== 'LobbyScene') {
@@ -77,7 +77,7 @@ export class PlayerDisconnectedScene extends Phaser.Scene {
             this.scene.start('LobbyScene');
         });
 
-        // Botón MENÚ PRINCIPAL
+        // Botón menú principal
         const menuBtn = this.add.image(700, 520, 'RetMenuButton')
             .setOrigin(0.5)
             .setScale(0.7)
@@ -102,7 +102,7 @@ export class PlayerDisconnectedScene extends Phaser.Scene {
         menuBtn.on('pointerdown', () => {
             wsService.disconnect();
             this.sound.stopAll();
-            
+
             const scenes = this.game.scene.keys;
             for (let key in scenes) {
                 if (key !== 'MenuScene') {

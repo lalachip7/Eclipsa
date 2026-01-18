@@ -21,7 +21,7 @@ export class RankingScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -79,22 +79,22 @@ export class RankingScene extends Phaser.Scene {
             players.forEach((player, index) => {
                 const yPos = 270 + (index * 50);
                 const color = index < 3 ? '#ffc875ff' : '#ffffff'; // Top 3 en dorado
-                
-                this.add.text(w * 0.3, yPos, `${index + 1}. ${player.username}`, { 
-                    fontSize: '32px', fill: color, 
+
+                this.add.text(w * 0.3, yPos, `${index + 1}. ${player.username}`, {
+                    fontSize: '32px', fill: color,
                     fontFamily: 'Caudex'
                 });
-                
+
                 // Formatear el tiempo
-                this.add.text(w * 0.7, yPos, `${player.bestTime}s`, { 
-                    fontSize: '32px', fill: color, 
+                this.add.text(w * 0.7, yPos, `${player.bestTime}s`, {
+                    fontSize: '32px', fill: color,
                     fontFamily: 'Caudex'
                 }).setOrigin(1, 0);
             });
         } catch (error) {
             console.error("Error al obtener ranking:", error);
-            this.add.text(this.scale.width / 2, 300, 'Error al conectar con el bosque...', { 
-                fontSize: '24px', fill: '#ff0000' 
+            this.add.text(this.scale.width / 2, 300, 'Error al conectar con el bosque...', {
+                fontSize: '24px', fill: '#ff0000'
             }).setOrigin(0.5);
         }
     }

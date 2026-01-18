@@ -114,7 +114,7 @@ export class ConnectionManager {
    */
   startPolling() {
     if (this.intervalId) {
-      return; // Ya está corriendo
+      return;
     }
 
     // Comprobar inmediatamente
@@ -137,7 +137,7 @@ export class ConnectionManager {
   }
 
   /**
-   * Verificar si hay conexión (útil para otras escenas)
+   * Verificar si hay conexión 
    */
   getIsConnected() {
     return this.isConnected;

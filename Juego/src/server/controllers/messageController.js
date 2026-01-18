@@ -19,7 +19,6 @@ export function createMessageController(messageService) {
    */
   async function create(req, res, next) {
     try {
-      // TODO: Implementar
       // 1. Extraer email y message del body
       // 2. Validar que ambos campos estén presentes
       // 3. Llamar a messageService.createMessage()
@@ -37,7 +36,6 @@ export function createMessageController(messageService) {
    */
   async function getMessages(req, res, next) {
     try {
-      // TODO: Implementar
       // 1. Revisar si hay query param 'since'
       //    - Si existe, llamar a messageService.getMessagesSince()
       // 2. Si no hay 'since', revisar query param 'limit'

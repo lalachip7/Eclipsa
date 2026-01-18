@@ -27,7 +27,7 @@ export class GameOverScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //referencia para la imagen hover
+        let hoverImg = null;   
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -95,7 +95,6 @@ export class GameOverScene extends Phaser.Scene {
         });
         
         menubtn.on('pointerdown', () => {
-            // Get all scenes
             const scenes = this.game.scene.keys;
 
             for (let key in scenes) {

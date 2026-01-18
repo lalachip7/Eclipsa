@@ -1,4 +1,3 @@
-// despues de hacer click en "Jugar" - seleccion de modo local u online
 import Phaser from "phaser";
 
 export class GameModeScene extends Phaser.Scene {
@@ -30,7 +29,7 @@ export class GameModeScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
 
-        let hoverImg = null;    //refrencia para la imagen hover
+        let hoverImg = null;   
 
         // Rectángulo que cubre toda la pantalla
         this.background = this.add.rectangle(0, 0, w, h, 0x070722, 0.9).setOrigin(0);
@@ -73,7 +72,7 @@ export class GameModeScene extends Phaser.Scene {
             .setScale(1);
 
             
-       // Botón de juego local
+        // Botón de juego local
         const localBtn = this.add.image(500, 340, 'LocalButton')
             .setOrigin(0.5)
             .setScale(0.75)

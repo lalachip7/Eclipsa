@@ -17,7 +17,7 @@ export function createMatchmakingService(gameRoomService) {
     }
 
     queue.push({ ws });
-    console.log(`📥 Jugador añadido a la cola. Total: ${queue.length}`);
+    console.log(`Jugador añadido a la cola. Total: ${queue.length}`);
 
     // Notify player they're in queue
     ws.send(JSON.stringify({
@@ -38,7 +38,7 @@ export function createMatchmakingService(gameRoomService) {
     const index = queue.findIndex(player => player.ws === ws);
     if (index !== -1) {
       queue.splice(index, 1);
-      console.log(`📤 Jugador salió de la cola. Total: ${queue.length}`);
+      console.log(`Jugador salió de la cola. Total: ${queue.length}`);
     }
   }
 
@@ -53,7 +53,7 @@ export function createMatchmakingService(gameRoomService) {
       // Create a game room
       const roomId = gameRoomService.createRoom(player1.ws, player2.ws);
 
-      console.log(`🎮 Partida iniciada: ${roomId}`);
+      console.log(`Partida iniciada: ${roomId}`);
 
       // Notify both players
       player1.ws.send(JSON.stringify({

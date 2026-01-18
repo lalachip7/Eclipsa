@@ -16,16 +16,16 @@ export class AuthScene extends Phaser.Scene {
         this.load.image('tutorialBox', 'assets/caja.png');
         
         // Botón de salir (x)
-        this.load.image('ExitButton', 'assets/salir.png');
-        this.load.image('ExitButtonHover', 'assets/salirHover.png');
+        this.load.image('ExitButton', 'assets/cancelar.png');
+        this.load.image('ExitButtonHover', 'assets/cancelarHover.png');
 
         // Botón de login
-        this.load.image('LoginButton', 'assets/jugar.png'); // Reutilizamos
-        this.load.image('LoginButtonHover', 'assets/jugarHover.png');
+        this.load.image('LoginButton', 'assets/entrar.png'); 
+        this.load.image('LoginButtonHover', 'assets/entrarHover.png');
 
         // Botón de register
-        this.load.image('RegisterButton', 'assets/jugarLocal.png'); // Reutilizamos
-        this.load.image('RegisterButtonHover', 'assets/jugarLocalHover.png');
+        this.load.image('RegisterButton', 'assets/registro.png');
+        this.load.image('RegisterButtonHover', 'assets/registroHover.png');
     }
 
     create() {
@@ -50,28 +50,28 @@ export class AuthScene extends Phaser.Scene {
 
         // === CAMPOS DE TEXTO ===
 
-        // Label Username
-        this.add.text(450, 260, 'Usuario:', {
+        // Label Username - ✅ MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        this.add.text(400, 250, 'Usuario:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
-        // Input Username (HTML)
-        this.usernameInput = this.createHTMLInput(550, 250, 300, 'username');
+        // Input Username (HTML) - ✅ MÁS ARRIBA
+        this.usernameInput = this.createHTMLInput(550, 240, 300, 'text');
 
-        // Label Password
-        this.add.text(450, 330, 'Contraseña:', {
+        // Label Password - ✅ MÁS A LA IZQUIERDA Y MÁS ARRIBA
+        this.add.text(400, 315, 'Contraseña:', {
             fontSize: '22px',
             color: '#ffffff',
             fontFamily: 'Caudex'
         });
 
-        // Input Password (HTML)
-        this.passwordInput = this.createHTMLInput(550, 320, 300, 'password');
+        // Input Password (HTML) - ✅ MÁS ARRIBA
+        this.passwordInput = this.createHTMLInput(550, 305, 300, 'password');
 
         // === MENSAJE DE ERROR/ÉXITO ===
-        this.messageText = this.add.text(700, 400, '', {
+        this.messageText = this.add.text(700, 380, '', {
             fontSize: '18px',
             color: '#ff0000',
             fontFamily: 'Caudex',
@@ -79,7 +79,7 @@ export class AuthScene extends Phaser.Scene {
             wordWrap: { width: 400 }
         }).setOrigin(0.5);
 
-        // === BOTONES ===
+        // === BOTONES (SIN CAMBIOS EN HOVER) ===
 
         let hoverImg = null;
 
@@ -88,13 +88,6 @@ export class AuthScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(0.6)
             .setInteractive({ useHandCursor: true });
-
-        this.add.text(550, 480, 'ENTRAR', {
-            fontSize: '24px',
-            color: '#ffffff',
-            fontFamily: 'Caudex',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
 
         loginBtn.on('pointerover', () => {
             if (!hoverImg) {
@@ -121,13 +114,6 @@ export class AuthScene extends Phaser.Scene {
             .setOrigin(0.5)
             .setScale(0.6)
             .setInteractive({ useHandCursor: true });
-
-        this.add.text(850, 480, 'REGISTRARSE', {
-            fontSize: '20px',
-            color: '#ffffff',
-            fontFamily: 'Caudex',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
 
         registerBtn.on('pointerover', () => {
             if (!hoverImg) {
@@ -199,6 +185,7 @@ export class AuthScene extends Phaser.Scene {
         input.style.backgroundColor = '#1a1a2e';
         input.style.color = '#ffffff';
         input.style.outline = 'none';
+        input.style.zIndex = '1000'; // ✅ Asegurar que esté encima
 
         // Posicionar en el canvas
         const canvas = this.game.canvas;

@@ -191,8 +191,6 @@ El tutorial se muestra como un guía rápida y visual de las reglas fundamentale
 Se presenta como una antigua tablilla de piedra flotando sobre el bosque. Utiliza dibujos de estilo pictograma rúnico y colores primarios para comunicar las reglas al instante. 
 
 ![Pantalla de tutorial](./Recursos/pantallaTutorial.png)
-![Pantalla de tutorial 2](./Recursos/pantallaTutorial2.mp4)
-![Pantalla de tutorial 3](./Recursos/pantallaTutorial3.mp4)
 ![Pantalla de tutorial 4](./Recursos/pantallaTutorial4.png)
 
 ### 6.1.4. Pantalla de créditos 

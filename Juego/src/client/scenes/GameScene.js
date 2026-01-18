@@ -93,24 +93,81 @@ export class GameScene extends Phaser.Scene {
             });
 
             leaveButton.on('pointerdown', () => {
-                // Confirmar antes de abandonar
-                const confirmLeave = confirm('¿Seguro que quieres abandonar la partida?\n\nEl otro jugador será notificado.');
-                
-                if (confirmLeave) {
-                    // Notificar al servidor que abandonas
-                    wsService.sendGameOver('disconnect');
-                    
-                    // Desconectar
-                    wsService.disconnect();
-                    
-                    // Volver al menú
-                    this.sound.stopAll();
-                    this.scene.stop();
-                    this.scene.start('MenuScene');
-                }
+                this.showLeaveConfirmation();
             });
         }
-    }   
+    } 
+    
+    showLeaveConfirmation() {
+        const w = this.cameras.main.width;
+        const h = this.cameras.main.height;
+
+        this.physics.pause();
+
+        const bg = this.add.rectangle(0, 0, w, h, 0x000000, 0.85)
+            .setOrigin(0)
+            .setScrollFactor(0)
+            .setDepth(3000)
+            .setInteractive();
+
+        const box = this.add.rectangle(w/2, h/2, 500, 300, 0x1a1a2e)
+            .setStrokeStyle(4, 0xff6666)
+            .setScrollFactor(0)
+            .setDepth(3001);
+
+        const title = this.add.text(w/2, h/2 - 80, '⚠️ ABANDONAR PARTIDA', {
+            fontSize: '32px',
+            color: '#ff6666',
+            fontStyle: 'bold',
+            fontFamily: 'Caudex'
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
+
+        const msg = this.add.text(w/2, h/2 - 20, 
+            '¿Seguro que quieres abandonar?\n\nEl otro jugador será notificado', {
+            fontSize: '18px',
+            color: '#ffffff',
+            align: 'center',
+            fontFamily: 'Caudex'
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
+
+        const confirmBtn = this.add.text(w/2 - 80, h/2 + 80, 'SÍ, SALIR', {
+            fontSize: '20px',
+            color: '#ffffff',
+            backgroundColor: '#cc0000',
+            padding: { x: 20, y: 10 },
+            fontFamily: 'Caudex'
+        }).setOrigin(0.5).setScrollFactor(0).setInteractive({ useHandCursor: true }).setDepth(3002);
+
+        confirmBtn.on('pointerover', () => confirmBtn.setStyle({ backgroundColor: '#ff0000' }));
+        confirmBtn.on('pointerout', () => confirmBtn.setStyle({ backgroundColor: '#cc0000' }));
+        confirmBtn.on('pointerdown', () => {
+            wsService.sendGameOver('disconnect');
+            wsService.disconnect();
+            this.sound.stopAll();
+            this.scene.stop();
+            this.scene.start('MenuScene');
+        });
+
+        const cancelBtn = this.add.text(w/2 + 80, h/2 + 80, 'CANCELAR', {
+            fontSize: '20px',
+            color: '#ffffff',
+            backgroundColor: '#444444',
+            padding: { x: 20, y: 10 },
+            fontFamily: 'Caudex'
+        }).setOrigin(0.5).setScrollFactor(0).setInteractive({ useHandCursor: true }).setDepth(3002);
+
+        cancelBtn.on('pointerover', () => cancelBtn.setStyle({ backgroundColor: '#666666' }));
+        cancelBtn.on('pointerout', () => cancelBtn.setStyle({ backgroundColor: '#444444' }));
+        cancelBtn.on('pointerdown', () => {
+            bg.destroy();
+            box.destroy();
+            title.destroy();
+            msg.destroy();
+            confirmBtn.destroy();
+            cancelBtn.destroy();
+            this.physics.resume();
+        });
+    }
 
     preload() {
         // Carga de los personajes
@@ -180,7 +237,7 @@ export class GameScene extends Phaser.Scene {
             const now = Date.now();
             if (!data.connected && this.scene.isActive('GameScene') && !this.isHandlingDisconnection) {
                 if (now - this.lastDisconnectionTime > this.disconnectionCooldown) {
-                    console.log('❌ Conexión perdida durante el juego');
+                    console.log('Conexión perdida durante el juego');
                     this.isHandlingDisconnection = true;
                     this.lastDisconnectionTime = now;
                     this.onConnectionLost();
@@ -188,7 +245,7 @@ export class GameScene extends Phaser.Scene {
             } else if (data.connected && this.isHandlingDisconnection) {
                 // Reconexión detectada
                 this.isHandlingDisconnection = false;
-                console.log('✅ Reconexión detectada');
+                console.log('Reconexión detectada');
             }
         };
         connectionManager.addListener(this.connectionListener);
@@ -631,66 +688,11 @@ export class GameScene extends Phaser.Scene {
      * Manejar desconexión del otro jugador
      */
     handlePlayerDisconnected() {
-    console.log('❌ El otro jugador se desconectó');
-    
-    // Pausar física
-    this.physics.pause();
-    
-    // Pausar escena
-    this.scene.pause();
-    
-    // Mostrar mensaje con fondo oscuro
-    const width = this.cameras.main.width;
-    const height = this.cameras.main.height;
-    
-    const bg = this.add.rectangle(0, 0, width, height, 0x000000, 0.9)
-        .setOrigin(0)
-        .setScrollFactor(0)
-        .setDepth(2000);
-    
-    const text = this.add.text(width / 2, height / 2 - 80, 
-        '⚠️ PARTIDA TERMINADA', {
-        fontSize: '48px',
-        color: '#ff6666',
-        align: 'center',
-        fontStyle: 'bold'
-    }).setOrigin(0.5).setScrollFactor(0).setDepth(2001);
-
-    const reasonText = this.add.text(width / 2, height / 2, 
-        'El otro jugador abandonó la partida', {
-        fontSize: '24px',
-        color: '#ffffff',
-        align: 'center'
-    }).setOrigin(0.5).setScrollFactor(0).setDepth(2001);
-
-    const backBtn = this.add.text(width / 2, height / 2 + 100,
-        '🏠 Volver al Menú', {
-        fontSize: '28px',
-        color: '#ffffff',
-        backgroundColor: '#444444',
-        padding: { x: 20, y: 10 }
-    }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setScrollFactor(0).setDepth(2001);
-
-    backBtn.on('pointerover', () => {
-        backBtn.setStyle({ backgroundColor: '#666666' });
-    });
-
-    backBtn.on('pointerout', () => {
-        backBtn.setStyle({ backgroundColor: '#444444' });
-    });
-
-    backBtn.on('pointerdown', () => {
-        // Desconectar WebSocket
-        wsService.disconnect();
-        
-        // Detener música
-        this.sound.stopAll();
-        
-        // Volver al menú
-        this.scene.stop();
-        this.scene.start('MenuScene');
-    });
-}
+        console.log('El otro jugador se desconectó');
+        this.physics.pause();
+        this.scene.launch('PlayerDisconnectedScene');
+        this.scene.pause();
+    }
 
     onConnectionLost() {
         this.isPaused = true;

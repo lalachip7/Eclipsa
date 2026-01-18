@@ -26,5 +26,26 @@
     "password": "$2b$10$NX2ShAHcK07bEhDPIXnW6O9oDtfb4MlMLTZctOkM7cRuW6oRnvRYq",
     "bestTime": null,
     "createdAt": "2026-01-17T23:50:31.241Z"
+  },
+  {
+    "id": "7",
+    "username": "laura",
+    "password": "$2b$10$EgR.jiO/4J19aEjPTPA2u.e0tidyXFq/XG5pzrpN54oJQKr.h5Cju",
+    "bestTime": null,
+    "createdAt": "2026-01-18T12:08:24.503Z"
+  },
+  {
+    "id": "8",
+    "username": "lauraotravez",
+    "password": "$2b$10$I9qwQ.4bAWDFDpNhLDs/G.lynZ5xS8KQaMRoen5vgWv77D7iUTuQC",
+    "bestTime": null,
+    "createdAt": "2026-01-18T12:08:54.993Z"
+  },
+  {
+    "id": "9",
+    "username": "aaaa",
+    "password": "$2b$10$YtqsLLJky0UYiO6qZq.1DOJPohEm1WLm90.5AevCTkMi6UrH550BW",
+    "bestTime": null,
+    "createdAt": "2026-01-18T12:30:26.538Z"
   }
 ]

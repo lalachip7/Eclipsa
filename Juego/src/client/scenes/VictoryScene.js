@@ -18,13 +18,13 @@ export class VictoryScene extends Phaser.Scene {
         // Botón de reiniciar nivel
         this.load.image('RestartButton', 'assets/reiniciar.PNG');
         this.load.image('RestartButtonHover', 'assets/reiniciarHover.PNG');
-        
+
         // Botón de volver al menú principal
         this.load.image('RetMenuButton', 'assets/menu.PNG');
         this.load.image('RetMenuButtonHover', 'assets/menuHover.PNG');
 
     }
-    create(){
+    create(data) {
         // dimensiones de la pantalla
         const w = this.scale.width;
         const h = this.scale.height;
@@ -43,6 +43,17 @@ export class VictoryScene extends Phaser.Scene {
         this.add.image(700, 210, 'VictoryText')
             .setOrigin(0.5)
             .setScale(1);
+
+        // Texto tiempo final
+        console.log(data.finalTime);
+        if (data && data.finalTime) {
+            this.add.text(700, 600, `Tiempo: ${data.finalTime} segundos`, {
+                fontSize: '36px',
+                fill: '#ffffff',
+                fontFamily: 'Caudex',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+        }
 
         // Siguiente nivel
         const nextLevelbtn = this.add.image(700, 320, 'NextLevelButton')
@@ -124,7 +135,7 @@ export class VictoryScene extends Phaser.Scene {
                 hoverImg = null;
             }
         });
-        
+
         menubtn.on('pointerdown', () => {
             // Get all scenes
             const scenes = this.game.scene.keys;
@@ -138,5 +149,7 @@ export class VictoryScene extends Phaser.Scene {
             this.scene.start('MenuScene');
 
         });
+
+
     }
 }

@@ -14,13 +14,13 @@ export class AuthScene extends Phaser.Scene {
     preload() {
         // Caja de fondo
         this.load.image('tutorialBox', 'assets/caja.png');
-        
+
         // Botón de salir (x)
         this.load.image('ExitButton', 'assets/cancelar.png');
         this.load.image('ExitButtonHover', 'assets/cancelarHover.png');
 
         // Botón de login
-        this.load.image('LoginButton', 'assets/entrar.png'); 
+        this.load.image('LoginButton', 'assets/entrar.png');
         this.load.image('LoginButtonHover', 'assets/entrarHover.png');
 
         // Botón de register
@@ -229,17 +229,18 @@ export class AuthScene extends Phaser.Scene {
                 console.log('✅ Login exitoso:', data);
 
                 // Guardar datos del usuario en localStorage
-                localStorage.setItem('userId', data.id);
-                localStorage.setItem('username', data.username);
+                if (data.id) {
+                    localStorage.setItem('userId', data.id); 
+                    localStorage.setItem('username', data.username);
 
-                this.showMessage('¡Bienvenido ' + data.username + '!', 'success');
+                    this.showMessage('¡Bienvenido ' + data.username + '!', 'success');
 
-                // Ir al destino después de 1 segundo
-                this.time.delayedCall(1000, () => {
-                    this.cleanupInputs();
-                    this.scene.start(this.destination);
-                });
-
+                    // Ir al destino después de 1 segundo
+                    this.time.delayedCall(1000, () => {
+                        this.cleanupInputs();
+                        this.scene.start(this.destination);
+                    });
+                }
             } else {
                 // Error de login
                 this.showMessage(data.error || 'Usuario o contraseña incorrectos', 'error');

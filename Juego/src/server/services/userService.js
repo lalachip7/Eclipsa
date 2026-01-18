@@ -210,6 +210,24 @@ function updateBestTime(id, newTime) {
   return users[index];
 }
 
+function updateBestTime(id, newTime) {
+  const users = readUsers();
+  const index = users.findIndex(u => u.id === id);
+
+  if (index === -1) return null;
+
+  const currentBest = users[index].bestTime;
+
+  // Si es la primera vez (null) o el nuevo tiempo es menor (más rápido)
+  if (currentBest === null || newTime < currentBest) {
+    users[index].bestTime = newTime;
+    writeUsers(users); // Guarda en el archivo físico
+    return users[index];
+  }
+  
+  return users[index];
+}
+
   // Exponer la API pública del servicio
   return {
     createUser,

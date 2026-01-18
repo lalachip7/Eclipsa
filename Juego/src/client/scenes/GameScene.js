@@ -18,12 +18,12 @@ export class GameScene extends Phaser.Scene {
 
         this.isNiviaWalking = null;
         this.isSolenneWalking = null;
-        
+
         // Control de desconexión para evitar loops
         this.isHandlingDisconnection = false;
         this.lastDisconnectionTime = 0;
         this.disconnectionCooldown = 1000; // 1 segundo de espera entre detecciones
-    
+
         // Datos multijugador
         this.isMultiplayer = data.isMultiplayer || false;
         this.playerRole = data.playerRole || null;
@@ -37,10 +37,13 @@ export class GameScene extends Phaser.Scene {
         this.lastSyncTime = 0;
         this.syncInterval = 50; // Enviar posición cada 50ms
 
+        // Tiempo
+        this.startTime = this.time.now; // Guardamos cuando empieza el nivel
+
         console.log(`🎮 GameScene iniciado`);
         if (this.isMultiplayer) {
             console.log(`👤 Rol: ${this.playerRole} | 🚪 Sala: ${this.roomId}`);
-            
+
             // Mostrar anuncio de qué personaje es
             const characterName = this.playerRole === 'nivia' ? '🌙 NIVIA (Luna)' : '☀️ SOLENNE (Sol)';
             const announcementText = this.add.text(
@@ -56,10 +59,10 @@ export class GameScene extends Phaser.Scene {
                     padding: { x: 20, y: 10 }
                 }
             )
-            .setOrigin(0.5)
-            .setScrollFactor(0)
-            .setDepth(1000);
-            
+                .setOrigin(0.5)
+                .setScrollFactor(0)
+                .setDepth(1000);
+
             // Animar el texto y luego desaparecerlo
             this.tweens.add({
                 targets: announcementText,
@@ -79,10 +82,10 @@ export class GameScene extends Phaser.Scene {
                 backgroundColor: '#000000',
                 padding: { x: 10, y: 5 }
             })
-            .setOrigin(0.5)
-            .setScrollFactor(0)
-            .setInteractive({ useHandCursor: true })
-            .setDepth(100);
+                .setOrigin(0.5)
+                .setScrollFactor(0)
+                .setInteractive({ useHandCursor: true })
+                .setDepth(100);
 
             leaveButton.on('pointerover', () => {
                 leaveButton.setStyle({ backgroundColor: '#333333', color: '#ff0000' });
@@ -96,8 +99,8 @@ export class GameScene extends Phaser.Scene {
                 this.showLeaveConfirmation();
             });
         }
-    } 
-    
+    }
+
     showLeaveConfirmation() {
         const w = this.cameras.main.width;
         const h = this.cameras.main.height;
@@ -110,19 +113,19 @@ export class GameScene extends Phaser.Scene {
             .setDepth(3000)
             .setInteractive();
 
-        const box = this.add.rectangle(w/2, h/2, 500, 300, 0x1a1a2e)
+        const box = this.add.rectangle(w / 2, h / 2, 500, 300, 0x1a1a2e)
             .setStrokeStyle(4, 0xff6666)
             .setScrollFactor(0)
             .setDepth(3001);
 
-        const title = this.add.text(w/2, h/2 - 80, '⚠️ ABANDONAR PARTIDA', {
+        const title = this.add.text(w / 2, h / 2 - 80, '⚠️ ABANDONAR PARTIDA', {
             fontSize: '32px',
             color: '#ff6666',
             fontStyle: 'bold',
             fontFamily: 'Caudex'
         }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
 
-        const msg = this.add.text(w/2, h/2 - 20, 
+        const msg = this.add.text(w / 2, h / 2 - 20,
             '¿Seguro que quieres abandonar?\n\nEl otro jugador será notificado', {
             fontSize: '18px',
             color: '#ffffff',
@@ -130,7 +133,7 @@ export class GameScene extends Phaser.Scene {
             fontFamily: 'Caudex'
         }).setOrigin(0.5).setScrollFactor(0).setDepth(3002);
 
-        const confirmBtn = this.add.text(w/2 - 80, h/2 + 80, 'SÍ, SALIR', {
+        const confirmBtn = this.add.text(w / 2 - 80, h / 2 + 80, 'SÍ, SALIR', {
             fontSize: '20px',
             color: '#ffffff',
             backgroundColor: '#cc0000',
@@ -148,7 +151,7 @@ export class GameScene extends Phaser.Scene {
             this.scene.start('MenuScene');
         });
 
-        const cancelBtn = this.add.text(w/2 + 80, h/2 + 80, 'CANCELAR', {
+        const cancelBtn = this.add.text(w / 2 + 80, h / 2 + 80, 'CANCELAR', {
             fontSize: '20px',
             color: '#ffffff',
             backgroundColor: '#444444',
@@ -249,14 +252,14 @@ export class GameScene extends Phaser.Scene {
             }
         };
         connectionManager.addListener(this.connectionListener);
-        
+
         // Event listener para cuando la escena se reanuda
         this.events.on('resume', () => {
             console.log('GameScene reanudada');
             this.isPaused = false;
             this.physics.resume();
         });
-        
+
         // Event listener para cuando la escena se pausa
         this.events.on('pause', () => {
             console.log('GameScene pausada');
@@ -273,7 +276,7 @@ export class GameScene extends Phaser.Scene {
 
         // Reproducir la música del juego
         if (this.cache.audio.exists('GameMusic')) {
-            this.sound.play('GameMusic', { loop: true, volume: 0.1});
+            this.sound.play('GameMusic', { loop: true, volume: 0.1 });
         }
 
         // Agregar fondo
@@ -331,7 +334,7 @@ export class GameScene extends Phaser.Scene {
 
         this.darkDoor1Hitbox = this.add.rectangle(250, 375, 20, 300, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.darkDoor1Hitbox, true);
-            
+
         this.lightDoor1Hitbox = this.add.rectangle(920, 400, 20, 280, 0x322b1d, 0).setOrigin(0.5, 0.5);
         this.physics.add.existing(this.lightDoor1Hitbox, true);
 
@@ -370,7 +373,7 @@ export class GameScene extends Phaser.Scene {
         this.solenne.play('solenne_idle');
 
         // Creación de los objetos
-        this.crystals = this.physics.add.group({allowGravity: false, immovable: true});
+        this.crystals = this.physics.add.group({ allowGravity: false, immovable: true });
         this.moonCrystal = this.crystals.create(1100, 400, 'moondrop_sheet').setBodySize(32, 32).setScale(0.5);
         this.sunCrystal = this.crystals.create(100, 100, 'sundrop_sheet').setBodySize(32, 32).setScale(0.5);
         //this.sunCrystal = this.crystals.create(map.widthInPixels - 200, 300, 'sunCrystal').setBodySize(32, 32).setImmovable(true);
@@ -400,7 +403,7 @@ export class GameScene extends Phaser.Scene {
         // Animación del Icono del Sol (HUD)
         this.anims.create({
             key: 'sun_hud_anim',
-            frames: this.anims.generateFrameNumbers('sun_sheet', { start: 0, end: 10 }), 
+            frames: this.anims.generateFrameNumbers('sun_sheet', { start: 0, end: 10 }),
             frameRate: 8,
             repeat: -1
         });
@@ -408,7 +411,7 @@ export class GameScene extends Phaser.Scene {
         // Animación del Icono de la Luna (HUD)
         this.anims.create({
             key: 'moon_hud_anim',
-            frames: this.anims.generateFrameNumbers('moon_sheet', { start: 0, end: 10 }), 
+            frames: this.anims.generateFrameNumbers('moon_sheet', { start: 0, end: 10 }),
             frameRate: 8,
             repeat: -1
         });
@@ -417,7 +420,7 @@ export class GameScene extends Phaser.Scene {
         this.moonHUD = this.add.sprite(this.cameras.main.centerX - 20, 40, 'moon_sheet')
             .setScrollFactor(0)
             .setScale(0.15) // Escala MUY reducida, ya que los spritesheets son grandes (347x329)
-            .setVisible(false) 
+            .setVisible(false)
             .setDepth(100)
             .play('moon_hud_anim'); // Inicia la animación
 
@@ -425,7 +428,7 @@ export class GameScene extends Phaser.Scene {
         this.sunHUD = this.add.sprite(this.cameras.main.centerX + 20, 40, 'sun_sheet')
             .setScrollFactor(0)
             .setScale(0.15) // Escala MUY reducida
-            .setVisible(false) 
+            .setVisible(false)
             .setDepth(100)
             .play('sun_hud_anim'); // Inicia la animación
 
@@ -442,11 +445,11 @@ export class GameScene extends Phaser.Scene {
         //this.physics.add.collider(this.solenne, geometryLayer);
 
         // Configuración de la cámara
-        this.cameras.main.setBounds(0, 0, mapWidthInPixels, mapHeightInPixels);  
+        this.cameras.main.setBounds(0, 0, mapWidthInPixels, mapHeightInPixels);
 
         // Control de pausa
         this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        
+
         this.physics.add.overlap(this.nivia, this.exitPortal, () => {
             this.niviaOnPortal = true;
             this.checkLevelComplete();
@@ -459,10 +462,10 @@ export class GameScene extends Phaser.Scene {
 
         // Botón de pausa
         this.pauseButton = this.add.image(this.cameras.main.width - 40, 40, 'PauseButton')
-            .setScrollFactor(0) 
+            .setScrollFactor(0)
             .setInteractive({ useHandCursor: true })
-            .setScale(0.5) 
-            .setDepth(100); 
+            .setScale(0.5)
+            .setDepth(100);
 
         this.pauseButton.on('pointerover', () => {
             if (!hoverImg) {
@@ -481,15 +484,15 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.pauseButton.on('pointerdown', () => {
-            this.togglePause(); 
+            this.togglePause();
         });
 
         // Botón de ajustes
         this.settingsButton = this.add.image(this.cameras.main.width - 120, 40, 'SettingsButton')
-            .setScrollFactor(0) 
+            .setScrollFactor(0)
             .setInteractive({ useHandCursor: true })
-            .setScale(0.5) 
-            .setDepth(100); 
+            .setScale(0.5)
+            .setDepth(100);
 
         this.settingsButton.on('pointerover', () => {
             if (!hoverImg) {
@@ -508,7 +511,7 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.settingsButton.on('pointerdown', () => {
-           this.scene.launch('SettingsScene');
+            this.scene.launch('SettingsScene');
         });
 
         if (!this.isMultiplayer) {
@@ -547,7 +550,7 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
-    setupMultiplayer() {    
+    setupMultiplayer() {
         if (this.playerRole === 'nivia') {
             this.localPlayer = this.nivia;
             this.remotePlayer = this.solenne;
@@ -561,21 +564,21 @@ export class GameScene extends Phaser.Scene {
         this.crystalCollectedHandler = this.handleRemoteCrystalCollected.bind(this);
         this.portalSpawnedHandler = this.handleRemotePortalSpawned.bind(this);
         this.victoryHandler = this.handleRemoteVictory.bind(this);
-        this.gameOverHandler = this.handleRemoteGameOver.bind(this);  
+        this.gameOverHandler = this.handleRemoteGameOver.bind(this);
         this.playerDisconnectedHandler = this.handlePlayerDisconnected.bind(this);
-    
+
         wsService.on('playerMove', this.playerMoveHandler);
         wsService.on('crystalCollected', this.crystalCollectedHandler);
         wsService.on('portalSpawned', this.portalSpawnedHandler);
         wsService.on('victory', this.victoryHandler);
         wsService.on('gameOver', this.gameOverHandler);
         wsService.on('playerDisconnected', this.playerDisconnectedHandler);
-    
+
     }
 
     syncLocalPlayerPosition() {
         const now = Date.now();
-        
+
         // Solo enviar cada X milisegundos para no saturar la red
         if (now - this.lastSyncTime < this.syncInterval) {
             return;
@@ -622,7 +625,7 @@ export class GameScene extends Phaser.Scene {
             this.moonCrystal.disableBody(true, true);
             this.niviaHasMoonCrystal = true;
             this.moonHUD.setVisible(true);
-            
+
             // Desbloquear puerta oscura
             if (data.darkDoorUnlocked) {
                 this.unlockDarkDoor();
@@ -632,7 +635,7 @@ export class GameScene extends Phaser.Scene {
             this.sunCrystal.disableBody(true, true);
             this.solenneHasSunCrystal = true;
             this.sunHUD.setVisible(true);
-            
+
             // Desbloquear puerta clara
             if (data.lightDoorUnlocked) {
                 this.unlockLightDoor();
@@ -645,7 +648,7 @@ export class GameScene extends Phaser.Scene {
      */
     handleRemotePortalSpawned(data) {
         console.log('🚪 Portal activado por el servidor');
-        
+
         if (!this.exitPortal.visible) {
             this.exitPortal.setVisible(true);
             this.exitPortal.body.enable = true;
@@ -656,13 +659,32 @@ export class GameScene extends Phaser.Scene {
      * Manejar victoria
      */
     handleRemoteVictory(data) {
-        console.log('🎉 ¡VICTORIA MULTIJUGADOR!');
-        
-        // Lanzar escena de victoria
-        this.scene.launch('VictoryScene', { 
+        console.log('🎉 ¡VICTORIA MULTIJUGADOR recibida!');
+
+        // 1. El servidor suele enviar el tiempo en el mensaje (data.time)
+        // Si no viene, lo calculamos localmente como backup
+        const finalTime = data.time || Math.floor((this.time.now - this.startTime) / 1000);
+
+        // 2. IMPORTANTE: Aunque sea remoto, este jugador TAMBIÉN debe 
+        // intentar guardar su mejor tiempo en el servidor.
+        const userId = localStorage.getItem('userId');
+        if (userId && userId !== "undefined") {
+            fetch(`/api/users/${userId}/score`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ time: finalTime })
+            })
+                .then(() => console.log("Tiempo remoto guardado"))
+                .catch(err => console.error("Error al guardar tiempo remoto:", err));
+        }
+
+        // 3. Lanzar la escena de victoria con el tiempo recibido
+        this.scene.launch('VictoryScene', {
             originalScene: this.scene.key,
-            isMultiplayer: true 
+            isMultiplayer: true,
+            finalTime: finalTime // Este es el "data" que leerá VictoryScene
         });
+
         this.scene.pause();
     }
 
@@ -671,12 +693,12 @@ export class GameScene extends Phaser.Scene {
      */
     handleRemoteGameOver(data) {
         console.log('💀 Game Over recibido del servidor:', data.reason);
-        
+
         // Pausar física
         this.physics.pause();
-        
+
         // Lanzar escena de Game Over
-        this.scene.launch('GameOverScene', { 
+        this.scene.launch('GameOverScene', {
             originalScene: this.scene.key,
             isMultiplayer: true,
             reason: data.reason
@@ -700,14 +722,14 @@ export class GameScene extends Phaser.Scene {
         if (this.connectionListener) {
             connectionManager.removeListener(this.connectionListener);
         }
-        this.scene.launch('ConnectionLostScene', {previousScene: 'GameScene'});
+        this.scene.launch('ConnectionLostScene', { previousScene: 'GameScene' });
         this.scene.pause();
     }
 
     setUpPlayers() {
         const initialY = 1500;
 
-         // Creación personajes
+        // Creación personajes
         this.nivia = this.physics.add.sprite(1300, initialY, 'nivia').setBounce(0.2).setCollideWorldBounds(true);
         this.solenne = this.physics.add.sprite(100, initialY, 'solenne').setBounce(0.2).setCollideWorldBounds(true);
 
@@ -718,7 +740,7 @@ export class GameScene extends Phaser.Scene {
         this.solenne.setOffset(110, 50);
 
         // Escalado de los personajes
-        this.nivia.setScale(0.5); 
+        this.nivia.setScale(0.5);
         this.solenne.setScale(0.5);
 
         // Controles de Nivia (Teclas WASD)
@@ -737,7 +759,7 @@ export class GameScene extends Phaser.Scene {
             interact: 'SPACE'
         });
     }
-    
+
     createAnimations(key) {
         // Animación de correr
         this.anims.create({
@@ -768,7 +790,7 @@ export class GameScene extends Phaser.Scene {
     setPausedState(isPaused) {
         this.isPaused = isPaused;
         if (this.isPaused) {
-            this.scene.launch('PauseScene', {originalScene: this.scene.key});
+            this.scene.launch('PauseScene', { originalScene: this.scene.key });
             this.scene.pause();
         }
     }
@@ -784,7 +806,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     toggleSettings() {
-        this.scene.launch('SettingsScene'); 
+        this.scene.launch('SettingsScene');
         //this.scene.pause();
     }
 
@@ -832,8 +854,8 @@ export class GameScene extends Phaser.Scene {
         const cameraHeight = this.cameras.main.height;
 
         this.cameras.main.scrollY = Phaser.Math.Linear(
-            this.cameras.main.scrollY, 
-            desiredCameraY - cameraHeight / 2, 
+            this.cameras.main.scrollY,
+            desiredCameraY - cameraHeight / 2,
             lerpFactor
         );
 
@@ -865,7 +887,7 @@ export class GameScene extends Phaser.Scene {
         let animkey = '';
 
         // Lógica para reproducir el sonido de caminar
-       if (isMoving && isGrounded) {
+        if (isMoving && isGrounded) {
             if (key === 'nivia' && this.isNiviaWalking === null) {
                 this.isNiviaWalking = this.sound.add('walkSound', { loop: true, volume: 1 });
                 this.isNiviaWalking.play();
@@ -913,7 +935,7 @@ export class GameScene extends Phaser.Scene {
             // Idle
             animkey = `${key}_idle`;
         }
-        
+
         // Reproducir la animación solo si es diferente a la actual
         if (playerSprite.anims.currentAnim?.key !== animkey) {
             playerSprite.anims.play(animkey);
@@ -936,7 +958,7 @@ export class GameScene extends Phaser.Scene {
 
         if (this.isMultiplayer && wsService.isConnected()) {
             wsService.sendCrystalCollect('moon');
-        }   
+        }
     }
 
     collectSunCrystal(player, crystal) {
@@ -949,12 +971,12 @@ export class GameScene extends Phaser.Scene {
 
         if (this.isMultiplayer && wsService.isConnected()) {
             wsService.sendCrystalCollect('sun');
-        }   
+        }
     }
 
     unlockDarkDoor() {
         // Lógica para desbloquear la puerta oscura
-        this.darkDoor1Hitbox.body.enable = false;   
+        this.darkDoor1Hitbox.body.enable = false;
         this.darkDoor1Hitbox.setVisible(false);
         this.darkDoor1.setVisible(false);
         console.log('Puerta Oscura desbloqueada');
@@ -963,7 +985,7 @@ export class GameScene extends Phaser.Scene {
 
     unlockLightDoor() {
         // Lógica para desbloquear la puerta clara
-        this.lightDoor1Hitbox.body.enable = false;   
+        this.lightDoor1Hitbox.body.enable = false;
         this.lightDoor1Hitbox.setVisible(false);
         this.lightDoor1.setVisible(false);
         console.log('Puerta Clara desbloqueada');
@@ -978,66 +1000,67 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
-    checkLevelComplete() {
-    try {
-        // MODO LOCAL
-        if (!this.isMultiplayer) {
-            // Verificar overlap manualmente
-            const niviaOnPortal = this.physics.overlap(this.nivia, this.exitPortal);
-            const solenneOnPortal = this.physics.overlap(this.solenne, this.exitPortal);
+    async checkLevelComplete() {
+        try {
+            // MODO LOCAL
+            if (!this.isMultiplayer) {
+                // Verificar overlap manualmente
+                const niviaOnPortal = this.physics.overlap(this.nivia, this.exitPortal);
+                const solenneOnPortal = this.physics.overlap(this.solenne, this.exitPortal);
 
-            if (niviaOnPortal && solenneOnPortal && 
-                this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
-                console.log('¡NIVEL COMPLETADO!');
-                this.scene.launch('VictoryScene', { originalScene: this.scene.key });
-                this.scene.pause();
+                if (niviaOnPortal && solenneOnPortal &&
+                    this.niviaHasMoonCrystal && this.solenneHasSunCrystal) {
+                    console.log('¡NIVEL COMPLETADO!');
+                    this.scene.launch('VictoryScene', { originalScene: this.scene.key });
+                    this.scene.pause();
+                }
+                return;
             }
-            return;
+
+            // MODO MULTIJUGADOR
+            if (!this.exitPortal || !this.exitPortal.visible || !this.localPlayer) {
+                return;
+            }
+
+            // Verificar overlap del jugador local con el portal
+            const isOverlapping = this.physics.overlap(this.localPlayer, this.exitPortal);
+
+            // Determinar el estado anterior según el rol
+            let previousState = false;
+            if (this.playerRole === 'nivia') {
+                previousState = this.niviaOnPortal;
+            } else if (this.playerRole === 'solenne') {
+                previousState = this.solenneOnPortal;
+            }
+
+            // Actualizar estado local siempre
+            if (this.playerRole === 'nivia') {
+                this.niviaOnPortal = isOverlapping;
+            } else if (this.playerRole === 'solenne') {
+                this.solenneOnPortal = isOverlapping;
+            }
+
+            // Enviar estado al servidor cada frame (para asegurar sincronización)
+            if (wsService.isConnected()) {
+                wsService.sendPortalTouch(isOverlapping);
+            }
+
+            console.log(`🚪 ${this.playerRole} en portal: ${isOverlapping}`);
+
+        } catch (error) {
+            console.error('Error en checkLevelComplete:', error);
         }
-
-        // MODO MULTIJUGADOR
-        if (!this.exitPortal || !this.exitPortal.visible || !this.localPlayer) {
-            return;
-        }
-
-        // Verificar overlap del jugador local con el portal
-        const isOverlapping = this.physics.overlap(this.localPlayer, this.exitPortal);
-
-        // Determinar el estado anterior según el rol
-        let previousState = false;
-        if (this.playerRole === 'nivia') {
-            previousState = this.niviaOnPortal;
-        } else if (this.playerRole === 'solenne') {
-            previousState = this.solenneOnPortal;
-        }
-
-        // Actualizar estado local siempre
-        if (this.playerRole === 'nivia') {
-            this.niviaOnPortal = isOverlapping;
-        } else if (this.playerRole === 'solenne') {
-            this.solenneOnPortal = isOverlapping;
-        }
-
-        // Enviar estado al servidor cada frame (para asegurar sincronización)
-        if (wsService.isConnected()) {
-            wsService.sendPortalTouch(isOverlapping);
-        }
-
-        console.log(`🚪 ${this.playerRole} en portal: ${isOverlapping}`);
-
-    } catch (error) {
-        console.error('Error en checkLevelComplete:', error);
     }
-}
 
     endgame() {
         console.log("Juego Terminado");
         let hoverImg = null;    //referencia para la imagen hover
 
         this.physics.pause();
-        this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 100, "¡Nivel Completado!", { 
-            fontSize: '48px', fill: '#FFFFFF' }).setOrigin(0.5);
-                // Reiniciar nivel
+        this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 100, "¡Nivel Completado!", {
+            fontSize: '48px', fill: '#FFFFFF'
+        }).setOrigin(0.5);
+        // Reiniciar nivel
         const restartbtn = this.add.image(705, 415, 'RestartButton')
             .setOrigin(0.5)
             .setScale(0.7)
@@ -1075,7 +1098,7 @@ export class GameScene extends Phaser.Scene {
             wsService.off('portalSpawned', this.portalSpawnedHandler);
             wsService.off('victory', this.victoryHandler);
             wsService.off('gameOver', this.gameOverHandler);
-            wsService.off('playerDisconnected', this.playerDisconnectedHandler); 
+            wsService.off('playerDisconnected', this.playerDisconnectedHandler);
         }
     }
 }

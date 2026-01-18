@@ -47,5 +47,19 @@
     "password": "$2b$10$YtqsLLJky0UYiO6qZq.1DOJPohEm1WLm90.5AevCTkMi6UrH550BW",
     "bestTime": null,
     "createdAt": "2026-01-18T12:30:26.538Z"
+  },
+  {
+    "id": "10",
+    "username": "Lau",
+    "password": "$2b$10$AQyJBGgnmv.jzdNAc1RO4OqkQPXEu66vUWR5p1hH3F2ymJJdX7w/u",
+    "bestTime": 39,
+    "createdAt": "2026-01-18T13:25:50.242Z"
+  },
+  {
+    "id": "11",
+    "username": "Lalachip",
+    "password": "$2b$10$qEcPrcr9zgvomZZfzNgN7eR0yGvB7KQm3Ffx8oCIK2BKubR0Xxk1W",
+    "bestTime": 35,
+    "createdAt": "2026-01-18T13:26:08.288Z"
   }
 ]
